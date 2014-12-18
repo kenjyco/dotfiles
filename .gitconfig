@@ -1,0 +1,17 @@
+[user]
+    email = kenjyco@gmail.com
+    name = Ken
+[color]
+    ui = true
+[push]
+    default = simple
+[http]
+    sslVerify = false
+[rerere]
+    enabled = true
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
+[core]
+    pager = less -F -X

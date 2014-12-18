@@ -1,0 +1,68 @@
+! Set default dimensions for new urxvt window
+URxvt.geometry:             90x30
+
+! Configure transparency options
+URxvt.transparent:          true
+*.fading:                   50
+*.shading:                  15
+
+! Configure scrollbar
+*.scrollBar:                true
+*.scrollBar_right:          true
+*.scrollBar_floating:       false
+
+! Use visual bell
+*visualBell:                true
+
+! Set number of scrollback lines
+*saveLines:                 100000
+
+! Enable selecting/launching urls from terminal and creating urxvt tabs
+URxvt*perl-lib:             /usr/lib/urxvt/perl/
+URxvt*perl-ext-common:      default,matcher,searchable-scrollback,tabbed
+
+! Use mouse middle-click on urls in terminal
+URxvt.matcher.button:       2
+
+! Select program to open for loading the url
+URxvt*url-launcher:         /usr/bin/chromium-browser
+
+!------------------------------------------------------------------------------!
+! Set colors, courtesy of: http://dotfiles.org/~xabbott/.Xdefaults
+
+URxvt*background:           #2E3436
+URxvt*foreground:           #D3D7CF
+URxvt*scrollColor:          #2E3436
+URxvt*troughColor:          #2E3436
+
+! Black
+*color0:                    #2E3436
+*color8:                    #555753
+
+! Red
+*color1:                    #CC0000
+*color9:                    #EF2929
+
+! Green
+*color2:                    #4E9A06
+*color10:                   #8AE234
+
+! Yellow
+*color3:                    #C4A000
+*color11:                   #FCE94F
+
+! Blue
+*color4:                    #3465A4
+*color12:                   #729FCF
+
+! Magenta
+*color5:                    #75507B
+*color13:                   #AD7FA8
+
+! Cyan
+*color6:                    #06989A
+*color14:                   #34E2E2
+
+! White
+*color7:                    #D3D7CF
+*color15:                   #EEEEEC
