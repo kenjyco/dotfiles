@@ -32,3 +32,9 @@ browser, then push the local dotfiles repository to it
 
 > This assumes a user account has already been created on github, and that the
 > [SSH keys](https://github.com/settings/ssh) have been setup.
+
+Add the `setup.bash` script to this repository
+- It will create a backup of any existing dotfiles in $HOME (that are not links)
+- It will create symbolic links to the individual dotfiles in the repo
+
+Add the name of the created backup directory to the `.gitignore` file
