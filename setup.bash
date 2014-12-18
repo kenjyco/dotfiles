@@ -21,14 +21,14 @@ cd $HOME
 [[ ! -L .zshrc && -f .zshrc ]] && mv -v .zshrc "$BACKUP_DOTFILES" || rm -v .zshrc 2>/dev/null
 
 # Create symbolic links to the individual dotfiles
-ln -s "$DIR/.bash_profile" "$HOME/.bash_profile"
-ln -s "$DIR/.bashrc" "$HOME/.bashrc"
+ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
+ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
 ln -s "$DIR/.gitconfig" "$HOME/.gitconfig"
 ln -s "$DIR/.inputrc" "$HOME/.inputrc"
 ln -s "$DIR/.tmux.conf" "$HOME/.tmux.conf"
 ln -s "$DIR/.vimrc" "$HOME/.vimrc"
 ln -s "$DIR/.Xdefaults" "$HOME/.Xdefaults"
-ln -s "$DIR/.zshrc" "$HOME/.zshrc"
+ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
 # List the symbolic links that exist in $HOME
 echo -e "\nListing symbolic links that exist in $HOME"

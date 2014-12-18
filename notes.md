@@ -38,3 +38,20 @@ Add the `setup.bash` script to this repository
 - It will create symbolic links to the individual dotfiles in the repo
 
 Add the name of the created backup directory to the `.gitignore` file
+
+Create a `shell` directory to hold bash and zsh settings
+
+    % mkdir -pv shell/bash shell/zsh
+    mkdir: created directory ‘shell’
+    mkdir: created directory ‘shell/bash’
+    mkdir: created directory ‘shell/zsh’
+
+Move the `.bash_profile`, `.bashrc`, and `.zshrc` files to their appropriate
+sub-directories in `shell`
+
+    % git mv .bashrc shell/bash/bashrc
+    % git mv .bash_profile shell/bash/bash_profile
+    % git mv .zshrc shell/zsh/zshrc
+
+Update the `setup.bash` script to use the new locations for the shell settings
+when creating symolic links
