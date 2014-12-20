@@ -11,6 +11,7 @@ BACKUP_DOTFILES="$DIR/backup_dotfiles"
 echo "Saving a copy of real dotfiles and deleting symbolic links"
 echo "cd $HOME"
 cd $HOME
+[[ ! -L .shell && -d .shell ]] && mv -v .shell "$BACKUP_DOTFILES" || rm -v .shell 2>/dev/null
 [[ ! -L .bash_profile && -f .bash_profile ]] && mv -v .bash_profile "$BACKUP_DOTFILES" || rm -v .bash_profile 2>/dev/null
 [[ ! -L .bashrc && -f .bashrc ]] && mv -v .bashrc "$BACKUP_DOTFILES" || rm -v .bashrc 2>/dev/null
 [[ ! -L .gitconfig && -f .gitconfig ]] && mv -v .gitconfig "$BACKUP_DOTFILES" || rm -v .gitconfig 2>/dev/null
@@ -21,6 +22,7 @@ cd $HOME
 [[ ! -L .zshrc && -f .zshrc ]] && mv -v .zshrc "$BACKUP_DOTFILES" || rm -v .zshrc 2>/dev/null
 
 # Create symbolic links to the individual dotfiles
+ln -s "$DIR/shell" "$HOME/.shell"
 ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
 ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
 ln -s "$DIR/.gitconfig" "$HOME/.gitconfig"

@@ -1,0 +1,4 @@
+# Source other files in the `common.d` directory
+for f in $HOME/.shell/common.d/*; do
+    source $f
+done

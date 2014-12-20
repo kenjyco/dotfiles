@@ -1,0 +1,5 @@
+alias t="tree -F"
+alias ta="tree -Fa"
+alias td="tree -Fd"
+alias tad="tree -Fad"
+alias tda="tree -Fda"

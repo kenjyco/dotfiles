@@ -55,3 +55,20 @@ sub-directories in `shell`
 
 Update the `setup.bash` script to use the new locations for the shell settings
 when creating symolic links
+
+Create a `shell/common.d` directory to contain functions and aliases (grouped by
+filename) that should be sourced by `bashrc` or `zshrc`
+
+    % mkdir -pv shell/common.d
+    mkdir: created directory ‘shell/common.d’
+
+Add the `shell/common` script to this repository
+- It will source any files in `shell/common.d`
+
+Add the `ls`, `tree`, and `vim` files to `shell/common.d/`
+- Each file sets some basic aliases
+
+Update the `setup.bash` script to create a symbolic link to the `shell`
+directory in $HOME (as `$HOME/.shell`)
+
+Update the `bashrc` and `zshrc` files to source `$HOME/.shell/common`

@@ -35,3 +35,6 @@ bindkey -M vicmd '/' history-incremental-pattern-search-forward
 # Set prompt
 autoload -U colors && colors
 PROMPT="%{$fg[green]%}%c %# %{$reset_color%}"
+
+# Source the `.shell/common` file
+[[ -f $HOME/.shell/common ]] && source $HOME/.shell/common

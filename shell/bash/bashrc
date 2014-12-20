@@ -26,3 +26,6 @@ shopt -s globstar
 
 # Set prompt
 PS1='\[\e[1;32m\]\W \$\[\e[0m\] '
+
+# Source the `.shell/common` file
+[[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
