@@ -1,6 +1,9 @@
 ! Set default dimensions for new urxvt window
 URxvt.geometry:             90x30
 
+! Disable bold fonts in urxvt
+URxvt.boldFont:
+
 ! Configure transparency options
 URxvt.transparent:          true
 *.fading:                   50
