@@ -72,3 +72,20 @@ Update the `setup.bash` script to create a symbolic link to the `shell`
 directory in $HOME (as `$HOME/.shell`)
 
 Update the `bashrc` and `zshrc` files to source `$HOME/.shell/common`
+
+Rename the existing files in `shell/common.d` to end in a `.sh` extension
+- This will make things nicer when we edit these (and future files) with `vim`,
+  because syntax highlighting and other things will work
+
+    % cd shell/common.d
+    % git mv ls ls.sh
+    % git mv tree tree.sh
+    % git mv vim vim.sh
+
+Add a `Tmux` function that makes it easy to attach to named sessions
+in `shell/common.d/tmux.sh`
+
+Add a `fontsize` function that allows resetting the terminal font size on the
+fly in `shell/common.d/fontsize.sh`
+
+Add `feh*` aliases for viewing images in `shell/common.d/feh.sh`
