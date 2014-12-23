@@ -1,3 +1,15 @@
+# Call `dotfiles` to automatically move to the dotfiles directory
+dotfiles() {
+    [[ -f $HOME/.dotfiles_path ]] && cd $(cat $HOME/.dotfiles_path) || return
+    pwd && tree -Fa -I '.git|*.swp|backup_dotfiles' && git status
+}
+
+# Call `common` to automatically move to the dotfiles/shell/common.d directory
+common() {
+    [[ -f $HOME/.dotfiles_path ]] && cd $(cat $HOME/.dotfiles_path)/shell/common.d || return
+    pwd && ls -gothrA
+}
+
 # Set the `_all_files_glob` variable, which can be used in aliases and functions
 if [[ -n "$ZSH_VERSION" ]]; then
     _all_files_glob="{.*,*}"

@@ -32,6 +32,9 @@ ln -s "$DIR/.vimrc" "$HOME/.vimrc"
 ln -s "$DIR/.Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
+# Save the full path to this dotfiles repository to `~/.dotfiles_path`
+echo "$DIR" > $HOME/.dotfiles_path
+
 # List the symbolic links that exist in $HOME
 echo -e "\nListing symbolic links that exist in $HOME"
 ls -FgohA $HOME | grep '^l'

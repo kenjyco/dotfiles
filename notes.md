@@ -102,3 +102,9 @@ an error
 
 Add several new functions and aliases to several files in the `shell/common.d`
 directory
+
+Update the `setup.bash` script to save the full path of the dotfiles repo to
+`~/.dotfiles_path`.
+- Add a `dotfiles` function and a `common` function that will cd to either the
+  `dotfiles/` directory or `dotfiles/shell/common.d` directory and show some
+  information
