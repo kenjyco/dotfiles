@@ -89,3 +89,16 @@ Add a `fontsize` function that allows resetting the terminal font size on the
 fly in `shell/common.d/fontsize.sh`
 
 Add `feh*` aliases for viewing images in `shell/common.d/feh.sh`
+
+Set a variable called `_all_files_glob` in `shell/common` to be the filename
+glob that represents all hidden and non-hidden files/directories in the current
+directory
+- This glob pattern is different between bash and zsh, so it is set in
+  `shell/common`, allowing the pattern to be used in functions and aliases
+
+In `shell/zsh/zshrc`, set the `null_glob` option, which will simply remove a
+pattern with no matches from the command-line argument list instead of reporting
+an error
+
+Add several new functions and aliases to several files in the `shell/common.d`
+directory

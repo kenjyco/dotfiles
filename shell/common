@@ -1,3 +1,10 @@
+# Set the `_all_files_glob` variable, which can be used in aliases and functions
+if [[ -n "$ZSH_VERSION" ]]; then
+    _all_files_glob="{.*,*}"
+elif [[ -n "$BASH_VERSION" ]]; then
+    _all_files_glob=".[!.]* *"
+fi
+
 # Source other files in the `common.d` directory
 for f in $HOME/.shell/common.d/*; do
     source $f

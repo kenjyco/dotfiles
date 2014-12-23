@@ -15,6 +15,9 @@ HISTFILE=$HOME/.history_zsh
 # Enable bash-style comments at command line and extended zsh globbing
 setopt interactivecomments extendedglob 
 
+# Disable reporting an error when filename glob has no matches
+setopt null_glob
+
 # Use vi keybindings to navigate command line
 bindkey -v
 
