@@ -1,6 +1,6 @@
 alias ls="ls -Fq"
-alias l="ls -Fqgothr"
-alias la="ls -FqgothrA"
+alias l="ls -gothr"
+alias la="ls -gothrA"
 
 # Add shortcut for listing files or directories in the current directory
 if [[ -n $ZSH_VERSION ]]; then

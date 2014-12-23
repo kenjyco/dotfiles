@@ -108,3 +108,6 @@ Update the `setup.bash` script to save the full path of the dotfiles repo to
 - Add a `dotfiles` function and a `common` function that will cd to either the
   `dotfiles/` directory or `dotfiles/shell/common.d` directory and show some
   information
+
+For aliases that reference themselves (`ls` and `feh`), make the other aliases
+that also call the program name not repeat options/flags set in the base alias.
