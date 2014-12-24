@@ -21,6 +21,13 @@ cd $HOME
 [[ ! -L .Xdefaults && -f .Xdefaults ]] && mv -v .Xdefaults "$BACKUP_DOTFILES" || rm -v .Xdefaults 2>/dev/null
 [[ ! -L .zshrc && -f .zshrc ]] && mv -v .zshrc "$BACKUP_DOTFILES" || rm -v .zshrc 2>/dev/null
 
+# Make sure the ~/.config directory exists
+[[ ! -d "$HOME/.config" ]] && mkdir -pv "$HOME/.config"
+cd $HOME/.config
+
+# Backup original dotfiles in the ~/.config/ directory
+[[ ! -L ranger/rc.conf && -f ranger/rc.conf ]] && mv -v ranger/rc.conf "$BACKUP_DOTFILES/ranger_rc.conf" || rm -v ranger/rc.conf 2>/dev/null
+
 # Create symbolic links to the individual dotfiles
 ln -s "$DIR/shell" "$HOME/.shell"
 ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
@@ -32,9 +39,18 @@ ln -s "$DIR/.vimrc" "$HOME/.vimrc"
 ln -s "$DIR/.Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
+# Create symbolic links to individual dotfiles that live in ~/.config
+[[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"
+ln -s "$DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+
 # Save the full path to this dotfiles repository to `~/.dotfiles_path`
 echo "$DIR" > $HOME/.dotfiles_path
 
 # List the symbolic links that exist in $HOME
 echo -e "\nListing symbolic links that exist in $HOME"
 ls -FgohA $HOME | grep '^l'
+
+# List the symbolic links that exist in $HOME/.config
+cd $HOME/.config
+echo -e "\nListing symbolic links that exist in $HOME/.config"
+ls -FgohA {ranger,awesome}/* 2>/dev/null | grep '^l'

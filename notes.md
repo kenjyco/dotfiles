@@ -111,3 +111,10 @@ Update the `setup.bash` script to save the full path of the dotfiles repo to
 
 For aliases that reference themselves (`ls` and `feh`), make the other aliases
 that also call the program name not repeat options/flags set in the base alias.
+
+Add dotfiles for `ranger`
+
+    % mkdir ranger
+
+Update the `setup.bash` script to handle the `ranger` dotfile, which needs to be
+in `~/.config/ranger/rc.conf`
