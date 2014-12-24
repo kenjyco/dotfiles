@@ -118,3 +118,14 @@ Add dotfiles for `ranger`
 
 Update the `setup.bash` script to handle the `ranger` dotfile, which needs to be
 in `~/.config/ranger/rc.conf`
+
+Add the `autoenv` and `youtube-dl` repos as submodules in `shell/bash/extra`
+
+    % git submodule add https://github.com/kennethreitz/autoenv shell/bash/extra/autoenv
+    % git submodule add https://github.com/rg3/youtube-dl shell/bash/extra/youtube-dl
+
+Update the `shell/bash/bashrc` file to enable [autoenv][] to automatically
+execute a directory's `.env` file and to make the [youtube-dl][] command callable
+
+[autoenv]: https://github.com/kennethreitz/autoenv
+[youtube-dl]: https://github.com/rg3/youtube-dl

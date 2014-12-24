@@ -29,3 +29,10 @@ PS1='\[\e[1;33m\]\W \$\[\e[0m\] '
 
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
+
+# Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
+[[ -f $HOME/.shell/bash/extra/autoenv/activate.sh ]] && source $HOME/.shell/bash/extra/autoenv/activate.sh
+
+# Enable youtube-dl
+yt_dir="$HOME/.shell/bash/extra/youtube-dl"
+[[ -d "$yt_dir" ]] && alias youtube-dl="PYTHONPATH=$yt_dir $yt_dir/bin/youtube-dl"
