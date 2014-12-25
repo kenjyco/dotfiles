@@ -160,3 +160,22 @@ link for `~/.vimrc` and create a symbolic link for `~/.vim`
 Also, have `setup.bash` create the `~/.plugin_install_dir/vundle` directory
 (which will contain the downloads for plugins added to Vundle) and automatically
 install Vundle plugins.
+
+Create a `tmux` directory
+
+    % mkdir tmux
+
+Move `.tmux.conf` to `tmux/tmux.conf`
+
+    % git mv .tmux.conf tmux/tmux.conf
+
+Update the `setup.bash` script use the new path to `tmux/tmux.conf` as symbolic link
+for `~/.tmux.conf`
+
+Add [vim-tmux-navigator][] style navigation that uses `ctrl-h`, `ctrl-j`,
+`ctrl-k`, `ctrl-l` to move between tmux panes and vim splits (without using the
+`^b` prefix for tmux or the `^w` prefix for vim)
+- Update the `vim/vimrc` file to Add the `vim-tmux-navigator` plugin to vundle
+- Update the keybindings in the `tmux/tmux.conf` file
+
+[vim-tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator

@@ -39,7 +39,7 @@ ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
 ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
 ln -s "$DIR/.gitconfig" "$HOME/.gitconfig"
 ln -s "$DIR/.inputrc" "$HOME/.inputrc"
-ln -s "$DIR/.tmux.conf" "$HOME/.tmux.conf"
+ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
 ln -s "$DIR/vim" "$HOME/.vim"
 ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
 ln -s "$DIR/.Xdefaults" "$HOME/.Xdefaults"
@@ -53,6 +53,7 @@ ln -s "$DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
 echo "$DIR" > $HOME/.dotfiles_path
 
 # Fetch the git submodules required
+cd $DIR
 git submodule init && git submodule update
 
 # Download/install Vim plugins added to vundle

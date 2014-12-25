@@ -12,6 +12,7 @@ call vundle#begin('~/.plugin_install_dir/vundle')
 Plugin 'gmarik/Vundle.vim'
 
 " Extra plugins
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
