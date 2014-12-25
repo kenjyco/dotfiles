@@ -129,3 +129,17 @@ execute a directory's `.env` file and to make the [youtube-dl][] command callabl
 
 [autoenv]: https://github.com/kennethreitz/autoenv
 [youtube-dl]: https://github.com/rg3/youtube-dl
+
+In `shell/common.d/tree.sh`, change `t` from an alias to a function
+- The function accpets an optional directory name, which gets passed to `tree`
+  before piping the output to `less -FX`
+- An `_ignore_tree_string` variable was added so that certain tree aliases can
+  ignore directory patterns (like the `thome` alias)
+
+Update the `dotfiles` and `common`  functions to only change to the directory
+- Each function also has a variant that will also output extra information, like
+  the new current directory and
+
+Add aliases for `..` `...` and `....` to `shell/common`
+
+Add new files `lsblk.sh` and `watch.sh` to `shell/common.d`
