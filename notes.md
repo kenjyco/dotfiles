@@ -143,3 +143,20 @@ Update the `dotfiles` and `common`  functions to only change to the directory
 Add aliases for `..` `...` and `....` to `shell/common`
 
 Add new files `lsblk.sh` and `watch.sh` to `shell/common.d`
+
+Add `vundle` repo as submodule in `vim/bundle/Vundle.vim`
+
+    % git submodule add https://github.com/gmarik/Vundle.vim vim/bundle/Vundle.vim
+
+Move `.vimrc` to `vim/vimrc`
+
+    % git mv .vimrc vim/vimrc
+
+Update `vim/vimrc` with stuff to enable Vundle, but don't install any plugins
+
+Update the `setup.bash` script to use the new path to `vim/vimrc` as a symbolic
+link for `~/.vimrc` and create a symbolic link for `~/.vim`
+
+Also, have `setup.bash` create the `~/.plugin_install_dir/vundle` directory
+(which will contain the downloads for plugins added to Vundle) and automatically
+install Vundle plugins.

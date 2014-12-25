@@ -4,3 +4,6 @@
 [submodule "shell/bash/extra/youtube-dl"]
 	path = shell/bash/extra/youtube-dl
 	url = https://github.com/rg3/youtube-dl
+[submodule "vim/bundle/Vundle.vim"]
+	path = vim/bundle/Vundle.vim
+	url = https://github.com/gmarik/Vundle.vim
