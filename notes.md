@@ -169,8 +169,8 @@ Move `.tmux.conf` to `tmux/tmux.conf`
 
     % git mv .tmux.conf tmux/tmux.conf
 
-Update the `setup.bash` script use the new path to `tmux/tmux.conf` as symbolic link
-for `~/.tmux.conf`
+Update the `setup.bash` script to use the new path to `tmux/tmux.conf` as
+a symbolic link for `~/.tmux.conf`
 
 Add [vim-tmux-navigator][] style navigation that uses `ctrl-h`, `ctrl-j`,
 `ctrl-k`, `ctrl-l` to move between tmux panes and vim splits (without using the
@@ -179,3 +179,13 @@ Add [vim-tmux-navigator][] style navigation that uses `ctrl-h`, `ctrl-j`,
 - Update the keybindings in the `tmux/tmux.conf` file
 
 [vim-tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
+
+Move `.Xdefaults`, `.inputrc`, and `.gitconfig` to their own sub-directories and
+remove the leading `.` from the filenames.
+
+    % mkdir x input git
+    % git mv .Xdefaults x/Xdefaults
+    % git mv .inputrc input/inputrc
+    % git mv .gitconfig git/gitconfig
+
+Update the `setup.bash` script to use the new paths for symbolic links.

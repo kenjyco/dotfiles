@@ -12,7 +12,7 @@ PLUGIN_INSTALL_DIR="$HOME/.plugin_install_dir"
 rm -rf "$PLUGIN_INSTALL_DIR/vundle" && mkdir -pv "$PLUGIN_INSTALL_DIR/vundle"
 
 # Backup original dotfiles if they are not symbolic links, otherwise delete
-echo "Saving a copy of real dotfiles and deleting symbolic links"
+echo -e "\nSaving a copy of real dotfiles and deleting symbolic links"
 echo "cd $HOME"
 cd $HOME
 [[ ! -L .shell && -d .shell ]] && mv -v .shell "$BACKUP_DOTFILES" || rm -v .shell 2>/dev/null
@@ -37,12 +37,12 @@ cd $HOME/.config
 ln -s "$DIR/shell" "$HOME/.shell"
 ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
 ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
-ln -s "$DIR/.gitconfig" "$HOME/.gitconfig"
-ln -s "$DIR/.inputrc" "$HOME/.inputrc"
+ln -s "$DIR/git/gitconfig" "$HOME/.gitconfig"
+ln -s "$DIR/input/inputrc" "$HOME/.inputrc"
 ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
 ln -s "$DIR/vim" "$HOME/.vim"
 ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
-ln -s "$DIR/.Xdefaults" "$HOME/.Xdefaults"
+ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
 # Create symbolic links to individual dotfiles that live in ~/.config
