@@ -74,13 +74,14 @@ directory in $HOME (as `$HOME/.shell`)
 Update the `bashrc` and `zshrc` files to source `$HOME/.shell/common`
 
 Rename the existing files in `shell/common.d` to end in a `.sh` extension
-- This will make things nicer when we edit these (and future files) with `vim`,
-  because syntax highlighting and other things will work
 
     % cd shell/common.d
     % git mv ls ls.sh
     % git mv tree tree.sh
     % git mv vim vim.sh
+
+- This will make things nicer when we edit these (and future files) with `vim`,
+  because syntax highlighting and other things will work
 
 Add a `Tmux` function that makes it easy to attach to named sessions
 in `shell/common.d/tmux.sh`
@@ -137,8 +138,8 @@ In `shell/common.d/tree.sh`, change `t` from an alias to a function
   ignore directory patterns (like the `thome` alias)
 
 Update the `dotfiles` and `common`  functions to only change to the directory
-- Each function also has a variant that will also output extra information, like
-  the new current directory and
+- Each function also has a variant that will output extra information, like
+  the new current directory and the directory tree or listing
 
 Add aliases for `..` `...` and `....` to `shell/common`
 
@@ -159,7 +160,7 @@ link for `~/.vimrc` and create a symbolic link for `~/.vim`
 
 Also, have `setup.bash` create the `~/.plugin_install_dir/vundle` directory
 (which will contain the downloads for plugins added to Vundle) and automatically
-install Vundle plugins.
+install Vundle plugins
 
 Create a `tmux` directory
 
@@ -175,17 +176,25 @@ a symbolic link for `~/.tmux.conf`
 Add [vim-tmux-navigator][] style navigation that uses `ctrl-h`, `ctrl-j`,
 `ctrl-k`, `ctrl-l` to move between tmux panes and vim splits (without using the
 `^b` prefix for tmux or the `^w` prefix for vim)
-- Update the `vim/vimrc` file to Add the `vim-tmux-navigator` plugin to vundle
+- Update the `vim/vimrc` file to add the `vim-tmux-navigator` plugin to vundle
 - Update the keybindings in the `tmux/tmux.conf` file
 
 [vim-tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 
 Move `.Xdefaults`, `.inputrc`, and `.gitconfig` to their own sub-directories and
-remove the leading `.` from the filenames.
+remove the leading `.` from the filenames
 
     % mkdir x input git
     % git mv .Xdefaults x/Xdefaults
     % git mv .inputrc input/inputrc
     % git mv .gitconfig git/gitconfig
 
-Update the `setup.bash` script to use the new paths for symbolic links.
+Update the `setup.bash` script to use the new paths for symbolic links
+
+Update this `notes.md` file with minor cosmetic changes (to parts of the file
+that were committed in the past)
+
+Add the `conqueterm` and `fugitive` plugins to Vundle
+
+Add the `acs` function to `shell/common.d/apt.sh` as a light wrapper around
+`apt-cache search` and add the `partitions2` alias to `shell/common.d/sudo.sh`

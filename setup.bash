@@ -54,6 +54,7 @@ echo "$DIR" > $HOME/.dotfiles_path
 
 # Fetch the git submodules required
 cd $DIR
+echo -e "\nUpdating git submodules, if necessary"
 git submodule init && git submodule update
 
 # Download/install Vim plugins added to vundle

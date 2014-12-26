@@ -13,6 +13,8 @@ Plugin 'gmarik/Vundle.vim'
 
 " Extra plugins
 Plugin 'christoomey/vim-tmux-navigator'
+" Plugin 'pthrasher/conqueterm-vim'
+" Plugin 'tpope/vim-fugitive'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
