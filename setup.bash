@@ -32,6 +32,7 @@ cd $HOME/.config
 
 # Backup original dotfiles in the ~/.config/ directory
 [[ ! -L ranger/rc.conf && -f ranger/rc.conf ]] && mv -v ranger/rc.conf "$BACKUP_DOTFILES/ranger_rc.conf" || rm -v ranger/rc.conf 2>/dev/null
+[[ ! -L awesome/rc.lua && -f awesome/rc.lua ]] && mv -v awesome/rc.lua "$BACKUP_DOTFILES/awesome_rc.lua" || rm -v awesome/rc.lua 2>/dev/null
 
 # Create symbolic links to the individual dotfiles
 ln -s "$DIR/shell" "$HOME/.shell"
@@ -48,6 +49,8 @@ ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 # Create symbolic links to individual dotfiles that live in ~/.config
 [[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"
 ln -s "$DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+[[ ! -d "$HOME/.config/awesome" ]] && mkdir -pv "$HOME/.config/awesome"
+ln -s "$DIR/x/awesome/rc.lua" "$HOME/.config/awesome/rc.lua"
 
 # Save the full path to this dotfiles repository to `~/.dotfiles_path`
 echo "$DIR" > $HOME/.dotfiles_path

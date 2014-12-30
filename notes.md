@@ -198,3 +198,11 @@ Add the `conqueterm` and `fugitive` plugins to Vundle
 
 Add the `acs` function to `shell/common.d/apt.sh` as a light wrapper around
 `apt-cache search` and add the `partitions2` alias to `shell/common.d/sudo.sh`
+
+Add `x/awesome` directory and copy default awesome settings
+
+    % mkdir -p x/awesome
+    % cp -a /etc/xdg/awesome/rc.lua x/awesome
+
+Update the `setup.bash` script to add symbolic links for
+`~/.config/awesome/rc.lua`
