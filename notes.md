@@ -206,3 +206,10 @@ Add `x/awesome` directory and copy default awesome settings
 
 Update the `setup.bash` script to add symbolic links for
 `~/.config/awesome/rc.lua`
+
+Add a wrapper function to the find command called `_find` in `shell/common`
+- Placing it here allows it to be used in `shell/common.d` scripts
+
+Add `shell/common.d/grip.sh` which provides the `grip-many` function
+- This function makes use of `_find` and creates a markdown file containing
+  links to other markdown files based on depth and time filters
