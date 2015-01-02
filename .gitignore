@@ -1,2 +1,4 @@
 backup_dotfiles/
 *.swp
+private*
+GENERATED-README.md
