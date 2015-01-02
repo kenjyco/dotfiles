@@ -15,6 +15,7 @@ rm -rf "$PLUGIN_INSTALL_DIR/vundle" && mkdir -pv "$PLUGIN_INSTALL_DIR/vundle"
 echo -e "\nSaving a copy of real dotfiles and deleting symbolic links"
 echo "cd $HOME"
 cd $HOME
+[[ ! -L bin && -d bin ]] && mv -v bin "$BACKUP_DOTFILES" || rm -v bin 2>/dev/null
 [[ ! -L .shell && -d .shell ]] && mv -v .shell "$BACKUP_DOTFILES" || rm -v .shell 2>/dev/null
 [[ ! -L .vim && -d .vim ]] && mv -v .vim "$BACKUP_DOTFILES" || rm -v .vim 2>/dev/null
 [[ ! -L .bash_profile && -f .bash_profile ]] && mv -v .bash_profile "$BACKUP_DOTFILES" || rm -v .bash_profile 2>/dev/null
@@ -35,6 +36,7 @@ cd $HOME/.config
 [[ ! -L awesome/rc.lua && -f awesome/rc.lua ]] && mv -v awesome/rc.lua "$BACKUP_DOTFILES/awesome_rc.lua" || rm -v awesome/rc.lua 2>/dev/null
 
 # Create symbolic links to the individual dotfiles
+ln -s "$DIR/bin" "$HOME/bin"
 ln -s "$DIR/shell" "$HOME/.shell"
 ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
 ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"

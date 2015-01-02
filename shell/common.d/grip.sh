@@ -1,5 +1,9 @@
 [[ -f "$HOME/.grip/bin/grip" ]] && alias grip="$HOME/.grip/bin/grip"
 
+# Ex:
+#   grip-many
+#   grip-many . --depth 2
+#   grip-many . --hours 5
 grip-many() {
     dirname=$1
     if [[ ! -z "$dirname" ]]; then
@@ -14,7 +18,7 @@ grip-many() {
     fi
 
     echo "$dirname" > GENERATED-README.md
-    eval "_find $dirname --pattern '*.md' $@" | xargs -d \\n -I {} echo '- [{}]({})' \
+    eval "findit $dirname --pattern '*.md' $@" | xargs -d \\n -I {} echo '- [{}]({})' \
         | sort | grep -v 'GENERATED-README' >> GENERATED-README.md
     grip GENERATED-README.md "0.0.0.0:7777"
     rm GENERATED-README.md

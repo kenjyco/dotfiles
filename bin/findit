@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# A wrapper function to find files in a specified directory, with a maxdepth,
+# a particular filename pattern, and modified within a certain time period
+#
+# Ex:
+#   findit . --pattern "*.md" --weeks 1
+#   findiT . --complex "\( -iname '*.md' -o -iname '*.txt' \)" --months 2 --depth 3
+#   findit . --pattern ".*.sw[po]" --pipe "ls -gothr"
+
+dirname=$1
+shift 2>/dev/null
+[[ -z "$dirname" ]] && dirname="."
+if [[ ! -d "$dirname" ]]; then
+    echo "$dirname is not a directory"
+    exit 1
+fi
+
+while [[ ! -z "$1" ]]; do
+    case "$1" in
+        --depth)
+            depth=$2
+            shift ;;
+        --complex)
+            complex=$2
+            shift ;;
+        --pattern)
+            pattern=$2
+            shift ;;
+        --ipattern)
+            ipattern=$2
+            shift ;;
+        --months)
+            months=$2
+            shift ;;
+        --weeks)
+            weeks=$2
+            shift ;;
+        --days)
+            days=$2
+            shift ;;
+        --hours)
+            hours=$2
+            shift ;;
+        --minutes)
+            minutes=$2
+            shift ;;
+        --pipe)
+            pipe=$2
+            shift ;;
+        *)
+            echo "Unknown parameter: $1" >&2
+            exit 1
+    esac
+
+    if ! shift; then
+        echo "Missing parameter argument" >&2
+        exit 1
+    fi
+done
+
+if [[ "$depth" == [0-9]* ]]; then
+    find_cmd="find $dirname -maxdepth $depth -type f"
+else
+    find_cmd="find $dirname -type f"
+fi
+
+if [[ ! -z "$pattern" ]]; then
+    find_cmd="$find_cmd -name '$pattern'"
+elif [[ ! -z "$ipattern" ]]; then
+    find_cmd="$find_cmd -iname '$ipattern'"
+elif [[ ! -z "$complex" ]]; then
+    find_cmd="$find_cmd $complex"
+fi
+
+if [[ "$minutes" == [0-9]* ]]; then
+    find_cmd="$find_cmd -mmin -$minutes"
+elif [[ "$hours" == [0-9]* ]]; then
+    find_cmd="$find_cmd -mmin -$((60 * $hours))"
+elif [[ "$days" == [0-9]* ]]; then
+    find_cmd="$find_cmd -mmin -$((60 * 24 * $days))"
+elif [[ "$weeks" == [0-9]* ]]; then
+    find_cmd="$find_cmd -mmin -$((60 * 24 * 7 * $weeks))"
+elif [[ "$months" == [0-9]* ]]; then
+    find_cmd="$find_cmd -mmin -$((60 * 24 * 31 * $months))"
+fi
+
+if [[ ! -z "$pipe" ]]; then
+    >&2 echo "$find_cmd | xargs -d \\\\n $pipe"
+    eval "$find_cmd" | xargs -d \\n $pipe
+else
+    >&2 echo "$find_cmd"
+    eval "$find_cmd"
+fi
