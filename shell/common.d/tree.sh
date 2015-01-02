@@ -9,19 +9,25 @@ t() {
     level="$2"
     [[ -z "$dirname" ]] && dirname="."
     [[ ! -d "$dirname" ]] && dirname="."
-    [[ "$dirname" == "." ]] && dirname=$(pwd)
+    oldpwd=$(pwd)
+    cd "$dirname"
+
+    local ignore=$_ignore_tree
+    [[ $(pwd) == $HOME ]] && ignore=$_ignore_tree_home
+    [[ $(pwd) =~ "$(cat $HOME/.dotfiles_path)" ]] && ignore=$_ignore_tree_dotfiles
 
     if [[ "$level" =~ [0-9]+ ]]; then
-        eval "tree -Fa -L $level $_ignore_tree $dirname | less -FX"
+        >&2 echo "tree -Fa -L $level $ignore $dirname | less -FX"
+        eval "tree -Fa -L $level $ignore $dirname | less -FX"
     else
-        eval "tree -Fa $_ignore_tree $dirname | less -FX"
+        >&2 echo "tree -Fa $ignore $dirname | less -FX"
+        eval "tree -Fa $ignore $dirname | less -FX"
     fi
+
+    cd "$oldpwd"
 }
 
 alias ta="tree -Fa"
 alias td="tree -Fd"
 alias tad="tree -Fad"
 alias tda="tree -Fda"
-alias tgit="tree -Fa $_ignore_tree | less -FX"
-alias tdotfiles="tree -Fa $_ignore_tree_dotfiles $(cat $HOME/.dotfiles_path) | less -FX"
-alias thome="tree -Fa $_ignore_tree_home $HOME | less -FX"
