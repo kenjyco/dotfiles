@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+echo "$(whoami)@$(hostname)"
+acpi
+
+if [[ $1 == "ip" ]]; then
+    echo -ne "\nip-local: "
+    ifconfig 2>/dev/null | grep "inet addr" | grep -v ":127" | awk '{print $2}' | cut -c 6-
+
+    echo -ne "\nip-public: "
+    wget http://bot.whatismyipaddress.com -qO - && echo
+fi
+
+echo -e "\npartitions:"
+lsblk -o name,size,type,mountpoint | grep 'part' | sort -k2 -h
+
+echo
+df -h | egrep '(^Filesystem|^/dev)'
+
+echo -e "\nVim swap files:"
+find ~ -iname ".*sw[po]" | sort
