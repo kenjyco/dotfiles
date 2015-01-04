@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Exit this script if not running X
+[[ -z "$DISPLAY" ]] && exit
+
+# Set a random wallpaper
+if [[ -d $HOME/wallpapers/tiles ]]; then
+    feh --randomize --recursive --bg-tile $HOME/wallpapers/tiles
+elif [[ -d $HOME/wallpapers/landscape ]]; then
+    feh --randomize --recursive --bg-fill $HOME/wallpapers/landscape
+elif [[ -d $HOME/wallpapers/portrait ]]; then
+    feh --randomize --recursive --bg-fill $HOME/wallpapers/portrait
+fi
