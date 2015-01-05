@@ -17,11 +17,11 @@ t() {
     [[ $(pwd) =~ "$(cat $HOME/.dotfiles_path)" ]] && ignore=$_ignore_tree_dotfiles
 
     if [[ "$level" =~ [0-9]+ ]]; then
-        >&2 echo "tree -Fa -L $level $ignore $dirname | less -FX"
-        eval "tree -Fa -L $level $ignore $dirname | less -FX"
+        >&2 echo -e "tree -Fa -L $level $ignore $dirname | less -FX\n$(pwd)"
+        eval "tree -Fa -L $level $ignore . | less -FX"
     else
-        >&2 echo "tree -Fa $ignore $dirname | less -FX"
-        eval "tree -Fa $ignore $dirname | less -FX"
+        >&2 echo -e "tree -Fa $ignore $dirname | less -FX\n$(pwd)"
+        eval "tree -Fa $ignore . | less -FX"
     fi
 
     cd "$oldpwd"
