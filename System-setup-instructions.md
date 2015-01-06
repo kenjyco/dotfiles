@@ -12,21 +12,6 @@ System Setup Instructions
 
 > SSH keys need to be setup before git repo can be cloned using SSH.
 
-#### Get dotfiles and install
-
-    % git clone git@github.com:kenjyco/dotfiles ~/.dotfiles && cd ~/.dotfiles && bash setup.bash
-
-#### Unmute audio (for first time)
-
-    % alsamixer
-
-Press 'm' to unmute
-
-#### Setup wireless
-
-    % sudo service wicd start
-    % wicd-curses
-
 #### Remove password requirement for using `sudo`
 
     % sudo visudo
