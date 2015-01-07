@@ -5,8 +5,9 @@
 #
 # Ex:
 #   findit . --pattern "*.md" --weeks 1
-#   findiT . --complex "\( -iname '*.md' -o -iname '*.txt' \)" --months 2 --depth 3
+#   findit . --complex "\( -iname '*.md' -o -iname '*.txt' \)" --months 2 --depth 3
 #   findit . --pattern ".*.sw[po]" --pipe "ls -gothr"
+#   findit . --ipattern "*.jpg" --stamp
 
 dirname=$1
 shift 2>/dev/null
@@ -48,6 +49,9 @@ while [[ ! -z "$1" ]]; do
         --pipe)
             pipe=$2
             shift ;;
+        --stamp)
+            stamp="-printf '%TY_%Tm%Td-%Ta-%TH%TM%.2TS %p\n'"
+            ;;
         *)
             echo "Unknown parameter: $1" >&2
             exit 1
@@ -83,6 +87,10 @@ elif [[ "$weeks" == [0-9]* ]]; then
     find_cmd="$find_cmd -mmin -$((60 * 24 * 7 * $weeks))"
 elif [[ "$months" == [0-9]* ]]; then
     find_cmd="$find_cmd -mmin -$((60 * 24 * 31 * $months))"
+fi
+
+if [[ ! -z "$stamp" ]]; then
+    find_cmd="$find_cmd $stamp"
 fi
 
 if [[ ! -z "$pipe" ]]; then
