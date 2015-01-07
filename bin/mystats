@@ -17,5 +17,8 @@ lsblk -o name,size,type,mountpoint | grep 'part' | sort -k2 -h
 echo
 df -h | egrep '(^Filesystem|^/dev)'
 
+echo -e "\nTmux sessions:"
+tmux ls 2>/dev/null
+
 echo -e "\nVim swap files:"
 find ~ -iname ".*sw[po]" | sort
