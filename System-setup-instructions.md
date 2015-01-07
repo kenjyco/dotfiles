@@ -58,3 +58,15 @@ Comment out
 
     # session    optional     pam_motd.so  motd=/run/motd.dynamic noupdate
     # session    optional     pam_motd.so # [1]
+
+#### Make SSH server only authenticate with SSH Keys
+
+    % vim -R /etc/ssh/sshd_config
+
+Uncomment and modify the following line
+
+    PasswordAuthentication no
+
+Add an "AllowUsers" line with a comma-delimited list of users allowed to SSH in
+
+    AllowUsers ken
