@@ -17,6 +17,9 @@ lsblk -o name,size,type,mountpoint | grep 'part' | sort -k2 -h
 echo
 df -h | egrep '(^Filesystem|^/dev)'
 
+echo
+w | grep -v "load average"
+
 echo -e "\nTmux sessions:"
 tmux ls 2>/dev/null
 
