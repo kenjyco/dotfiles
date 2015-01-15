@@ -3,8 +3,10 @@
 # Exit this script if not running X
 [[ -z "$DISPLAY" ]] && exit
 
+DEFAULT_TILE="$(cat $HOME/.dotfiles_path)/.images/tiles/black-square.png"
+
 SET_RANDOM_WALLPAPER="False"
-if [[ "$SET_RANDOM_WALLPAPER" =~ "[Tt][Rr][Uu][Ee]" ]]; then
+if [[ "$SET_RANDOM_WALLPAPER" =~ [Tt][Rr][Uu][Ee] ]]; then
     # Set a random wallpaper
     if [[ -d $HOME/wallpapers/tiles ]]; then
         feh --randomize --recursive --bg-tile $HOME/wallpapers/tiles
@@ -13,4 +15,6 @@ if [[ "$SET_RANDOM_WALLPAPER" =~ "[Tt][Rr][Uu][Ee]" ]]; then
     elif [[ -d $HOME/wallpapers/portrait ]]; then
         feh --randomize --recursive --bg-fill $HOME/wallpapers/portrait
     fi
+else
+    feh --bg-tile $DEFAULT_TILE
 fi
