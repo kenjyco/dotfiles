@@ -6,7 +6,7 @@ URxvt.boldFont:
 
 ! Configure transparency options
 URxvt.transparent:          true
-*.fading:                   50
+*.fading:                   30
 *.shading:                  15
 
 ! Configure scrollbar
