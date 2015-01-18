@@ -36,5 +36,8 @@ for f in $HOME/.shell/common.d/*; do
     source $f
 done
 
+# Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
+[[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
+
 # Run the `bin/startup` script
 [[ -f $HOME/bin/startup ]] && $HOME/bin/startup

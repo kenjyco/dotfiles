@@ -1,9 +1,9 @@
-[submodule "shell/bash/extra/autoenv"]
-	path = shell/bash/extra/autoenv
-	url = https://github.com/kennethreitz/autoenv
-[submodule "shell/bash/extra/youtube-dl"]
-	path = shell/bash/extra/youtube-dl
-	url = https://github.com/rg3/youtube-dl
 [submodule "vim/bundle/Vundle.vim"]
 	path = vim/bundle/Vundle.vim
 	url = https://github.com/gmarik/Vundle.vim
+[submodule "shell/extra/autoenv"]
+	path = shell/extra/autoenv
+	url = https://github.com/kennethreitz/autoenv
+[submodule "shell/extra/youtube-dl"]
+	path = shell/extra/youtube-dl
+	url = https://github.com/rg3/youtube-dl
