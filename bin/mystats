@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+uptime
 echo "$(whoami)@$(hostname)"
 acpi
 
@@ -7,7 +8,8 @@ if [[ $1 == "ip" ]]; then
     echo -ne "\nip-local: "
     ifconfig 2>/dev/null | grep "inet addr" | grep -v ":127" | awk '{print $2}' | cut -c 6-
 
-    echo -ne "\nip-public: "
+    [[ $? -ne 0 ]] && echo
+    echo -ne "ip-public: "
     wget http://bot.whatismyipaddress.com -qO - && echo
 fi
 
