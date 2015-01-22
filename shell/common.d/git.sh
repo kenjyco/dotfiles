@@ -5,5 +5,7 @@ alias glog2="glog --date local --name-status"
 alias glogp="git log -p --full-diff"
 
 repo-list() {
-    find ~ -maxdepth 3 -type d -name ".git" | xargs -d \\n dirname | sort
+    level=$1
+    [[ ! "$level" =~ [0-9]+ ]] && level=3
+    find ~ -maxdepth $level -type d -name ".git" | xargs -d \\n dirname 2>/dev/null | sort
 }

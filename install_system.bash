@@ -71,3 +71,5 @@ alsamixer
 
 # Get dotfiles and install
 # git clone https://github.com/kenjyco/dotfiles ~/.dotfiles && bash ~/.dotfiles/setup.bash
+# read -p "Change your name and email in ~/.gitconfig (press ENTER to continue)"
+# vim ~/.gitconfig
