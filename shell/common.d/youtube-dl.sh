@@ -4,7 +4,7 @@ youtube() {
     fi
 
     if [[ -n "$link" && $# -eq 1 ]]; then
-        >&2 echo "youtube-dl -v '$link' --write-description"
+        echo "youtube-dl -v '$link' --write-description" >&2
         youtube-dl -v "$link" --write-description
         if [[ $? -eq 0 ]]; then
             echo $link >> yt-success.txt
@@ -12,7 +12,7 @@ youtube() {
             echo $link >> yt-fail.txt
         fi
     else
-        >&2 echo "youtube-dl -v $@ --write-description"
+        echo "youtube-dl -v $@ --write-description" >&2
         youtube-dl -v $@ --write-description
         if [[ $? -eq 0 ]]; then
             echo $@ >> yt-success-cmd.txt
@@ -28,7 +28,7 @@ youtube-audio() {
     fi
 
     if [[ -n "$link" && $# -eq 1 ]]; then
-        >&2 echo "youtube-dl -vkx --audio-format mp3 '$link' --write-description"
+        echo "youtube-dl -vkx --audio-format mp3 '$link' --write-description" >&2
         youtube-dl -vkx --audio-format mp3 "$link" --write-description
         if [[ $? -eq 0 ]]; then
             echo $link >> yt-success-audio.txt
@@ -36,7 +36,7 @@ youtube-audio() {
             echo $link >> yt-fail-audio.txt
         fi
     else
-        >&2 echo "youtube-dl -vkx --audio-format mp3 $@ --write-description"
+        echo "youtube-dl -vkx --audio-format mp3 $@ --write-description" >&2
         youtube-dl -vkx --audio-format mp3 $@ --write-description
         if [[ $? -eq 0 ]]; then
             echo $@ >> yt-success-audio-cmd.txt

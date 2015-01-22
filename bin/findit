@@ -94,9 +94,9 @@ if [[ ! -z "$stamp" ]]; then
 fi
 
 if [[ ! -z "$pipe" ]]; then
-    >&2 echo "$find_cmd | xargs -d \\\\n $pipe"
+    echo "$find_cmd | xargs -d \\\\n $pipe" >&2
     eval "$find_cmd" | xargs -d \\n $pipe
 else
-    >&2 echo "$find_cmd"
+    echo "$find_cmd" >&2
     eval "$find_cmd"
 fi
