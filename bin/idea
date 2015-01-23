@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+idea=$1
+[[ -z "$idea" ]] && exit 1
+fname="${idea}.idea"
+
+if [[ ! -s "$fname" ]]; then
+    # Genarate the file since it does not exist
+    echo -e "${idea}\n----------\n" > $fname || exit 1
+else
+    # Dump a timestamp into the existing file
+    echo -e "\n\`$(date +'%Y_%m%d %a %r')\`\n" >> $fname || exit 1
+fi
+
+if [[ -z "$TMUX" ]]; then
+    # Open the file with vim (in insert mode, at the end of the file)
+    vim + -c 'startinsert' $fname
+else
+    # Create a new window in existing tmux session
+    tmux new-window -n $idea
+
+    # Split the tmux window and open the file with vim (in insert mode, at the
+    # end of the file)
+    tmux split-window -v "vim + -c 'startinsert' $fname"
+fi

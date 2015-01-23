@@ -97,6 +97,9 @@ if has("autocmd")
 
     " Treat *.md as markdown file
     autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+    " Treat *.idea as markdown file
+    autocmd BufRead,BufNewFile *.idea set filetype=markdown
 endif
 
 " Use 'Ctrl+c' to copy selected text with system clipboard in visual mode
