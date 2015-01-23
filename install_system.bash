@@ -26,7 +26,7 @@ echo -e "\nsudo apt-get install..."
 echo -e "\nEssential stuff"
 sudo apt-get install -y vim git zsh tmux curl pmount acpi diffstat colordiff htop tree ranger
 sudo apt-get install -y openssh-server rxvt-unicode-256color feh scrot imagemagick emelfm2
-sudo apt-get install -y gtypist typespeed cmatrix elinks enscript evince-gtk
+sudo apt-get install -y gtypist typespeed cmatrix elinks enscript vlock termsaver evince-gtk
 # sudo apt-get install -y wodim dvd+rw-tools
 
 echo -e "\nPython stuff"

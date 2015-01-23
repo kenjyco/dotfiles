@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ -z "$DISPLAY" ]]; then
+    vlock
+else
+    xscreensaver-command --lock
+fi
