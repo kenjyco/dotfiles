@@ -7,3 +7,6 @@
 [submodule "shell/extra/youtube-dl"]
 	path = shell/extra/youtube-dl
 	url = https://github.com/rg3/youtube-dl
+[submodule "shell/extra/grip"]
+	path = shell/extra/grip
+	url = https://github.com/joeyespo/grip
