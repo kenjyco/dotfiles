@@ -73,3 +73,10 @@ ls -FgohA $HOME | grep '^l'
 cd $HOME/.config
 echo -e "\nListing symbolic links that exist in $HOME/.config"
 ls -FgohA {ranger,awesome}/* 2>/dev/null | grep '^l'
+
+# Setup grip
+cd $HOME/.shell/extra/grip
+virtualenv --no-site-packages .
+source ./bin/activate
+python setup.py install
+deactivate
