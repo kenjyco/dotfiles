@@ -1,5 +1,3 @@
-[[ -f "$HOME/.grip/bin/grip" ]] && alias grip="$HOME/.grip/bin/grip"
-
 # Ex:
 #   grip-many
 #   grip-many . --depth 2
@@ -22,9 +20,4 @@ grip-many() {
         | sort | grep -v 'GENERATED-README' >> GENERATED-README.md
     grip GENERATED-README.md "0.0.0.0:7777"
     rm GENERATED-README.md
-}
-
-install-grip() {
-    virtualenv --no-site-packages $HOME/.grip
-    $HOME/.grip/bin/pip install grip
 }
