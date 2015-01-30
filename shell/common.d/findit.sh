@@ -3,6 +3,7 @@ findit-swp() {
     [[ ! -z "$dirname" ]] && shift || dirname="."
     findit $dirname --pattern ".*sw[po]" $@
 }
+alias swps="findit-swp . --stamp 2>/dev/null | sort -h"
 
 findit-py() {
     dirname=$1
