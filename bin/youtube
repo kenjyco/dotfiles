@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# A wrapper to youtube-dl with simplified syntax for common operations
+#
+# Ex:
+#   youtube https://youtube.com/asdfsfda
+#   youtube file_of_links.txt --description
+#   youtube file_of_song_links.txt --audio
+#   youtube https://youtube.com/asdfsfda --description --audio
+
+LOGFILE="youtube.log"
+yt_args="-vk"
+if [[ "$1" =~ https?\: ]]; then
+    # Set arguments to download a specific link
+    yt_args="$yt_args $1"
+    shift
+elif [[ -s "$1" ]]; then
+    # Set arguments to load links from a text file
+    yt_args="$yt_args -a $1"
+    shift
+fi
+
+if [[ "$yt_args" == '-vk' ]]; then
+    echo "First argument must be a link or text file of links" >&2
+    exit 1
+fi
+
+while [[ ! -z "$1" ]]; do
+    case "$1" in
+        --description)
+            yt_args="$yt_args --write-description"
+            ;;
+        --audio)
+            yt_args="$yt_args -x --audio-format mp3"
+            ;;
+        *)
+            echo "Unknown parameter: $1" >&2
+            exit 1
+    esac
+
+    if ! shift; then
+        echo "Missing parameter argument" >&2
+        exit 1
+    fi
+done
+
+echo -e "\n\n====================\n$(date +%Y_%m%d-%a-%H%M%S)\n\n" >> $LOGFILE
+echo -e "youtube-dl $yt_args\n" >> $LOGFILE
+youtube-dl $yt_args | tee -a $LOGFILE
