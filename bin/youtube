@@ -9,10 +9,16 @@
 #   youtube https://youtube.com/asdfsfda --description --audio
 
 LOGFILE="youtube.log"
-yt_args="-vk"
+yt_args="-vk --restrict-filenames --max-quality 22"
+yt_outformat="%(title)s--%(extractor)s_%(id)s--%(format)s.%(ext)s"
+
 if [[ "$1" =~ https?\: ]]; then
     # Set arguments to download a specific link
     yt_args="$yt_args $1"
+
+    # If the link is a playlist, adjust the output files to include the
+    # playlist index
+    [[ "$1" =~ list ]] && yt_outformat="%(playlist_index)s--$yt_outformat"
     shift
 elif [[ -s "$1" ]]; then
     # Set arguments to load links from a text file
@@ -45,5 +51,5 @@ while [[ ! -z "$1" ]]; do
 done
 
 echo -e "\n\n====================\n$(date +%Y_%m%d-%a-%H%M%S)\n\n" >> $LOGFILE
-echo -e "youtube-dl $yt_args\n" >> $LOGFILE
-youtube-dl $yt_args | tee -a $LOGFILE
+echo -e "youtube-dl $yt_args -o '$yt_outformat'\n" >> $LOGFILE
+eval "youtube-dl $yt_args -o '$yt_outformat'" | tee -a $LOGFILE
