@@ -7,5 +7,6 @@ shgrep() {
     [[ -z "$b" ]] && b=0
 
     grep --color -Hn -P $pattern -A $a -B $b \
-    ~/.shell/bash/bash* ~/.shell/zsh/zshrc ~/.shell/common ~/.shell/common.d/* ~/bin/*
+    ~/.shell/bash/bash* ~/.shell/zsh/zshrc ~/.shell/common ~/.shell/common.d/* \
+    ~/bin/* ~/.config/ranger/rc.conf ~/.config/awesome/rc.lua
 }
