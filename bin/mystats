@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 lsb_release -ds 2>/dev/null
-uptime
+uptime -p
 
 echo -e "\n$(whoami)@$(hostname)\n"
-acpi
+acpi | perl -pe 's/^[^:]+:\s(.*)$/$1/'
 
 if [[ $1 == "ip" ]]; then
     echo -ne "\nip-local: "
@@ -19,13 +19,13 @@ echo -e "\npartitions:"
 lsblk -o name,size,type,mountpoint | grep 'part' | sort -k2 -h
 
 echo
-df -h | egrep '(^Filesystem|^/dev)'
+df -h --output=source,target,size,avail | egrep '(^Filesystem|^/dev)'
 
-echo
-w | egrep -v '(load average|xinit/xinitrc)'
+echo -e "\nusers online:"
+who | awk '{print $1,$2}'
 
 echo -e "\nTmux sessions:"
-tmux ls 2>/dev/null
+tmux ls 2>/dev/null | awk '{print $1,$2,$3}'
 
 echo -e "\nVim swap files:"
 find ~ -iname ".*sw[po]" | sort

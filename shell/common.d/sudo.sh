@@ -28,8 +28,11 @@ newuser() {
     echo -e "\nsudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/.dotfiles" >&2
     sudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/.dotfiles
 
-    # Make sure the new users owns all the stuff in their directory
+    # Make sure the new user owns all the stuff in their directory
     sudo chown -R $username:$username /home/$username/
+
+    # Set permissions for the user home directory
+    sudo chmod 700 /home/$username
 }
 
 purgeuser() {
