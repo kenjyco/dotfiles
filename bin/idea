@@ -2,7 +2,12 @@
 
 idea=$1
 [[ -z "$idea" ]] && exit 1
-fname="${idea}.idea"
+
+if [[ "$idea" =~ \.idea$ ]]; then
+    fname="${idea}"
+else
+    fname="${idea}.idea"
+fi
 
 if [[ ! -s "$fname" ]]; then
     # Genarate the file since it does not exist
