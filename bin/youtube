@@ -3,13 +3,14 @@
 # A wrapper to youtube-dl with simplified syntax for common operations
 #
 # Ex:
-#   youtube https://youtube.com/asdfsfda
+#   youtube https://youtube.com/blah
 #   youtube file_of_links.txt --description
 #   youtube file_of_song_links.txt --audio
-#   youtube https://youtube.com/asdfsfda --description --audio
+#   youtube https://youtube.com/blah --description --audio
 
 LOGFILE="youtube.log"
-yt_args="-vk --restrict-filenames --max-quality 22"
+yt_args_orig="-k --no-progress --restrict-filenames --max-quality 22"
+yt_args="$yt_args_orig"
 yt_outformat="%(title)s--%(extractor)s_%(id)s--%(format)s.%(ext)s"
 
 if [[ "$1" =~ https?\: ]]; then
@@ -24,15 +25,22 @@ elif [[ -s "$1" ]]; then
     # Set arguments to load links from a text file
     yt_args="$yt_args -a $1"
     shift
+elif [[ -n "$1" ]]; then
+    # Assume argument is a video id for "youtube.com"
+    yt_args="$yt_args https://www.youtube.com/watch?v=$1"
+    shift
 fi
 
-if [[ "$yt_args" == '-vk' ]]; then
+if [[ "$yt_args" == "$yt_args_orig" ]]; then
     echo "First argument must be a link or text file of links" >&2
     exit 1
 fi
 
 while [[ ! -z "$1" ]]; do
     case "$1" in
+        --thumbnail)
+            yt_args="$yt_args --write-thumbnail"
+            ;;
         --description)
             yt_args="$yt_args --write-description"
             ;;
@@ -50,6 +58,6 @@ while [[ ! -z "$1" ]]; do
     fi
 done
 
-echo -e "\n\n====================\n$(date +%Y_%m%d-%a-%H%M%S)\n\n" >> $LOGFILE
+echo -e "\n\n====================\n$(date +%Y_%m%d-%a-%H%M%S)\n$(pwd)\n" >> $LOGFILE
 echo -e "youtube-dl $yt_args -o '$yt_outformat'\n" >> $LOGFILE
 eval "youtube-dl $yt_args -o '$yt_outformat'" | tee -a $LOGFILE
