@@ -1,5 +1,5 @@
 alias update-submodules="git submodule foreach 'git checkout master && git pull origin master'"
-alias branchname="git rev-parse --abbrev-ref HEAD"
+alias branchname="git rev-parse --abbrev-ref HEAD 2>/dev/null"
 
 alias glog="git log --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an'"
 alias glog2="glog --date local --name-status"
@@ -22,8 +22,13 @@ _repo-status() {
     oldpwd=$(pwd)
     for repo in $(repo-list | xargs -d \\n); do
         cd $repo
-        output=$(git status -s)
-        [[ ! -z "$output" ]] && echo -e "\n===============\n$(pwd)\n$output"
+        gstatus=$(git status -s)
+        branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        if [[ ! -z "$gstatus" ]]; then
+            echo -e "\n===============\n$(pwd) -- $branch\n$gstatus"
+        else
+        fi
+
     done
     cd "$oldpwd"
 }
