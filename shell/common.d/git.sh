@@ -20,11 +20,12 @@ repo-remotes() {
 
 _repo-status() {
     oldpwd=$(pwd)
+    echo "Showing repos that have changes"
     for repo in $(repo-list | xargs -d \\n); do
         cd $repo
         gstatus=$(git status -s)
         branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-        if [[ ! -z "$gstatus" ]]; then
+        if [[ -n "$gstatus" ]]; then
             echo -e "\n===============\n$(pwd) -- $branch\n$gstatus"
         else
         fi
@@ -43,10 +44,11 @@ repos-update-all() {
         cd $repo
         echo -e "\n===============\n$(pwd)"
         gstatus=$(git status -s)
+        branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
         if [[ -z "$gstatus" ]]; then
             echo " - Repository is clean"
             git pull
-        elif [[ $(git rev-parse --abbrev-ref HEAD) =~ (master|production) ]]; then
+        elif [[ "$branch" =~ (master|production) ]]; then
             echo " - Dirty repo on master or production.. gonna do 'stash pull pop'"
             git stash
             git pull
