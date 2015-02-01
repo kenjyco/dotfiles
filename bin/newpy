@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+name=$1
+[[ -z "$name" ]] && exit 1
+
+component_dir_path="$HOME/py/components/$name"
+
+if [[ -d $component_dir_path ]]; then
+    echo "$component_dir_path already exists" >&2
+    exit 1
+fi
+
+mkdir -pv $component_dir_path
+cp -av $HOME/py/.skel/* $component_dir_path
+touch $component_dir_path/__init__.py
+touch $component_dir_path/__main__.py
+touch $component_dir_path/$name.py
+
+cd $component_dir_path
+if [[ -z "$TMUX" ]]; then
+    # Open the files with vim
+    vim -o $name.py __init__.py __main__.py
+else
+    # Create a new window in existing tmux session
+    tmux new-window -n "py-$name"
+
+    # Split the tmux window and open the file with vim (in insert mode, at the
+    # end of the file)
+    tmux split-window -h "vim -o $name.py __init__.py __main__.py"
+fi

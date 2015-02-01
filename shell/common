@@ -36,6 +36,12 @@ for f in $HOME/.shell/common.d/*; do
     source $f
 done
 
+# Set the PYTHONPATH variable
+if [[ -d $HOME/py/components ]]; then
+    PYTHONPATH="$HOME/py/components:$PYTHONPATH"
+    export PYTHONPATH
+fi
+
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
 [[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
 
