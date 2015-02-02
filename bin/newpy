@@ -16,15 +16,22 @@ touch $component_dir_path/__init__.py
 touch $component_dir_path/__main__.py
 touch $component_dir_path/$name.py
 
+template="#!/usr/bin/env python\n\n# $name.py\n\n"
+echo -e "$template" >> $component_dir_path/$name.py
+
 cd $component_dir_path
 if [[ -z "$TMUX" ]]; then
     # Open the files with vim
-    vim -o $name.py __init__.py __main__.py
+    vim + -c 'startinsert' $name.py
 else
+    # Actually create the environment so we can start ipython in a tmux pane
+    ./setup.bash
+
     # Create a new window in existing tmux session
     tmux new-window -n "py-$name"
 
     # Split the tmux window and open the file with vim (in insert mode, at the
     # end of the file)
-    tmux split-window -h "vim -o $name.py __init__.py __main__.py"
+    tmux split-window -h "source env/bin/activate && ipython"
+    tmux split-window -v "vim + -c 'startinsert' $name.py"
 fi
