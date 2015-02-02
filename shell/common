@@ -16,6 +16,35 @@ commonn() {
     pwd && ls -gothrA
 }
 
+# A wrapper around either `which`, `type -a`, or `man`
+helpme() {
+    cmd=$1
+    [[ -z "$cmd" ]] && cmd="helpme"
+
+    outfile="/tmp/helpme-$cmd.txt"
+    rm $outfile 2>/dev/null
+    touch $outfile
+
+    # The `command -v` output is the same for Bash and Zsh
+    cv=$(command -v $cmd)
+
+    if [[ ! $cv =~ \/.* ]]; then
+        echo -e "'$cv' is a shell function or builtin\n" >> $outfile
+        if [[ -n "$BASH_VERSION" ]]; then
+            type -a $cmd >> $outfile
+        elif [[ -n "$ZSH_VERSION" ]]; then
+            which $cmd >> $outfile
+        fi
+    elif [[ $cv =~ $HOME ]]; then
+        echo -e "'$cv' path is in $HOME\n" >> $outfile
+        cat $cv >> $outfile
+    else
+        man $cmd && return 0
+    fi
+
+    less -FX $outfile
+}
+
 # Add aliases for ..
 alias ..="cd .."
 alias ...="cd ../.."
