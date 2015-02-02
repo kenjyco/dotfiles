@@ -28,4 +28,4 @@ echo -e "\nTmux sessions:"
 tmux ls 2>/dev/null | awk '{print $1,$2,$3}'
 
 echo -e "\nVim swap files:"
-find ~ -iname ".*sw[po]" | sort
+find ~ -name ".*sw[po]" -exec basename {} \; | sort | uniq
