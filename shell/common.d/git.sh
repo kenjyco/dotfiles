@@ -5,6 +5,32 @@ alias glog="git log --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue
 alias glog2="glog --date local --name-status"
 alias glogp="git log -p --full-diff"
 
+gstatus() {
+    oldpwd=$(pwd)
+
+    # Determine repository path
+    dirname=$(pwd)
+    while [[ ! -d "$dirname/.git" ]]; do
+        cd ..
+        dirname=$(pwd)
+
+        if [[ $(pwd) == '/' ]]; then
+            cd $oldpwd
+            return 1
+        fi
+    done
+    _repo_path=$(pwd)
+
+    # Determine other relevant info
+    _repo_remote=$(grep url .git/config | head -n 1 | perl -pe 's/^\s+url = (.*)$/$1/')
+    _repo_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+    cd $oldpwd
+    echo -e "$_repo_path -- $_repo_remote -- $_repo_branch"
+    pwd
+    git status -s
+}
+
 repo-list() {
     level=$1
     [[ ! "$level" =~ [0-9]+ ]] && level=3
@@ -23,10 +49,10 @@ _repo-status() {
     echo "Showing repos that have changes"
     for repo in $(repo-list | xargs -d \\n); do
         cd $repo
-        gstatus=$(git status -s)
+        filestatus=$(git status -s)
         branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-        if [[ -n "$gstatus" ]]; then
-            echo -e "\n===============\n$(pwd) -- $branch\n$gstatus"
+        if [[ -n "$filestatus" ]]; then
+            echo -e "\n===============\n$(pwd) -- $branch\n$filestatus"
         else
         fi
 
@@ -43,9 +69,9 @@ repos-update-all() {
     for repo in $(repo-list | xargs -d \\n); do
         cd $repo
         echo -e "\n===============\n$(pwd)"
-        gstatus=$(git status -s)
+        filestatus=$(git status -s)
         branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-        if [[ -z "$gstatus" ]]; then
+        if [[ -z "$filestatus" ]]; then
             echo " - Repository is clean"
             git pull
         elif [[ "$branch" =~ (master|production) ]]; then
