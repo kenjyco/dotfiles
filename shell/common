@@ -42,6 +42,8 @@ helpme() {
         man $cmd && return 0
     fi
 
+    echo -e "\n--------------------\n" >> $outfile
+    shgrep "\b$cmd\b" >> $outfile
     less -FX $outfile
 }
 

@@ -53,7 +53,6 @@ _repo-status() {
         branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
         if [[ -n "$filestatus" ]]; then
             echo -e "\n===============\n$(pwd) -- $branch\n$filestatus"
-        else
         fi
 
     done
