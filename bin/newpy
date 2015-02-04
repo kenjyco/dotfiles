@@ -2,6 +2,25 @@
 
 name=$1
 [[ -z "$name" ]] && exit 1
+shift
+
+req_file="requirements.txt"
+
+while [[ ! -z "$1" ]]; do
+    case "$1" in
+        --tasty)
+            req_file="requirements-tastypie.txt"
+            ;;
+        *)
+            echo "Unknown parameter: $1" >&2
+            exit 1
+    esac
+
+    if ! shift; then
+        echo "Missing parameter argument" >&2
+        exit 1
+    fi
+done
 
 component_dir_path="$HOME/py/components/$name"
 
@@ -11,18 +30,14 @@ if [[ -d $component_dir_path ]]; then
 fi
 
 mkdir -pv $component_dir_path
-cp -av $HOME/py/.skel/* $component_dir_path
-touch $component_dir_path/__init__.py
-touch $component_dir_path/__main__.py
-touch $component_dir_path/$name.py
-
-template="#!/usr/bin/env python\n\n# $name.py\n\n"
-echo -e "$template" >> $component_dir_path/$name.py
+cp -av $HOME/py/.skel/setup.bash $component_dir_path
+cp -av $HOME/py/.skel/$req_file $component_dir_path/requirements.txt
+echo -e "${name}\n----------\n" > $component_dir_path/$name.md || exit 1
 
 cd $component_dir_path
 if [[ -z "$TMUX" ]]; then
-    # Open the files with vim
-    vim + -c 'startinsert' $name.py
+    # Open the markdown file with vim
+    vim + -c 'startinsert' $name.md
 else
     # Actually create the environment so we can start ipython in a tmux pane
     ./setup.bash
@@ -33,5 +48,5 @@ else
     # Split the tmux window and open the file with vim (in insert mode, at the
     # end of the file)
     tmux split-window -h "source env/bin/activate && ipython"
-    tmux split-window -v "vim + -c 'startinsert' $name.py"
+    tmux split-window -v "vim + -c 'startinsert' $name.md"
 fi

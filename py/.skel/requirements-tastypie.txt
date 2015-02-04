@@ -1,0 +1,11 @@
+# Don't run `pip install -r requirements.txt`, run `./setup.bash`
+
+ipython==2.3.1
+ipdb==0.8
+flake8==2.3.0
+pytest==2.6.4
+git+git://github.com/mverteuil/pytest-ipdb.git
+
+psycopg2==2.5.4
+Django==1.7.4
+django-tastypie==0.12.1

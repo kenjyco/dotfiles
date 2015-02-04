@@ -5,7 +5,7 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 
 if [[ -f /usr/bin/apt-get ]]; then
     # Update the system package lists
-    sudo apt-get update
+    # sudo apt-get update
 
     # Install the system requirements for __________
     # sudo apt-get install -y __________
