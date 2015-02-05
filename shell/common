@@ -39,7 +39,8 @@ helpme() {
         echo -e "'$cv' path is in $HOME\n" >> $outfile
         cat $cv >> $outfile
     else
-        man $cmd && return 0
+        echo -e "${cv}\nFor more info, try 'man $cmd'"
+        return 0
     fi
 
     echo -e "\n--------------------\n" >> $outfile
