@@ -5,11 +5,14 @@ name=$1
 shift
 
 req_file="requirements.txt"
+start_interactive="env/bin/ipython"
 
 while [[ ! -z "$1" ]]; do
     case "$1" in
         --tasty)
             req_file="requirements-tastypie.txt"
+            start_interactive="env/bin/python manage.py shell"
+            do_tasty="yea"
             ;;
         *)
             echo "Unknown parameter: $1" >&2
@@ -30,23 +33,26 @@ if [[ -d $component_dir_path ]]; then
 fi
 
 mkdir -pv $component_dir_path
-cp -av $HOME/py/.skel/setup.bash $component_dir_path
-cp -av $HOME/py/.skel/$req_file $component_dir_path/requirements.txt
-echo -e "${name}\n----------\n" > $component_dir_path/$name.md || exit 1
+cd $component_dir_path || exit 1
+cp -av $HOME/py/.skel/setup.bash .
+cp -av $HOME/py/.skel/$req_file requirements.txt
 
-cd $component_dir_path
+# Actually create the environment
+./setup.bash || exit 1
+
+# Perform any post-install steps
+if [[ -n "$do_tasty" ]]; then
+    echo -e "\nenv/bin/django-admin.py startproject mysite ." >&2
+    env/bin/django-admin.py startproject mysite .
+fi
+
 if [[ -z "$TMUX" ]]; then
-    # Open the markdown file with vim
-    vim + -c 'startinsert' $name.md
+    # Start interactive session
+    eval '$start_interactive'
 else
-    # Actually create the environment so we can start ipython in a tmux pane
-    ./setup.bash
-
     # Create a new window in existing tmux session
     tmux new-window -n "py-$name"
 
-    # Split the tmux window and open the file with vim (in insert mode, at the
-    # end of the file)
-    tmux split-window -h "source env/bin/activate && ipython"
-    tmux split-window -v "vim + -c 'startinsert' $name.md"
+    # Split the tmux window and start interactive session
+    tmux split-window -h "eval '$start_interactive'"
 fi
