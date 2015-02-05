@@ -67,6 +67,13 @@ git submodule init && git submodule update
 # Download/install Vim plugins added to vundle
 vim +PluginInstall +qall
 
+# Setup grip
+cd $HOME/.shell/extra/grip
+virtualenv --no-site-packages .
+source ./bin/activate
+python setup.py install
+deactivate
+
 # List the symbolic links that exist in $HOME
 echo -e "\nListing symbolic links that exist in $HOME"
 ls -FgohA $HOME | grep '^l'
@@ -75,10 +82,3 @@ ls -FgohA $HOME | grep '^l'
 cd $HOME/.config
 echo -e "\nListing symbolic links that exist in $HOME/.config"
 ls -FgohA {ranger,awesome}/* 2>/dev/null | grep '^l'
-
-# Setup grip
-cd $HOME/.shell/extra/grip
-virtualenv --no-site-packages .
-source ./bin/activate
-python setup.py install
-deactivate
