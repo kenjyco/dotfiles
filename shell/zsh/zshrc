@@ -37,7 +37,14 @@ bindkey -M vicmd '/' history-incremental-pattern-search-forward
 
 # Set prompt
 autoload -U colors && colors
-PROMPT="%{$fg[yellow]%}%c %# %{$reset_color%}"
+PROMPT="%{$fg_bold[yellow]%}%c %# %{$reset_color%}"
+
+# Add function to switch to a verbose prompt
+prompt-verbose() {
+    PROMPT="
+%{$fg_bold[green]%}%n@%m:%{$fg[white]%}%~ %{$fg[blue]%}%D{[%I:%M:%S]}
+%{$fg[yellow]%}%# %{$reset_color%}"
+}
 
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
