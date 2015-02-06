@@ -4,7 +4,7 @@
 #   grip-many . --hours 5
 grip-many() {
     dirname=$1
-    if [[ ! -z "$dirname" ]]; then
+    if [[ -n "$dirname" ]]; then
         shift
         if [[ ! -d "$dirname" ]]; then
             echo "$dirname is not a directory" >&2

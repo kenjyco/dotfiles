@@ -7,7 +7,7 @@ export NODE_VIRTUAL_ENV_DISABLE_PROMPT=1
 activate() {
     envpy="$1"
     envjs="$2"
-    if [[ "$envpy" == "$envjs" && ! -z "$envjs" ]]; then
+    if [[ "$envpy" == "$envjs" && -n "$envjs" ]]; then
         echo "Abort: node env cannot be the same as python env!"
         return 1
     fi
@@ -33,7 +33,7 @@ activate() {
     source "${envpy}/bin/activate"
 
     # Activate node environment, if specified.
-    if [[ ! -z "$envjs" ]]; then
+    if [[ -n "$envjs" ]]; then
         if [[ ! -f "${envjs}/bin/activate" ]]; then
             Deactivate
             echo "Abort: No activation script at ${envjs}/bin/activate"
@@ -50,7 +50,7 @@ activate() {
 makeenv() {
     envpy="$1"
     envjs="$2"
-    if [[ "$envpy" == "$envjs" && ! -z "$envjs" ]]; then
+    if [[ "$envpy" == "$envjs" && -n "$envjs" ]]; then
         echo "Abort: node env cannot be the same as python env!"
         return 1
     fi
@@ -70,7 +70,7 @@ makeenv() {
     [[ -f requirements.txt ]] && ${envpy}/bin/pip install -r requirements.txt
 
     # Create node environment (if specified) and activate environment(s).
-    if [[ ! -z "$envjs" ]]; then
+    if [[ -n "$envjs" ]]; then
         # Install nodeenv to the python virtual environment.
         ${envpy}/bin/pip install nodeenv
 
@@ -117,7 +117,7 @@ try-it() {
 
     # If a script name was passed in, or if there is only one .py file in the
     # directory, run it and deactivate the virtual environment.
-    if [ ! -z "$script" ]; then
+    if [ -n "$script" ]; then
         python "$script" $@
         Deactivate
         cd $OLDPWD

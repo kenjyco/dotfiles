@@ -17,7 +17,7 @@ if [[ ! -d "$dirname" ]]; then
     exit 1
 fi
 
-while [[ ! -z "$1" ]]; do
+while [[ -n "$1" ]]; do
     case "$1" in
         --depth)
             depth=$2
@@ -69,11 +69,11 @@ else
     find_cmd="find $dirname -type f"
 fi
 
-if [[ ! -z "$pattern" ]]; then
+if [[ -n "$pattern" ]]; then
     find_cmd="$find_cmd -name '$pattern'"
-elif [[ ! -z "$ipattern" ]]; then
+elif [[ -n "$ipattern" ]]; then
     find_cmd="$find_cmd -iname '$ipattern'"
-elif [[ ! -z "$complex" ]]; then
+elif [[ -n "$complex" ]]; then
     find_cmd="$find_cmd $complex"
 fi
 
@@ -89,11 +89,11 @@ elif [[ "$months" == [0-9]* ]]; then
     find_cmd="$find_cmd -mmin -$((60 * 24 * 31 * $months))"
 fi
 
-if [[ ! -z "$stamp" ]]; then
+if [[ -n "$stamp" ]]; then
     find_cmd="$find_cmd $stamp"
 fi
 
-if [[ ! -z "$pipe" ]]; then
+if [[ -n "$pipe" ]]; then
     echo "$find_cmd | xargs -d \\\\n $pipe" >&2
     eval "$find_cmd" | xargs -d \\n $pipe
 else

@@ -36,7 +36,7 @@ if [[ "$yt_args" == "$yt_args_orig" ]]; then
     exit 1
 fi
 
-while [[ ! -z "$1" ]]; do
+while [[ -n "$1" ]]; do
     case "$1" in
         --thumbnail)
             yt_args="$yt_args --write-thumbnail"

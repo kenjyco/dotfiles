@@ -7,7 +7,7 @@ shift
 req_file="requirements.txt"
 start_interactive="env/bin/ipython"
 
-while [[ ! -z "$1" ]]; do
+while [[ -n "$1" ]]; do
     case "$1" in
         --tasty)
             req_file="requirements-tastypie.txt"
