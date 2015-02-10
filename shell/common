@@ -2,18 +2,10 @@
 dotfiles() {
     [[ -f $HOME/.dotfiles_path ]] && cd $(cat $HOME/.dotfiles_path)
 }
-dotfiless() {
-    dotfiles
-    pwd && tree -Fa -I '.git|*.swp|backup_dotfiles' && git status
-}
 
 # Call `common` to automatically move to the dotfiles/shell/common.d directory
 common() {
     [[ -f $HOME/.dotfiles_path ]] && cd $(cat $HOME/.dotfiles_path)/shell/common.d
-}
-commonn() {
-    common
-    pwd && ls -gothrA
 }
 
 # A wrapper around either `which`, `type -a`, or `man`
