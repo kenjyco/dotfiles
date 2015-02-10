@@ -55,6 +55,9 @@ set ruler
 set showcmd
 set showmode
 
+" Always display the status line
+set laststatus=2
+
 " Highlight all search matches and show in-progress matches while typing
 set hlsearch
 set incsearch
