@@ -24,6 +24,10 @@ filetype plugin indent on
 
 syntax on
 
+" Set the current row of the cursor to be darkgrey
+set cursorline
+hi CursorLine cterm=None ctermbg=darkgrey ctermfg=None
+
 " Allow mouse to resize splits without moving the cursor
 set mouse=a
 nnoremap <LeftMouse> m'<LeftMouse>
