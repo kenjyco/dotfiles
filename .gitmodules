@@ -10,3 +10,6 @@
 [submodule "shell/extra/grip"]
 	path = shell/extra/grip
 	url = https://github.com/joeyespo/grip
+[submodule "tmux/plugins/tmux-yank"]
+	path = tmux/plugins/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank
