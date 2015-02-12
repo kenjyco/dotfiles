@@ -8,6 +8,11 @@ common() {
     [[ -f $HOME/.dotfiles_path ]] && cd $(cat $HOME/.dotfiles_path)/shell/common.d
 }
 
+# Call `components` to automatically move to the ~/py/components directory
+components() {
+    [[ -d $HOME/py/components ]] && cd $HOME/py/components
+}
+
 # A wrapper around either `which`, `type -a`, or `man`
 helpme() {
     cmd=$1
