@@ -17,25 +17,38 @@ helpme() {
     rm $outfile 2>/dev/null
     touch $outfile
 
+    # Print some help text about how this function should be invoked
+    if [[ "$cmd" == "helpme" ]]; then
+        echo "Usage: helpme command" >> $outfile
+        echo "Use 'k' and 'j' to scroll up and down" >> $outfile
+        echo -e "Use 'q' to exit.\n\n" >> $outfile
+    fi
+
     # The `command -v` output is the same for Bash and Zsh
     cv=$(command -v $cmd)
 
     if [[ ! $cv =~ \/.* ]]; then
         echo -e "'$cv' is a shell function or builtin\n" >> $outfile
+        echo -e "\n--------------------" >> $outfile
         if [[ -n "$BASH_VERSION" ]]; then
+            echo -e "type -a $cmd\n" >> $outfile
             type -a $cmd >> $outfile
         elif [[ -n "$ZSH_VERSION" ]]; then
+            echo -e "which $cmd\n" >> $outfile
             which $cmd >> $outfile
         fi
     elif [[ $cv =~ $HOME ]]; then
         echo -e "'$cv' path is in $HOME\n" >> $outfile
+        cat $cv >> $outfile
+    elif [[ $cv =~ alias.* ]]; then
         cat $cv >> $outfile
     else
         echo -e "${cv}\nFor more info, try 'man $cmd'"
         return 0
     fi
 
-    echo -e "\n--------------------\n" >> $outfile
+    echo -e "\n--------------------" >> $outfile
+    echo -e "shgrep ${cmd}\n" >> $outfile
     shgrep "\b$cmd\b" >> $outfile
     less -FX $outfile
 }
