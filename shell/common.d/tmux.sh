@@ -5,10 +5,16 @@
 Tmux () {
     session_name=$1
     if [[ -z "$session_name" ]]; then
-        session_name=$(date +%b-%d)
-        session_dir="$HOME/autoday/$session_name"
-        mkdir -p "$session_dir" 2>/dev/null && cd "$session_dir"
+        if [[ -z "$DISPLAY" ]]; then
+            session_name="console"
+        else
+            session_name=$(date +%b-%d)
+            session_dir="$HOME/autoday/$session_name"
+            mkdir -p "$session_dir" 2>/dev/null && cd "$session_dir"
+        fi
     fi
 
     tmux -2 attach-session -t $session_name -d 2>/dev/null || tmux -2 new-session -s $session_name
 }
+
+# Make session name be "console" if X server is not running
