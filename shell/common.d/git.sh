@@ -39,8 +39,8 @@ repo-list() {
 
 repo-remotes() {
     for repo in $(repo-list | xargs -d \\n); do
-        echo -e "\n$repo"
-        grep url $repo/.git/config
+        _repo_remote=$(grep url $repo/.git/config | head -n 1 | perl -pe 's/^\s+url = (.*)$/$1/')
+        echo -e "$repo -- $_repo_remote"
     done
 }
 
