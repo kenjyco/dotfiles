@@ -43,7 +43,11 @@ cp -av $HOME/py/.skel/$req_file requirements.txt
 # Perform any post-install steps
 if [[ -n "$do_tasty" ]]; then
     echo -e "\nenv/bin/django-admin.py startproject mysite ." >&2
+    cp -av $HOME/py/.skel/Tastypie_CHEATSHEET.md .
     env/bin/django-admin.py startproject mysite .
+    cd mysite
+    ../env/bin/django-admin.py startapp $name
+    cd -
 fi
 
 if [[ -z "$TMUX" ]]; then
@@ -53,6 +57,15 @@ else
     # Create a new window in existing tmux session
     tmux new-window -n "py-$name"
 
-    # Split the tmux window and start interactive session
-    tmux split-window -h "eval '$start_interactive'"
+    [[ -n "$do_tasty" ]] && tmux split-window -v "vim -R Tastypie_CHEATSHEET.md"
+
+    # If the current tmux session is only 80 columns, don't split skinny
+    dimensions=$(tmux ls 2>/dev/null | grep attached | perl -pe 's/.*\[(\d+)x(\d+)\].*/$1 x $2/')
+    if [[ $dimensions =~ '80 x' ]]; then
+        tmux split-window -v "eval '$start_interactive'"
+    else
+        # Split the tmux window and start interactive session
+        tmux split-window -h "eval '$start_interactive'"
+    fi
+
 fi
