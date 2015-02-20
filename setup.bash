@@ -71,6 +71,9 @@ git submodule init && git submodule update
 # Download/install Vim plugins added to vundle
 vim +PluginInstall +qall
 
+# Source the ~/.tmux.conf file
+[[ $(tmux -V 2>/dev/null) =~ 1.9 ]] && tmux source-file ~/.tmux.conf
+
 # Setup grip
 cd $HOME/.shell/extra/grip
 virtualenv --no-site-packages .
