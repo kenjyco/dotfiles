@@ -28,6 +28,7 @@ cd $HOME
 [[ ! -L .psqlrc && -f .psqlrc ]] && mv -v .psqlrc "$BACKUP_DOTFILES" || rm -v .psqlrc 2>/dev/null
 [[ ! -L .vimrc && -f .vimrc ]]  && mv -v .vimrc "$BACKUP_DOTFILES" || rm -v .vimrc 2>/dev/null
 [[ ! -L .Xdefaults && -f .Xdefaults ]] && mv -v .Xdefaults "$BACKUP_DOTFILES" || rm -v .Xdefaults 2>/dev/null
+[[ ! -L .xinitrc && -f .xinitrc ]] && mv -v .xinitrc "$BACKUP_DOTFILES" || rm -v .xinitrc 2>/dev/null
 [[ ! -L .zshrc && -f .zshrc ]] && mv -v .zshrc "$BACKUP_DOTFILES" || rm -v .zshrc 2>/dev/null
 
 # Make sure the ~/.config directory exists
@@ -52,6 +53,7 @@ ln -s "$DIR/vim" "$HOME/.vim"
 ln -s "$DIR/tmux" "$HOME/.tmux"
 ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
 ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
+ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
 # Create symbolic links to individual dotfiles that live in ~/.config
