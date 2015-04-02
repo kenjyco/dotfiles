@@ -22,7 +22,7 @@ gstatus() {
     _repo_path=$(pwd)
 
     # Determine other relevant info
-    _repo_remote=$(grep url .git/config | head -n 1 | perl -pe 's/^\s+url = (.*)$/$1/')
+    _repo_remote=$(grep "remote \"origin\"" -A 2 .git/config | grep url | perl -pe 's/^\s+url = (.*)$/$1/')
     _repo_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
     cd $oldpwd
@@ -39,7 +39,7 @@ repo-list() {
 
 repo-remotes() {
     for repo in $(repo-list | xargs -d \\n); do
-        _repo_remote=$(grep url $repo/.git/config | head -n 1 | perl -pe 's/^\s+url = (.*)$/$1/')
+        _repo_remote=$(grep "remote \"origin\"" -A 2 $repo/.git/config | grep url | perl -pe 's/^\s+url = (.*)$/$1/')
         echo -e "$repo -- $_repo_remote"
     done
 }
