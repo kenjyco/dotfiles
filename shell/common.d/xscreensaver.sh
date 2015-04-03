@@ -2,7 +2,8 @@ alias stopsaver="xscreensaver-command -exit"
 
 startsaver() {
     [[ -z $(pgrep xscreensaver) ]] && /usr/bin/xscreensaver -no-splash &
-    xscreensaver-command -activate
+    xscreensaver-command -activate &
+    disown
 }
 
 lockscreen() {
