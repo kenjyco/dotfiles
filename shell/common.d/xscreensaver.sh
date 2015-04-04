@@ -18,6 +18,7 @@ lockscreen() {
         fi
     else
         [[ -z $(pgrep xscreensaver) ]] && /usr/bin/xscreensaver -no-splash &
-        xscreensaver-command -lock
+        xscreensaver-command -lock &
+        disown
     fi
 }
