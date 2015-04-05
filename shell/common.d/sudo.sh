@@ -4,11 +4,14 @@ alias partitions2="sudo blkid"
 
 newuser() {
     username=$1
-    [[ -z "$username" ]] && exit 1
+    if [[ -z "$username" ]]; then
+        echo "Expected a username as first argument" >&2
+        return 1
+    fi
 
     # Create the user
     echo -e "\nsudo useradd -m -s $(which zsh) $username" >&2
-    sudo useradd -m -s $(which zsh) $username || exit 1
+    sudo useradd -m -s $(which zsh) $username || return 1
 
     # Add the user to groups
     if [[ "$2" == sudo ]]; then
