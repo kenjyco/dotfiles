@@ -2,7 +2,7 @@
 #   - if the session doesn't exist, create it
 #   - if no session is specified, use a session named for the current date
 #     (i.e. Feb-01) and start the session from "$HOME/autoday/$session_name/"
-Tmux () {
+Tmux() {
     session_name=$1
     if [[ -z "$session_name" ]]; then
         session_name=$(date +%b-%d)
