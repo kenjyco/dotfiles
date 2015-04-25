@@ -3,23 +3,18 @@
 # Exit this script if not running X
 [[ -z "$DISPLAY" ]] && exit
 
-DEFAULT_TILE="$(cat $HOME/.dotfiles_path)/.images/tiles/black-square.png"
+DEFAULT_LANDSCAPE="$HOME/wallpapers/landscape/XQeeMZU.jpg"
 
 SET_RANDOM_WALLPAPER="False"
 if [[ "$SET_RANDOM_WALLPAPER" =~ [Tt][Rr][Uu][Ee] ]]; then
-    # Set a random wallpaper
     if [[ -d $HOME/wallpapers/landscape ]]; then
         feh --randomize --recursive --bg-fill $HOME/wallpapers/landscape 2>/dev/null
-    elif [[ -d $HOME/wallpapers/tiles ]]; then
-        feh --randomize --recursive --bg-tile $HOME/wallpapers/tiles 2>/dev/null
-    elif [[ -d $HOME/wallpapers/portrait ]]; then
-        feh --randomize --recursive --bg-fill $HOME/wallpapers/portrait 2>/dev/null
     fi
 else
-    feh --bg-tile $DEFAULT_TILE 2>/dev/null
+    feh --bg-fill $DEFAULT_LANDSCAPE 2>/dev/null
 fi
 
-DEFAULT_SCREENSAVER="$(cat $HOME/.dotfiles_path)/x/xscreensaver/substrate-only"
+DEFAULT_SCREENSAVER="$(cat $HOME/.dotfiles_path)/x/xscreensaver/none"
 SET_RANDOM_SCREENSAVER="False"
 rm $HOME/.xscreensaver 2>/dev/null
 if [[ "$SET_RANDOM_SCREENSAVER" =~ [Tt][Rr][Uu][Ee] ]]; then

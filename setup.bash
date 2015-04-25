@@ -17,6 +17,7 @@ echo "cd $HOME"
 cd $HOME
 [[ ! -L bin && -d bin ]] && mv -v bin "$BACKUP_DOTFILES" || rm -v bin 2>/dev/null
 [[ ! -L py && -d py ]] && mv -v py "$BACKUP_DOTFILES" || rm -v py 2>/dev/null
+[[ ! -L wallpapers && -d wallpapers ]] && mv -v wallpapers "$BACKUP_DOTFILES" || rm -v wallpapers 2>/dev/null
 [[ ! -L .shell && -d .shell ]] && mv -v .shell "$BACKUP_DOTFILES" || rm -v .shell 2>/dev/null
 [[ ! -L .vim && -d .vim ]] && mv -v .vim "$BACKUP_DOTFILES" || rm -v .vim 2>/dev/null
 [[ ! -L .tmux && -d .tmux ]] && mv -v .tmux "$BACKUP_DOTFILES" || rm -v .tmux 2>/dev/null
@@ -43,6 +44,7 @@ cd $HOME/.config
 # Create symbolic links to the individual dotfiles
 ln -s "$DIR/bin" "$HOME/bin"
 ln -s "$DIR/py" "$HOME/py"
+ln -s "$DIR/wallpapers" "$HOME/wallpapers"
 ln -s "$DIR/shell" "$HOME/.shell"
 ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
 ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
@@ -65,6 +67,10 @@ ln -s "$DIR/x/awesome/rc.lua" "$HOME/.config/awesome/rc.lua"
 
 # Save the full path to this dotfiles repository to `~/.dotfiles_path`
 echo "$DIR" > $HOME/.dotfiles_path
+
+# Download wallpapers
+cd $DIR/wallpapers
+bash ./download.sh
 
 # Fetch the git submodules required
 cd $DIR
