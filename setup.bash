@@ -29,6 +29,7 @@ cd $HOME
 [[ ! -L .vimrc && -f .vimrc ]]  && mv -v .vimrc "$BACKUP_DOTFILES" || rm -v .vimrc 2>/dev/null
 [[ ! -L .Xdefaults && -f .Xdefaults ]] && mv -v .Xdefaults "$BACKUP_DOTFILES" || rm -v .Xdefaults 2>/dev/null
 [[ ! -L .xinitrc && -f .xinitrc ]] && mv -v .xinitrc "$BACKUP_DOTFILES" || rm -v .xinitrc 2>/dev/null
+[[ ! -L .xscreensaver && -f .xscreensaver ]] && mv -v .xscreensaver "$BACKUP_DOTFILES" || rm -v .xscreensaver 2>/dev/null
 [[ ! -L .zshrc && -f .zshrc ]] && mv -v .zshrc "$BACKUP_DOTFILES" || rm -v .zshrc 2>/dev/null
 
 # Make sure the ~/.config directory exists
