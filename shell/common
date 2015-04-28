@@ -70,8 +70,11 @@ elif [[ -n "$BASH_VERSION" ]]; then
     _all_files_glob=".[!.]* *"
 fi
 
-# Add ~/bin to the PATH
-[[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
+# Add ~/bin and any sub-directories to the PATH
+for somedir in $(find $HOME/bin/ -type d 2>/dev/null | xargs -d \\n); do
+    PATH="$somedir:$PATH"
+done
+export PATH
 
 # Source other files in the `common.d` directory
 for f in $HOME/.shell/common.d/*; do
