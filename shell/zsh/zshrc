@@ -46,5 +46,10 @@ prompt-verbose() {
 %{$fg[yellow]%}%# %{$reset_color%}"
 }
 
+# Add function to switch to a terse prompt (default)
+prompt-terse() {
+    PROMPT="%{$fg_bold[yellow]%}%c %# %{$reset_color%}"
+}
+
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common

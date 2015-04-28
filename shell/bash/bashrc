@@ -32,5 +32,10 @@ prompt-verbose() {
     PS1='\n\[\e[1;32m\]\u@\h:\[\e[0m\]\w \[\e[1;34m\][\T] \n\[\e[1;33m\]\$ \[\e[0m\]'
 }
 
+# Add function to switch to a terse prompt (default)
+prompt-terse() {
+    PS1='\[\e[1;33m\]\W \$\[\e[0m\] '
+}
+
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
