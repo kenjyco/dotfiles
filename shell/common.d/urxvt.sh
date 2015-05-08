@@ -32,3 +32,11 @@ long() {
     urxvt -title 'long' -geometry 213x11 -e zsh &
     [[ $? -eq 0 ]] && disown && exit
 }
+
+double() {
+    urxvt -title 'long' -geometry 107x60 -e zsh &
+    disown
+    urxvt -title 'long' -geometry 106x60 -e zsh &
+    disown
+    exit
+}
