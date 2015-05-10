@@ -40,3 +40,10 @@ double() {
     disown
     exit
 }
+
+windowsize() {
+    size=$1
+    [[ ! "$size" =~ [0-9]+ ]] && size=11
+    urxvt -title "size-$size" -geometry 90x25 -fn "xft:DejaVu Sans Mono:size=$size" -e zsh &
+    [[ $? -eq 0 ]] && disown && exit
+}
