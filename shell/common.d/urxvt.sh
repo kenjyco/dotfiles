@@ -41,6 +41,14 @@ double() {
     exit
 }
 
+double1920() {
+    urxvt -title 'long' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+    disown
+    urxvt -title 'long' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+    disown
+    exit
+}
+
 triple1920() {
     urxvt -title 'long' -geometry 107x82 -e zsh &
     disown
