@@ -41,6 +41,16 @@ double() {
     exit
 }
 
+triple1920() {
+    urxvt -title 'long' -geometry 107x82 -e zsh &
+    disown
+    urxvt -title 'long' -geometry 106x82 -e zsh &
+    disown
+    urxvt -title 'long' -geometry 107x82 -e zsh &
+    disown
+    exit
+}
+
 windowsize() {
     size=$1
     [[ ! "$size" =~ [0-9]+ ]] && size=11
