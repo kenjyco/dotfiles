@@ -34,27 +34,27 @@ long() {
 }
 
 double() {
-    urxvt -title 'long' -geometry 107x60 -e zsh &
+    urxvt -title 'half-a' -geometry 107x60 -e zsh &
     disown
-    urxvt -title 'long' -geometry 106x60 -e zsh &
+    urxvt -title 'half-b' -geometry 106x60 -e zsh &
     disown
     exit
 }
 
 double1920() {
-    urxvt -title 'long' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+    urxvt -title 'half-a' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
     disown
-    urxvt -title 'long' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+    urxvt -title 'half-b' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
     disown
     exit
 }
 
 triple1920() {
-    urxvt -title 'long' -geometry 107x82 -e zsh &
+    urxvt -title 'third-a' -geometry 107x82 -e zsh &
     disown
-    urxvt -title 'long' -geometry 106x82 -e zsh &
+    urxvt -title 'third-b' -geometry 106x82 -e zsh &
     disown
-    urxvt -title 'long' -geometry 107x82 -e zsh &
+    urxvt -title 'third-c' -geometry 107x82 -e zsh &
     disown
     exit
 }
