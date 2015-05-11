@@ -96,8 +96,8 @@ alias aipy='activate && ipython'
 try-it() {
     script=
     if [ -f "$1" ]; then
-        script=`basename "$1"`
-        dname=`dirname "$1"`
+        script=$(basename "$1")
+        dname=$(dirname "$1")
         cd "$dname"
         shift
     elif [ -d "$1" ]; then

@@ -61,7 +61,7 @@ _repo-status() {
 alias repo-status="_repo-status | less -FX"
 
 repos-update-all() {
-    eval `ssh-agent -s`
+    eval $(ssh-agent -s)
     ssh-add
 
     oldpwd=$(pwd)
