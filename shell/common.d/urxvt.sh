@@ -42,10 +42,17 @@ double() {
 }
 
 double1920() {
-    urxvt -title 'half-a' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
-    disown
-    urxvt -title 'half-b' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
-    disown
+    if [[ -n "$1" ]]; then
+        urxvt -title 'half-a' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+        disown
+        urxvt -title 'half-b' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+        disown
+    else
+        urxvt -title 'half-a' -geometry 160x82 -e zsh &
+        disown
+        urxvt -title 'half-b' -geometry 160x82 -e zsh &
+        disown
+    fi
     exit
 }
 
