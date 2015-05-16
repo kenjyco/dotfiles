@@ -58,6 +58,13 @@ helpme() {
     less -FX $outfile
 }
 
+# Get today's autoday directory
+set_autoday_dir() {
+    day_dir="$HOME/autoday/$(date +%b-%d)"
+    mkdir -p "$day_dir" 2>/dev/null
+    export AUTODAY_DIR="$day_dir"
+}
+
 # Add aliases for ..
 alias ..="cd .."
 alias ...="cd ../.."

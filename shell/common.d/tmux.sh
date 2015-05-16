@@ -5,9 +5,9 @@
 Tmux() {
     session_name=$1
     if [[ -z "$session_name" ]]; then
-        session_name=$(date +%b-%d)
-        session_dir="$HOME/autoday/$session_name"
-        mkdir -p "$session_dir" 2>/dev/null && cd "$session_dir"
+        set_autoday_dir
+        session_name=$(basename $AUTODAY_DIR)
+        cd $AUTODAY_DIR
     fi
 
     tmux -2 attach-session -t $session_name -d 2>/dev/null || tmux -2 new-session -s $session_name
