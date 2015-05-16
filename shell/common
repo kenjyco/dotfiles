@@ -76,9 +76,9 @@ for somedir in $(find $HOME/bin/ -type d 2>/dev/null | xargs -d \\n); do
 done
 export PATH
 
-# Source other files in the `common.d` directory
-for f in $HOME/.shell/common.d/*; do
-    source $f
+# Source other `*.sh` files in the `common.d` directory (and sub-directories)
+for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" | xargs -d \\n); do
+    source $somefile
 done
 
 # Set the PYTHONPATH variable
