@@ -38,6 +38,18 @@ newuser() {
     sudo chmod 700 /home/$username
 }
 
+newusergit() {
+    sudo useradd -m -s $(which git-shell) git || return 1
+    sudo chmod 700 /home/git
+    sudo mkdir /home/git/.ssh
+    sudo chmod 700 /home/git/.ssh
+    sudo touch /home/git/.ssh/authorized_keys
+    sudo chmod 600 /home/git/.ssh/authorized_keys
+    sudo chown -R git:git /home/git
+    sudo tree ~git
+    echo -e "\nAdd the git user to the AllowUsers line of '/etc/ssh/sshd_config'"
+}
+
 purgeuser() {
     username=$1
     [[ -z "$username" ]] && return 1
