@@ -13,14 +13,3 @@ if [[ "$SET_RANDOM_WALLPAPER" =~ [Tt][Rr][Uu][Ee] ]]; then
 else
     feh --bg-fill $DEFAULT_LANDSCAPE 2>/dev/null
 fi
-
-DEFAULT_SCREENSAVER="$(cat $HOME/.dotfiles_path)/x/xscreensaver/none"
-SET_RANDOM_SCREENSAVER="False"
-rm $HOME/.xscreensaver 2>/dev/null
-if [[ "$SET_RANDOM_SCREENSAVER" =~ [Tt][Rr][Uu][Ee] ]]; then
-    # Select and link a random screensaver settings file to ~/.xscreensaver
-    selection=$(find $(cat ~/.dotfiles_path)/x/xscreensaver -type f | shuf -n 1)
-    ln -s $selection $HOME/.xscreensaver
-else
-    ln -s $DEFAULT_SCREENSAVER $HOME/.xscreensaver
-fi
