@@ -60,7 +60,7 @@ helpme() {
 
 # Get today's autoday directory
 set_autoday_dir() {
-    day_dir="$HOME/autoday/$(date +%b-%d)"
+    day_dir="$HOME/autoday/$(date +%Y)/$(date +%b-%d)"
     mkdir -p "$day_dir" 2>/dev/null
     export AUTODAY_DIR="$day_dir"
 }
