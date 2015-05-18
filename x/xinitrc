@@ -1,2 +1,1 @@
-urxvt -title 'FIRST' -geometry 125x40 -fn "xft:DejaVu Sans Mono:size=11" &
 exec awesome
