@@ -66,6 +66,30 @@ triple1920() {
     exit
 }
 
+work(){
+    urxvt -title 'work-tmux' -geometry 83x60 -e zsh -c 'tmux' &
+    disown
+    urxvt -title 'half-a' -geometry 130x30 -e zsh &
+    disown
+    urxvt -title 'half-b' -geometry 130x30 -e zsh &
+    disown
+    exit
+}
+
+work1920() {
+    urxvt -title 'work-tmux' -geometry 106x82 -e zsh -c 'tmux' &
+    disown
+    urxvt -title 'quad-a' -geometry 107x41 -e zsh &
+    disown
+    urxvt -title 'quad-b' -geometry 107x41 -e zsh &
+    disown
+    urxvt -title 'quad-c' -geometry 107x41 -e zsh &
+    disown
+    urxvt -title 'quad-d' -geometry 107x41 -e zsh &
+    disown
+    exit
+}
+
 windowsize() {
     size=$1
     [[ ! "$size" =~ [0-9]+ ]] && size=11
