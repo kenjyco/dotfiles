@@ -28,7 +28,11 @@ the commands to a file, then run the file** to accomplish the task.
 
 When bash or zsh are used as your **interactive login shell**, the personal
 initialization file is loaded (from `~/.bashrc` or `~/.zshrc`) as soon as an
-interactive session starts.
+interactive session starts (which contains aliases and functions among other
+things).
+
+> See: http://unix.stackexchange.com/a/30964 for in-depth answer about when to
+> use shell scripts and when to use functions and aliases.
 
 #### Vim
 [vim]: http://www.vim.org/about.php
