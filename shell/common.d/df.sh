@@ -1,1 +1,1 @@
-alias dfh="df -h | egrep '(^Filesystem|^/dev)'"
+alias dfh="df -Th --total | egrep -v '(^none|^udev|^tmpfs)'"
