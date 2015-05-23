@@ -50,9 +50,11 @@ _repo-status() {
     for repo in $(repo-list | xargs -d \\n); do
         cd $repo
         filestatus=$(git status -s)
+        newcommits=$(git log  @{u}.. 2>/dev/null)
         branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-        if [[ -n "$filestatus" ]]; then
+        if [[ -n "$filestatus" || -n "$newcommits" ]]; then
             echo -e "\n===============\n$(pwd) -- $branch\n$filestatus"
+            [[ -n "$newcommits" ]] && echo $newcommits
         fi
 
     done
