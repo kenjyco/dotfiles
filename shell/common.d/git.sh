@@ -24,13 +24,13 @@ gstatus() {
     # Determine other relevant info
     _repo_remote=$(grep "remote \"origin\"" -A 2 .git/config | grep url | perl -pe 's/^\s+url = (.*)$/$1/')
     _repo_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    newcommits=$(git log  @{u}.. 2>/dev/null)
+    newcommits=$(git log --oneline @{u}.. 2>/dev/null)
 
     cd $oldpwd
     echo -e "$_repo_path -- $_repo_remote -- $_repo_branch"
     pwd
     git status -s
-    [[ -n "$newcommits" ]] && echo $newcommits
+    [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
 }
 
 repo-list() {
@@ -52,11 +52,11 @@ _repo-status() {
     for repo in $(repo-list | xargs -d \\n); do
         cd $repo
         filestatus=$(git status -s)
-        newcommits=$(git log  @{u}.. 2>/dev/null)
+        newcommits=$(git log --oneline @{u}.. 2>/dev/null)
         branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
         if [[ -n "$filestatus" || -n "$newcommits" ]]; then
             echo -e "\n===============\n$(pwd) -- $branch\n$filestatus"
-            [[ -n "$newcommits" ]] && echo $newcommits
+            [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
         fi
 
     done
