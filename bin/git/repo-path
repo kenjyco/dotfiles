@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Display the path to the repository that contains the specified directory
+
+path=$1
+[[ -z "$path" ]] && path=$(pwd)
+if [[ ! "$path" =~ ^/ ]]; then
+    echo "Call with absolute path or no arguments"
+    exit 1
+fi
+
+while [[ ! -d "$path/.git" ]]; do
+    path=$(dirname $path)
+
+    if [[ $path == '/' ]]; then
+        exit 1
+    fi
+done
+echo $path

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+level=$1
+[[ ! "$level" =~ [0-9]+ ]] && level=3
+find ~ -maxdepth $level -type d -name ".git" | xargs -d \\n dirname 2>/dev/null | sort 

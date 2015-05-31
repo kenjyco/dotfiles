@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+GIT_HOST="lanie"
+REMOTE_USER="git"
+REMOTE_REPO_DIR="/home/git"
+
+repo=$1
+[[ -z "$repo" ]] && exit 1
+
+remote_path="${REMOTE_REPO_DIR}/${repo}"
+remote_command="sudo git init --bare \"$remote_path\" && sudo chown -R ${REMOTE_USER}:${REMOTE_USER} $remote_path"
+
+sshlazy 2>/dev/null
+echo "ssh $GIT_HOST -t \"$remote_command\""
+ssh $GIT_HOST -t "$remote_command"
+
+if [[ "$REMOTE_REPO_DIR" == "/home/$REMOTE_USER" ]]; then
+    repo_path="$repo"
+else
+    repo_path="$remote_path"
+fi
+
+echo -e "\ngit clone ${REMOTE_USER}@${GIT_HOST}:${repo_path}"
+git clone ${REMOTE_USER}@${GIT_HOST}:${repo_path}
