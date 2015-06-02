@@ -4,10 +4,8 @@
 
 path=$1
 [[ -z "$path" ]] && path=$(pwd)
-if [[ ! "$path" =~ ^/ ]]; then
-    echo "Call with absolute path or no arguments"
-    exit 1
-fi
+[[ ! "$path" =~ ^/ ]] && path=$(realpath $path 2>/dev/null)
+[[ -z "$path" ]] && exit 1
 
 while [[ ! -d "$path/.git" ]]; do
     path=$(dirname $path)
