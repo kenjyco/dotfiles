@@ -3,35 +3,7 @@ alias update-submodules="git submodule foreach --recursive git pull origin maste
 alias glog="git log --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an'"
 alias glog2="glog --date local --name-status"
 
-gstatus() {
-    _repo_path=$(repo-path)
-    _repo_remote=$(repo-remote)
-    _repo_branch=$(branchname)
-    newcommits=$(unpushed-commits)
-
-    echo -e "$_repo_path -- $_repo_remote -- $_repo_branch"
-    pwd
-    git status -s
-    [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
-}
-
-_repo-status() {
-    oldpwd=$(pwd)
-    echo "Showing repos that have changes"
-    for repo in $(all-repos-list | xargs -d \\n); do
-        cd $repo
-        filestatus=$(git status -s)
-        newcommits=$(unpushed-commits)
-        branch=$(branchname)
-        if [[ -n "$filestatus" || -n "$newcommits" ]]; then
-            echo -e "\n===============\n$(pwd) -- $branch\n$filestatus"
-            [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
-        fi
-
-    done
-    cd "$oldpwd"
-}
-alias repo-status="_repo-status | less -FX"
+alias gstatus="repo-status"
 
 repos-update-all() {
     sshlazy

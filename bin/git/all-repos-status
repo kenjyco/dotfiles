@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+# Display info about repositories that have changes
+
+echo "Showing repos that have changes"
+for repo in $(all-repos-list | xargs -d \\n); do
+    _filestatus=$(filestatus $repo)
+    remote=$(repo-remote $repo)
+    branch=$(branchname $repo)
+    newcommits=$(unpushed-commits $repo)
+    if [[ -n "$_filestatus" || -n "$newcommits" ]]; then
+        echo -e "\n==============="
+        echo -e "$repo -- $remote --  $branch\n$_filestatus"
+        [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
+    fi
+done

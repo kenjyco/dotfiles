@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+path=$1
+[[ -z "$path" ]] && path=$(pwd)
+path=$(repo-path $path)
+[[ -z "$path" ]] && exit 1
+
+remote=$(repo-remote $path)
+branch=$(branchname $path)
+newcommits=$(unpushed-commits $path)
+
+echo -e "$path -- $remote -- $branch"
+if [[ -n "$1" ]]; then
+    cd $path
+    git status -s
+else
+    # Show the relative paths if inside a repo already
+    pwd
+    git status -s
+fi
+
+[[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
