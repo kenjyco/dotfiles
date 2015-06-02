@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then
+    git status -s
+else
+    path=$(repo-path $1)
+    [[ -z "$path" ]] && exit 1
+    cd $path
+    git status -s
+fi
