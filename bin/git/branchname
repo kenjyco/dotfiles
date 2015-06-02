@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-git rev-parse --abbrev-ref HEAD 2>/dev/null
+if [[ -z "$1" ]]; then
+    git rev-parse --abbrev-ref HEAD 2>/dev/null
+else
+    path=$(repo-path $1)
+    [[ -z "$path" ]] && exit 1
+    cd $path
+    git rev-parse --abbrev-ref HEAD 2>/dev/null
+fi
