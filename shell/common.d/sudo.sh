@@ -1,6 +1,7 @@
 alias shutdown="sudo shutdown -h +0"
 alias reboot="sudo reboot"
 alias partitions2="sudo blkid"
+alias sudoers="getent group sudo"
 
 newuser() {
     username=$1
