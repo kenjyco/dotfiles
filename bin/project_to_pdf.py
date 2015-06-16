@@ -81,6 +81,6 @@ if __name__ == '__main__':
     try:
         some_dir = sys.argv[1]
     except IndexError:
-        some_dir = 'env/lib/python2.7/site-packages/tastypie/'
+        some_dir = '.'
 
     project_to_pdfs(some_dir)
