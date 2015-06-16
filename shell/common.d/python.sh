@@ -66,7 +66,7 @@ makeenv() {
         rm -rf $envpy 2>/dev/null
         return 1
     fi
-    ${envpy}/bin/pip install ipython ipdb
+    ${envpy}/bin/pip install ipython ipdb pytest git+git://github.com/mverteuil/pytest-ipdb.git
     [[ -f requirements.txt ]] && ${envpy}/bin/pip install -r requirements.txt
 
     # Create node environment (if specified) and activate environment(s).
