@@ -9,7 +9,7 @@
 #   youtube https://youtube.com/blah --description --audio
 
 LOGFILE="youtube.log"
-yt_args_orig="-k --no-progress --restrict-filenames --max-quality 22"
+yt_args_orig="-k --no-progress --restrict-filenames"
 yt_args="$yt_args_orig"
 yt_outformat="%(title)s--%(extractor)s_%(id)s--%(format)s.%(ext)s"
 
