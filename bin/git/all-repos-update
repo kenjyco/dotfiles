@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+for repo in $(all-repos-list | xargs -d \\n); do
+    repo-update $repo
+done
+
