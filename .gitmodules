@@ -14,6 +14,3 @@
 	path = shell/extra/grip
 	url = https://github.com/joeyespo/grip
     ignore = dirty
-[submodule "py/components/kenjyco"]
-	path = py/components/kenjyco
-	url = https://github.com/kenjyco/kenjyco
