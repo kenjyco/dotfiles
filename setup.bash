@@ -59,6 +59,9 @@ ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
+# Create the py/components/ directory if it doesn't exist
+[[ ! -d "$HOME/py/components" ]] && mkdir -pv "$HOME/py/components"
+
 # Create symbolic links to individual dotfiles that live in ~/.config
 [[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"
 ln -s "$DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
