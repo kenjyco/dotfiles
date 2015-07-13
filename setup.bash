@@ -62,6 +62,15 @@ ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 # Create the py/components/ directory if it doesn't exist
 [[ ! -d "$HOME/py/components" ]] && mkdir -pv "$HOME/py/components"
 
+# Clone kenjyco and extract_utils repos in the parent directory of dotfiles
+clonedir=$(dirname $DIR)
+git clone https://github.com/kenjyco/kenjyco $clonedir/kenjyco
+git clone https://github.com/kenjyco/extract_utils $clonedir/extract_utils
+
+# Create symbolic links to kenjyco and extract_utils in py/components
+ln -s "$clonedir/kenjyco" "$HOME/py/components/kenjyco"
+ln -s "$clonedir/extract_utils" "$HOME/py/components/extract_utils"
+
 # Create symbolic links to individual dotfiles that live in ~/.config
 [[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"
 ln -s "$DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
@@ -105,3 +114,8 @@ ls -FgohA $HOME | grep '^l'
 cd $HOME/.config
 echo -e "\nListing symbolic links that exist in $HOME/.config"
 ls -FgohA {ranger,awesome}/* 2>/dev/null | grep '^l'
+
+# List the symbolic links that exist in $HOME/py/components
+cd $HOME/py/components
+echo -e "\nListing symbolic links that exist in $HOME/py/components"
+ls -FgohA $HOME | grep '^l'
