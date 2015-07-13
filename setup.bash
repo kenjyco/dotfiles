@@ -71,6 +71,17 @@ git clone https://github.com/kenjyco/extract_utils $clonedir/extract_utils
 ln -s "$clonedir/kenjyco" "$HOME/py/components/kenjyco"
 ln -s "$clonedir/extract_utils" "$HOME/py/components/extract_utils"
 
+# Create environments
+if [[ ! -d "$clonedir/kenjyco/env" ]]; then
+    cd "$clonedir/kenjyco"
+    virtualenv --no-site-packages env
+    env/bin/pip install -r requirements.txt
+fi
+if [[ ! -f "$clonedir/extract_utils/env/bin/python" ]]; then
+    cd "$clonedir/extract_utils"
+    bash ./setup.bash
+fi
+
 # Create symbolic links to individual dotfiles that live in ~/.config
 [[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"
 ln -s "$DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
@@ -118,4 +129,4 @@ ls -FgohA {ranger,awesome}/* 2>/dev/null | grep '^l'
 # List the symbolic links that exist in $HOME/py/components
 cd $HOME/py/components
 echo -e "\nListing symbolic links that exist in $HOME/py/components"
-ls -FgohA $HOME | grep '^l'
+ls -FgohA | grep '^l'
