@@ -6,12 +6,12 @@ grip-many() {
     dirname=$1
     if [[ -n "$dirname" ]]; then
         shift
-        if [[ ! -d "$dirname" ]]; then
-            echo "$dirname is not a directory" >&2
-            return 1
-        fi
     else
-        echo "No directory specified" >&2
+        dirname='.'
+    fi
+
+    if [[ ! -d "$dirname" ]]; then
+        echo "$dirname is not a directory" >&2
         return 1
     fi
 
