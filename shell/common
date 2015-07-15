@@ -94,6 +94,15 @@ if [[ -d $HOME/py/components ]]; then
     export PYTHONPATH
 fi
 
+kenjyco() {
+    $HOME/py/components/kenjyco/env/bin/python -m kenjyco $@
+}
+alias k='kenjyco'
+
+extract_utils() {
+    $HOME/py/components/extract_utils/env/bin/python -m extract_utils $@
+}
+
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
 [[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
 
