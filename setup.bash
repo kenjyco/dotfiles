@@ -68,8 +68,8 @@ git clone https://github.com/kenjyco/kenjyco $clonedir/kenjyco
 git clone https://github.com/kenjyco/extract_utils $clonedir/extract_utils
 
 # Create symbolic links to kenjyco and extract_utils in py/components
-ln -s "$clonedir/kenjyco" "$HOME/py/components/kenjyco"
-ln -s "$clonedir/extract_utils" "$HOME/py/components/extract_utils"
+[[ ! -L "$HOME/py/components/kenjyco" ]] && ln -s "$clonedir/kenjyco" "$HOME/py/components/kenjyco"
+[[ ! -L "$HOME/py/components/extract_utils" ]] && ln -s "$clonedir/extract_utils" "$HOME/py/components/extract_utils"
 
 # Create environments
 if [[ ! -d "$clonedir/kenjyco/env" ]]; then
