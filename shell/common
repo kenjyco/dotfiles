@@ -102,6 +102,7 @@ alias k='kenjyco'
 extract_utils() {
     $HOME/py/components/extract_utils/env/bin/python -m extract_utils $@
 }
+alias e='extract_utils'
 
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
 [[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
