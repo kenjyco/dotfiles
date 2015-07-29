@@ -106,5 +106,8 @@ extract_utils() {
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
 [[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
 
+# Load the `h` script (to highlight multiple keywords in output)
+[[ -f $HOME/.shell/extra/hhighlighter/h.sh ]] && source $HOME/.shell/extra/hhighlighter/h.sh
+
 # Run the `bin/startup` script
 [[ -f $HOME/bin/startup ]] && $HOME/bin/startup

@@ -14,3 +14,6 @@
 	path = shell/extra/grip
 	url = https://github.com/joeyespo/grip
     ignore = dirty
+[submodule "shell/extra/hhighlighter"]
+	path = shell/extra/hhighlighter
+	url = https://github.com/paoloantinori/hhighlighter
