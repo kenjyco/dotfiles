@@ -11,6 +11,11 @@ findit-py() {
     findit $dirname --pattern "*.py" $@
 }
 
+findit-autoday() {
+    dirname=$HOME/autoday
+    findit $dirname $@ --stamp | sort -n
+}
+
 findit-pics() {
     dirname=$1
     [[ -n "$dirname" ]] && shift || dirname="."
