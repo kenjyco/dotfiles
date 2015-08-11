@@ -100,11 +100,14 @@ kenjyco() {
 alias k='kenjyco'
 
 extract_utils() {
+    oldpwd=$(pwd)
+    today
     if [[ -f /usr/bin/xvfb-run ]]; then
         DISPLAY=:1 xvfb-run $HOME/py/components/extract_utils/env/bin/python -m extract_utils $@
     else
         $HOME/py/components/extract_utils/env/bin/python -m extract_utils $@
     fi
+    cd "$oldpwd"
 }
 alias e='extract_utils'
 
