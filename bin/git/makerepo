@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-GIT_HOST="lanie"
-REMOTE_USER="git"
-REMOTE_REPO_DIR="/home/git"
+GIT_HOST="server"
+REMOTE_USER="ace"
+REMOTE_REPO_DIR="/home/ace"
 
 repo=$1
 [[ -z "$repo" ]] && exit 1
