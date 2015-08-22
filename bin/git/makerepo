@@ -32,4 +32,6 @@ else
     # We need to clone the repo
     echo -e "\ngit clone ${REMOTE_USER}@${GIT_HOST}:${repo_path}"
     git clone ${REMOTE_USER}@${GIT_HOST}:${repo_path}
+
+    echo -e "\nAfter first commit, don't forget to 'git push -u origin master'"
 fi
