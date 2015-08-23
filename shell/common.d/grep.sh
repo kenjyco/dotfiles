@@ -20,5 +20,5 @@ pygrep() {
     [[ -z "$b" ]] && b=0
 
     # FIXME: Shouldn't hardcode these links in
-    grep --color -Hn -P $pattern -A $a -B $b ~/kenjyco/(^env/)#*.py ~/extract_utils/(^env/)#*.py 2>/dev/null
+    grep --color -Hn -P $pattern -A $a -B $b ~/kenjyco/(^env/)#*.py ~/extract_utils/(^env/)#*.py $(cat ~/.dotfiles_path)/bin/**/*.py 2>/dev/null
 }
