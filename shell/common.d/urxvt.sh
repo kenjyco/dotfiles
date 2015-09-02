@@ -43,9 +43,9 @@ double() {
 
 double1920() {
     if [[ -n "$1" ]]; then
-        urxvt -title 'half-a' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+        urxvt -title 'half-a' -geometry 96x63 -fn "xft:Inconsolata:size=10" -e zsh &
         disown
-        urxvt -title 'half-b' -geometry 96x63 -fn "xft:DejaVu Sans Mono:size=10" -e zsh &
+        urxvt -title 'half-b' -geometry 96x63 -fn "xft:Inconsolata:size=10" -e zsh &
         disown
     else
         urxvt -title 'half-a' -geometry 160x82 -e zsh &
@@ -93,6 +93,6 @@ work1920() {
 windowsize() {
     size=$1
     [[ ! "$size" =~ [0-9]+ ]] && size=11
-    urxvt -title "size-$size" -geometry 90x25 -fn "xft:DejaVu Sans Mono:size=$size" -e zsh &
+    urxvt -title "size-$size" -geometry 90x25 -fn "xft:Inconsolata:size=$size" -e zsh &
     [[ $? -eq 0 ]] && disown && exit
 }
