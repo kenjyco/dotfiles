@@ -18,7 +18,7 @@ grip-many() {
     echo "$dirname" > GENERATED-README.md
 
     # Generate a markdown file containing links to all the found markdown files
-    eval "findit $dirname --pattern '*.md' $@" |
+    eval "findit $dirname --complex \"\( -iname '*.md' -o -iname '*.idea' \)\" $@" |
     xargs -d \\n -I {} echo '- [{}]({})' |
     sort |
     grep -v 'GENERATED-README' >> GENERATED-README.md
