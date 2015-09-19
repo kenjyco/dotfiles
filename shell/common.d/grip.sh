@@ -4,10 +4,12 @@
 #   grip-many . --hours 5
 grip-many() {
     dirname=$1
-    if [[ -n "$dirname" ]]; then
-        shift
+    if [[ "$dirname" =~ '--.*' ]]; then
+        dirname="."
+    elif [[ -z "$dirname" ]]; then
+        dirname="."
     else
-        dirname='.'
+        shift 2>/dev/null
     fi
 
     if [[ ! -d "$dirname" ]]; then

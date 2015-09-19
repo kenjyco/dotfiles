@@ -10,8 +10,14 @@
 #   findit . --ipattern "*.jpg" --stamp
 
 dirname=$1
-shift 2>/dev/null
-[[ -z "$dirname" ]] && dirname="."
+if [[ "$dirname" =~ '--.*' ]]; then
+    dirname="."
+elif [[ -z "$dirname" ]]; then
+    dirname="."
+else
+    shift 2>/dev/null
+fi
+
 if [[ ! -d "$dirname" ]]; then
     echo "$dirname is not a directory"
     exit 1
