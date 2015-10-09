@@ -75,6 +75,7 @@ git clone https://github.com/kenjyco/extract_utils $clonedir/extract_utils
 if [[ ! -d "$clonedir/kenjyco/env" ]]; then
     cd "$clonedir/kenjyco"
     virtualenv --no-site-packages env
+    env/bin/pip install ipython ipdb pytest git+git://github.com/mverteuil/pytest-ipdb.git
     env/bin/pip install -r requirements.txt
 fi
 if [[ ! -f "$clonedir/extract_utils/env/bin/python" ]]; then
