@@ -122,6 +122,7 @@ vidsearch() {
     $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/vidsearch.py $@
     cd "$oldpwd"
 }
+alias v='vidsearch'
 
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
 [[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
