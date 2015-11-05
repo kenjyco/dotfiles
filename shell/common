@@ -124,6 +124,10 @@ vidsearch() {
 }
 alias v='vidsearch'
 
+myvlc() {
+    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/vlcstart.py $@
+}
+
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
 [[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
 
