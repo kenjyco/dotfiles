@@ -94,6 +94,11 @@ if [[ -d $HOME/py/components ]]; then
     export PYTHONPATH
 fi
 
+kpython() {
+    $HOME/py/components/kenjyco/env/bin/ipython $@
+}
+alias kpy='kpython'
+
 kenjyco() {
     $HOME/py/components/kenjyco/env/bin/python -m kenjyco $@
 }
