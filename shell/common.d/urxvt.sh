@@ -66,6 +66,24 @@ triple1920() {
     exit
 }
 
+newwin(){
+    title=$1
+    geom=$2
+    cmd='urxvt'
+    if [[ -z "$title" ]]; then
+        cmd="${cmd} -title \"$(basename $(pwd)) .::. $(date +'%b-%d at %I:%M%p')\""
+    else
+        cmd="${cmd} -title \"$title .::. $(date +'%b-%d at %I:%M%p')\""
+    fi
+    if [[ -n "$geom" ]]; then
+        cmd="${cmd} -geometry $geom"
+    fi
+    echo "$cmd"
+    exec eval "$cmd" &
+    [[ $? -eq 0 ]] && disown && exit
+}
+alias n='newwin'
+
 work(){
     urxvt -title 'work-tmux' -geometry 83x60 -e zsh -c 'tmux' &
     disown
