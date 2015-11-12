@@ -130,7 +130,7 @@ vidsearch() {
 alias v='vidsearch'
 
 myvlc() {
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/vlcstart.py $@
+    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/vlc.py $@
 }
 
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
