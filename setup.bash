@@ -74,7 +74,8 @@ git clone https://github.com/kenjyco/extract_utils $clonedir/extract_utils
 # Create environments
 if [[ ! -d "$clonedir/kenjyco/env" ]]; then
     cd "$clonedir/kenjyco"
-    virtualenv --no-site-packages env
+    # Use '--system-site-packages` for the virtual environment so we can use `dbus`
+    virtualenv --system-site-packages env
     env/bin/pip install ipython ipdb pytest git+git://github.com/mverteuil/pytest-ipdb.git
     env/bin/pip install -r requirements.txt
 fi
