@@ -134,7 +134,7 @@ myvlc() {
 }
 
 looper() {
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/core/input.py $@
+    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/looper.py $@
 }
 
 finder() {
