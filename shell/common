@@ -137,6 +137,10 @@ looper() {
     $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/looper.py $@
 }
 
+input() {
+    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/core/input.py $@
+}
+
 finder() {
     $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/core/Finder.py $@
 }
