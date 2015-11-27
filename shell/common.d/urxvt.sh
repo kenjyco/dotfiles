@@ -84,6 +84,27 @@ newwin(){
 }
 alias n='newwin'
 
+# same dimensions as 'tall-wide'
+lazy() {
+    cd "$1" && activate &>/dev/null && sshlazy || return 1 ;
+    if [[ -z "$1" ]]; then
+        urxvt -title "$(basename $(pwd)) [lazy]" -geometry 166x50 -e zsh &
+    else
+        urxvt -title "$1 [lazy]" -geometry 166x50 -e zsh &
+    fi
+    [[ $? -eq 0 ]] && disown && exit
+}
+
+lazy2560() {
+    cd "$1" && activate &>/dev/null && sshlazy || return 1 ;
+    if [[ -z "$1" ]]; then
+        urxvt -title "$(basename $(pwd)) [lazy]" -geometry 106x110 -e zsh &
+    else
+        urxvt -title "$1 [lazy]" -geometry 106x110 -e zsh &
+    fi
+    [[ $? -eq 0 ]] && disown && exit
+}
+
 work(){
     urxvt -title 'work-tmux' -geometry 83x60 -e zsh -c 'tmux' &
     disown
