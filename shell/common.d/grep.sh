@@ -20,5 +20,8 @@ pygrep() {
     [[ -z "$b" ]] && b=0
 
     # FIXME: Shouldn't hardcode these links in
-    grep --color -Hn -P $pattern -A $a -B $b ~/kenjyco/(^env/)#*.py ~/extract_utils/(^env/)#*.py $(cat ~/.dotfiles_path)/bin/**/*.py 2>/dev/null
+    # FIXME: This is not a bash-safe pattern
+    if [[ -n $ZSH_VERSION ]]; then
+        grep --color -Hn -P $pattern -A $a -B $b ~/kenjyco/(^env/)#*.py ~/extract_utils/(^env/)#*.py ~/redis_helper/(^env/)#*.py ~/chloop/(^env/)#*.py $(cat ~/.dotfiles_path)/bin/**/*.py 2>/dev/null
+    fi
 }
