@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-ifconfig | grep "inet addr" | grep -v ":127" | awk '{print $2}' | cut -c 6-
+ifconfig | grep "inet addr" | egrep -v ":(127|172)" | awk '{print $2}' | cut -c 6-
