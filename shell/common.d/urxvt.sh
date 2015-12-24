@@ -95,6 +95,16 @@ lazy() {
     [[ $? -eq 0 ]] && disown && exit
 }
 
+lazy1920() {
+    cd "$1" && activate &>/dev/null && sshlazy || return 1 ;
+    if [[ -z "$1" ]]; then
+        urxvt -title "$(basename $(pwd)) [lazy]" -geometry 106x82 -e zsh &
+    else
+        urxvt -title "$1 [lazy]" -geometry 106x82 -e zsh &
+    fi
+    [[ $? -eq 0 ]] && disown && exit
+}
+
 lazy2560() {
     cd "$1" && activate &>/dev/null && sshlazy || return 1 ;
     if [[ -z "$1" ]]; then
