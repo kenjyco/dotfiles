@@ -61,9 +61,9 @@ def backup(source='.', destination=None, mirror=False, excludes=[]):
         os.makedirs(destination, mode=0700)
 
     if mirror:
-        rsync_cmd = 'rsync -hrltpEWvP --delete-during --force'
+        rsync_cmd = 'rsync -hrltpEWvPc --delete-during --force'
     else:
-        rsync_cmd = 'rsync -hrltpEWvPb --suffix .dup'
+        rsync_cmd = 'rsync -hrltpEWvPbc --suffix .dup'
 
     exclude_string = ' '.join([' --exclude {}'.format(ex) for ex in excludes])
 
