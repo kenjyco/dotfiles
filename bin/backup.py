@@ -18,9 +18,10 @@ import subprocess
 
 
 DEFAULT_EXCLUDES = ['env', 'venv', '.git', '*.swp']
+BACKUP_DIR = os.environ.get('BACKUP_DIR', '')
 
 
-def backup(source='.', destination=None, mirror=False, excludes=[]):
+def backup(source='.', destination='', mirror=False, excludes=[]):
     """Use `rsync` to backup
 
     - source: a directory with read permission
@@ -33,13 +34,18 @@ def backup(source='.', destination=None, mirror=False, excludes=[]):
     - excludes: list of file/directory patterns to exclude
         - defaults to global DEFAULT_EXCLUDES list
     """
-    # Get absolute paths for source and destination
     source = os.path.abspath(os.path.expanduser(source))
-    destination = destination or os.environ.get('BACKUP_DIR')
-    excludes = excludes or DEFAULT_EXCLUDES[:]
+    destination = destination or BACKUP_DIR
+    excludes += DEFAULT_EXCLUDES
+
+    # Modify the destination if it is not a manually specified remote location
     if destination and not ':' in destination:
-        # Only get absolute path if the destination is not remote
-        destination = os.path.abspath(os.path.expanduser(destination))
+        if destination[0] in ('~', '/') or destination[:2] == '..':
+            # Assume destination is a path on the local machine
+            destination = os.path.abspath(os.path.expanduser(destination))
+        elif destination != BACKUP_DIR:
+            # Assume destination should be a sub-directory of BACKUP_DIR
+            destination = os.path.join(BACKUP_DIR, destination)
 
     if not destination:
         raise Exception('No destination directory specified (and no BACKUP_DIR is set)')
