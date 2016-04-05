@@ -73,7 +73,7 @@ def backup(source='.', destination='', mirror=False, excludes=[]):
 
     exclude_string = ' '.join([' --exclude {}'.format(ex) for ex in excludes])
 
-    rsync_cmd += exclude_string + ' {} {}'.format(source, destination)
+    rsync_cmd += exclude_string + ' {} {}'.format(repr(source), repr(destination))
     print(rsync_cmd)
     return subprocess.call(rsync_cmd, shell=True)
 
