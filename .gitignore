@@ -3,5 +3,4 @@ backup_dotfiles/
 *.idea
 private*
 GENERATED-README.md
-py/components/
 wallpapers/landscape/

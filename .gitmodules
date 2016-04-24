@@ -1,19 +1,8 @@
 [submodule "vim/bundle/Vundle.vim"]
-	path = vim/bundle/Vundle.vim
-	url = https://github.com/gmarik/Vundle.vim
+    path = vim/bundle/Vundle.vim
+    url = https://github.com/gmarik/Vundle.vim
     ignore = dirty
 [submodule "shell/extra/autoenv"]
-	path = shell/extra/autoenv
-	url = https://github.com/kennethreitz/autoenv
+    path = shell/extra/autoenv
+    url = https://github.com/kennethreitz/autoenv
     ignore = dirty
-[submodule "shell/extra/youtube-dl"]
-	path = shell/extra/youtube-dl
-	url = https://github.com/rg3/youtube-dl
-    ignore = dirty
-[submodule "shell/extra/grip"]
-	path = shell/extra/grip
-	url = https://github.com/joeyespo/grip
-    ignore = dirty
-[submodule "shell/extra/hhighlighter"]
-	path = shell/extra/hhighlighter
-	url = https://github.com/paoloantinori/hhighlighter

@@ -16,7 +16,6 @@ echo -e "\nSaving a copy of real dotfiles and deleting symbolic links"
 echo "cd $HOME"
 cd $HOME
 [[ ! -L bin && -d bin ]] && mv -v bin "$BACKUP_DOTFILES" || rm -v bin 2>/dev/null
-[[ ! -L py && -d py ]] && mv -v py "$BACKUP_DOTFILES" || rm -v py 2>/dev/null
 [[ ! -L wallpapers && -d wallpapers ]] && mv -v wallpapers "$BACKUP_DOTFILES" || rm -v wallpapers 2>/dev/null
 [[ ! -L .shell && -d .shell ]] && mv -v .shell "$BACKUP_DOTFILES" || rm -v .shell 2>/dev/null
 [[ ! -L .vim && -d .vim ]] && mv -v .vim "$BACKUP_DOTFILES" || rm -v .vim 2>/dev/null
@@ -43,7 +42,6 @@ cd $HOME/.config
 
 # Create symbolic links to the individual dotfiles
 ln -s "$DIR/bin" "$HOME/bin"
-ln -s "$DIR/py" "$HOME/py"
 ln -s "$DIR/wallpapers" "$HOME/wallpapers"
 ln -s "$DIR/shell" "$HOME/.shell"
 ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
@@ -58,31 +56,6 @@ ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
 ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
-
-# Create the py/components/ directory if it doesn't exist
-[[ ! -d "$HOME/py/components" ]] && mkdir -pv "$HOME/py/components"
-
-# Clone kenjyco and extract_utils repos in the parent directory of dotfiles
-clonedir=$(dirname $DIR)
-git clone https://github.com/kenjyco/kenjyco $clonedir/kenjyco
-git clone https://github.com/kenjyco/extract_utils $clonedir/extract_utils
-
-# Create symbolic links to kenjyco and extract_utils in py/components
-[[ ! -L "$HOME/py/components/kenjyco" ]] && ln -s "$clonedir/kenjyco" "$HOME/py/components/kenjyco"
-[[ ! -L "$HOME/py/components/extract_utils" ]] && ln -s "$clonedir/extract_utils" "$HOME/py/components/extract_utils"
-
-# Create environments
-if [[ ! -d "$clonedir/kenjyco/env" ]]; then
-    cd "$clonedir/kenjyco"
-    # Use '--system-site-packages` for the virtual environment so we can use `dbus`
-    virtualenv --system-site-packages env
-    env/bin/pip install ipython ipdb pytest git+git://github.com/mverteuil/pytest-ipdb.git
-    env/bin/pip install -r requirements.txt
-fi
-if [[ ! -f "$clonedir/extract_utils/env/bin/python" ]]; then
-    cd "$clonedir/extract_utils"
-    bash ./setup.bash
-fi
 
 # Create symbolic links to individual dotfiles that live in ~/.config
 [[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"
@@ -109,13 +82,6 @@ vim +PluginInstall +qall
 # Source the ~/.tmux.conf file
 [[ $(tmux -V 2>/dev/null) =~ 1.9 ]] && tmux source-file ~/.tmux.conf
 
-# Setup grip
-cd $HOME/.shell/extra/grip
-virtualenv --no-site-packages .
-source ./bin/activate
-python setup.py install
-deactivate
-
 # Copy a xscreensaver config file if none in use
 [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 
@@ -127,8 +93,3 @@ ls -FgohA $HOME | grep '^l'
 cd $HOME/.config
 echo -e "\nListing symbolic links that exist in $HOME/.config"
 ls -FgohA {ranger,awesome}/* 2>/dev/null | grep '^l'
-
-# List the symbolic links that exist in $HOME/py/components
-cd $HOME/py/components
-echo -e "\nListing symbolic links that exist in $HOME/py/components"
-ls -FgohA | grep '^l'
