@@ -47,9 +47,6 @@ helpme() {
         return 0
     fi
 
-    echo -e "\n--------------------" >> $outfile
-    echo -e "shgrep ${cmd}\n" >> $outfile
-    shgrep "\b$cmd\b" >> $outfile
     less -FX $outfile
 }
 
