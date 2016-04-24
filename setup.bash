@@ -80,7 +80,7 @@ git submodule init && git submodule update
 vim +PluginInstall +qall
 
 # Source the ~/.tmux.conf file
-[[ $(tmux -V 2>/dev/null) =~ 1.9 ]] && tmux source-file ~/.tmux.conf
+tmux source-file ~/.tmux.conf
 
 # Copy a xscreensaver config file if none in use
 [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
