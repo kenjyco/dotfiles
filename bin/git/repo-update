@@ -16,17 +16,18 @@ if [[ -z "$remote" ]]; then
 elif [[ -z "$filestatus" ]]; then
     echo " - Repository is clean.. gonna do 'pull'"
     git pull
-elif [[ "$branch" =~ (master|production) ]]; then
+elif [[ "$branch" =~ (master|production|develop) ]]; then
     stashstatus=$(git stash)
     if [[ $stashstatus == "No local changes to save" ]]; then
         echo " - Repository is clean (w/ untracked files).. gonna do 'pull'"
         git pull
     else
-        echo " - Dirty repo on master or production.. gonna do 'stash pull pop'"
+        echo " - Dirty repo on master, production, or develop.. gonna do 'stash pull pop'"
         echo "$stashstatus"
         git pull
         git stash pop
     fi
 else
-    echo " - Dirty random branch, not updating"
+    echo " - Dirty random branch, gonna do 'remote update'"
+    git remote update
 fi

@@ -3,6 +3,7 @@
 # List recent commits. Any arguments are passed to the git log command
 
 for repo in $(all-repos-list | xargs -d \\n); do
+    branch=$(branchname $repo)
     cd $repo
     commits=$(git --no-pager log --pretty=format:'\n%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an' $@ 2>/dev/null)
     if [[ -n "$commits" ]]; then
@@ -12,6 +13,7 @@ for repo in $(all-repos-list | xargs -d \\n); do
         else
             echo "$repo -- $numcommits commit(s)"
         fi
+        echo -e "$branch"
         echo -e $commits | head -n 6
         echo -e "==============="
     fi
