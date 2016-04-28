@@ -17,7 +17,7 @@ import os
 import subprocess
 
 
-DEFAULT_EXCLUDES = ['env', 'venv', '.git', '*.swp']
+DEFAULT_EXCLUDES = ['env', 'venv', '.git', '*.swp', '.cache', '.mozilla']
 BACKUP_DIR = os.environ.get('BACKUP_DIR', '')
 
 
