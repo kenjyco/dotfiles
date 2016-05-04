@@ -7,9 +7,9 @@ path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
 
 cd $path
-echo -e "\n===============\n$(pwd)"
 remote=$(repo-remote)
 branch=$(branchname)
+echo -e "\n===============\n$(pwd) -- $branch"
 if [[ -z "$remote" ]]; then
     echo " - Local-only repo, not updating"
 elif [[ "$branch" =~ (master|production|develop) ]]; then
