@@ -35,20 +35,26 @@ bindkey -M viins '^S' history-incremental-search-forward
 bindkey -M vicmd '?' history-incremental-pattern-search-backward
 bindkey -M vicmd '/' history-incremental-pattern-search-forward
 
+# Function to get name of current git branch
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
 # Set prompt
 autoload -U colors && colors
-PROMPT="%{$fg[blue]%}%D{[%I:%M:%S]} %{$fg_bold[yellow]%}%c %# %{$reset_color%}"
+setopt PROMPT_SUBST
+PROMPT="%{$fg[blue]%}%D{[%I:%M:%S]} %{$fg_bold[yellow]%}%c%{$fg[green]%}\$(parse_git_branch) %# %{$reset_color%}"
 
 # Add function to switch to a verbose prompt
 prompt-verbose() {
     PROMPT="
-%{$fg_bold[green]%}%n@%m:%{$fg[white]%}%~ %{$fg[blue]%}%D{[%I:%M:%S]}
+%{$fg_bold[green]%}%n@%m:%{$fg[white]%}%~%{$fg[green]%}\$(parse_git_branch) %{$fg[blue]%}%D{[%I:%M:%S]}
 %{$fg[yellow]%}%# %{$reset_color%}"
 }
 
 # Add function to switch to a terse prompt (default)
 prompt-terse() {
-    PROMPT="%{$fg[blue]%}%D{[%I:%M:%S]} %{$fg_bold[yellow]%}%c %# %{$reset_color%}"
+	PROMPT="%{$fg[blue]%}%D{[%I:%M:%S]} %{$fg_bold[yellow]%}%c%{$fg[green]%}\$(parse_git_branch) %# %{$reset_color%}"
 }
 
 # Source the `.shell/common` file
