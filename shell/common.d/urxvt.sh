@@ -82,7 +82,6 @@ newwin(){
     exec eval "$cmd" &
     [[ $? -eq 0 ]] && disown && exit
 }
-alias n='newwin'
 
 # same dimensions as 'tall-wide'
 lazy() {
