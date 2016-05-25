@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+note=$1
+newdate="\n#### \`$(date +'%Y_%m%d %a %r')\`\n"
+if [[ -z "$note" ]]; then
+    note="$(date +'%Y_%m%d--%a_hour_%H')"
+    newdate="\n## $(date +'%r')\n"
+fi
+
+if [[ "$note" =~ \.md$ ]]; then
+    fname="${note}"
+else
+    fname="${note}.md"
+fi
+
+if [[ ! -s "$fname" ]]; then
+    # Genarate the file since it does not exist
+    echo -e "${note}\n----------\n" > "$fname" || exit 1
+
+    # Open the file with vim (in insert mode, at the end of the file)
+    vim + -c 'startinsert' $fname
+else
+    # Dump a timestamp into the existing file
+    echo -e "$newdate" >> "$fname" || exit 1
+
+    # Open the file with vim wherever the cursor was before
+    vim $fname
+fi
