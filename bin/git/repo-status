@@ -8,6 +8,7 @@ path=$(repo-path $path)
 remote=$(repo-remote $path)
 branch=$(branchname $path)
 newcommits=$(unpushed-commits $path)
+stashes=$(stashlist $path)
 
 echo -e "$path -- $remote -- $branch"
 if [[ -n "$1" ]]; then
@@ -20,3 +21,4 @@ else
 fi
 
 [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
+[[ -n "$stashes" ]] && echo -e "\nStashes\n$stashes"
