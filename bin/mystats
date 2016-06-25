@@ -12,7 +12,7 @@ if [[ $1 == "ip" ]]; then
 
     [[ $? -ne 0 ]] && echo
     echo -ne "ip-public: "
-    wget http://bot.whatismyipaddress.com -qO - && echo
+    wget https://httpbin.org/ip -qO - | grep origin | perl -pe 's/^.*\"(.*)\".*$/$1/'
 fi
 
 echo -e "\npartitions:"
