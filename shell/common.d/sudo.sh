@@ -30,8 +30,10 @@ newuser() {
     sudo passwd $username
 
     # Clone dotfiles
-    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/dotfiles" >&2
-    sudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/dotfiles
+    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/repos/dotfiles" >&2
+    sudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/repos/dotfiles
+    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/kenjyco /home/$username/repos/kenjyco" >&2
+    sudo -u $username git clone https://github.com/kenjyco/kenjyco /home/$username/repos/kenjyco
 
     # Make sure the new user owns all the stuff in their directory
     sudo chown -R $username:$username /home/$username/
