@@ -46,6 +46,9 @@ the_command=$(sudo fdisk -l $device 2>/dev/null |
     grep "sectors/track" |
     perl -pe 's/^(\d+) heads, (\d+) sectors\/track.*/isohybrid -o 1 -h $1 -s $2 -e 2/')
 
+# HEAD info not provided by `fdisk -l` any more (from util-linux 2.27.1)
+[[ -z "$the_command" ]] && the_command="isohybrid -o 1 -e 2"
+
 # Execute the isohybrid command
 the_command="$the_command $image"
 echo -e "\n$the_command" >&2
