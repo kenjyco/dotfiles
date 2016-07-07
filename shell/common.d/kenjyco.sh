@@ -18,6 +18,13 @@ v() {
     cd "$oldpwd"
 }
 
+w() {
+    oldpwd=$(pwd)
+    cdd ~/websearch
+    ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/websearch.py $@
+    cd "$oldpwd"
+}
+
 listen() {
     ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/listen.py $@
 }
