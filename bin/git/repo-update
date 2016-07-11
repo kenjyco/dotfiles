@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Exit script if not supplied with, or called from a path in a git repository
+# Exit script if not supplied with path, or not called from a path in a git repository
 path=$1
 [[ -z "$path" ]] && path=$(pwd)
 path=$(repo-path $path)
