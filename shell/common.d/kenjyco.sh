@@ -18,7 +18,7 @@ v() {
     cd "$oldpwd"
 }
 
-w() {
+websearch() {
     oldpwd=$(pwd)
     cdd ~/websearch
     ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/websearch.py $@
