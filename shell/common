@@ -81,6 +81,8 @@ fi
 for somedir in $(find $HOME/bin/ -type d 2>/dev/null | xargs -d \\n); do
     PATH="$somedir:$PATH"
 done
+# Add sbin directories to PATH
+PATH="$PATH:/sbin:/usr/sbin"
 export PATH
 
 # Source other `*.sh` files in the `common.d` directory (and sub-directories)
