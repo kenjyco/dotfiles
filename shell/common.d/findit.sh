@@ -55,6 +55,10 @@ findit-vids() {
         -o -iname '*.webm' -o -iname '*.avi' \)" $@
 }
 
+play-vids() {
+    findit-vids $@ --pipe "vlc --fullscreen" &>/dev/null &
+}
+
 findit-audio() {
     dirname=$1
     if [[ "$dirname" =~ '--.*' ]]; then
