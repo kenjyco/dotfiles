@@ -44,9 +44,10 @@ myvlc() {
 make-home-venv() {
     if [[ ! -d "$HOME/venv" ]]; then
         cd
-        python3 -m venv venv && python3 -m venv --system-site-packages venv && venv/bin/pip3 install wheel
-		venv/bin/pip3 install -r ${KENJYCO_PATH}/requirements.txt --upgrade
+        python3 -m venv venv && venv/bin/pip3 install wheel
+        venv/bin/pip3 install -r ${KENJYCO_PATH}/requirements.txt --upgrade
         venv/bin/pip3 install flake8 grip jupyter
+        python3 -m venv --system-site-packages venv
     fi
 }
 make-home-venv
