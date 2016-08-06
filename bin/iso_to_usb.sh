@@ -66,9 +66,10 @@ sudo fdisk -l $device
 echo -e "\n--------------------------------------------------"
 echo "'n' to create partition"
 echo "'p' for 'primary'"
-echo "'1' for partition 1"
+echo "'1' for partition 1 (one)"
+echo "(select defaults for 'First sector' and 'Last sector')"
 echo "'t' to change system type for partition"
-echo "'1' to modify partition 1"
+echo "'1' to modify partition 1 (one)"
 echo "'b' to use make FAT32 partition"
 echo "'w' to write changes and exit"
 sudo fdisk $device || exit 1
