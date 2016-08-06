@@ -25,6 +25,7 @@ cd $HOME
 [[ ! -L .bashrc && -f .bashrc ]] && mv -v .bashrc "$BACKUP_DOTFILES" || rm -v .bashrc 2>/dev/null
 [[ ! -L .gitconfig && -f .gitconfig ]] && mv -v .gitconfig "$BACKUP_DOTFILES" || rm -v .gitconfig 2>/dev/null
 [[ ! -L .inputrc && -f .inputrc ]] && mv -v .inputrc "$BACKUP_DOTFILES" || rm -v .inputrc 2>/dev/null
+[[ ! -L .editrc && -f .editrc ]] && mv -v .editrc "$BACKUP_DOTFILES" || rm -v .editrc 2>/dev/null
 [[ ! -L .tmux.conf && -f .tmux.conf ]] && mv -v .tmux.conf "$BACKUP_DOTFILES" || rm -v .tmux.conf 2>/dev/null
 [[ ! -L .psqlrc && -f .psqlrc ]] && mv -v .psqlrc "$BACKUP_DOTFILES" || rm -v .psqlrc 2>/dev/null
 [[ ! -L .vimrc && -f .vimrc ]]  && mv -v .vimrc "$BACKUP_DOTFILES" || rm -v .vimrc 2>/dev/null
@@ -49,6 +50,7 @@ ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
 ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
 ln -s "$DIR/git/gitconfig" "$HOME/.gitconfig"
 ln -s "$DIR/input/inputrc" "$HOME/.inputrc"
+ln -s "$DIR/input/editrc" "$HOME/.editrc"
 ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
 ln -s "$DIR/psql/psqlrc" "$HOME/.psqlrc"
 ln -s "$DIR/vim" "$HOME/.vim"
