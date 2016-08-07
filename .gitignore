@@ -1,5 +1,6 @@
 backup_dotfiles/
 *.swp
+.netrwhist
 *.idea
 private*
 GENERATED-README.md
