@@ -77,13 +77,33 @@ elif [[ -n "$BASH_VERSION" ]]; then
     _all_files_glob=".[!.]* *"
 fi
 
-# Add ~/bin and any sub-directories to the PATH
+pathmunge () {
+if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+   if [ "$2" = "after" ] ; then
+      PATH=$PATH:$1
+   else
+      PATH=$1:$PATH
+   fi
+fi
+}
+
+pypathmunge () {
+if ! echo $PYTHONPATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+   if [ "$2" = "after" ] ; then
+      PYTHONPATH=$PYTHONPATH:$1
+   else
+      PYTHONPATH=$1:$PYTHONPATH
+   fi
+fi
+}
+
+# Add ~/bin and any sub-directories to PATH
 for somedir in $(find $HOME/bin/ -type d 2>/dev/null | xargs -d \\n); do
-    PATH="$somedir:$PATH"
+    pathmunge "$somedir"
 done
-# Add sbin directories to PATH
-PATH="$PATH:/sbin:/usr/sbin"
-export PATH
+
+# Add /usr/sbin directory to PATH
+pathmunge /usr/sbin
 
 # Source other `*.sh` files in the `common.d` directory (and sub-directories)
 for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" | xargs -d \\n); do

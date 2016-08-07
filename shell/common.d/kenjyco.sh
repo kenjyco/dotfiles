@@ -1,5 +1,5 @@
 # Don't set anything in this file if `~/.kenjyco_path` does not exist
-[[ -f $HOME/.kenjyco_path ]] && export PYTHONPATH="$(cat $HOME/.kenjyco_path):$PYTHONPATH" || return 1
+[[ -f $HOME/.kenjyco_path ]] && pypathmunge "$(cat $HOME/.kenjyco_path)" || return 1
 
 KENJYCO_PATH="$(cat $HOME/.kenjyco_path)"
 
