@@ -84,6 +84,7 @@ if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
    else
       PATH=$1:$PATH
    fi
+   export PATH
 fi
 }
 
@@ -94,6 +95,7 @@ if ! echo $PYTHONPATH | /bin/egrep -q "(^|:)$1($|:)" ; then
    else
       PYTHONPATH=$1:$PYTHONPATH
    fi
+   export PYTHONPATH
 fi
 }
 
