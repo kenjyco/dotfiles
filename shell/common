@@ -104,6 +104,7 @@ done
 
 # Add /usr/sbin directory to PATH
 pathmunge /usr/sbin
+pathmunge /sbin
 
 # Source other `*.sh` files in the `common.d` directory (and sub-directories)
 for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" | xargs -d \\n); do
