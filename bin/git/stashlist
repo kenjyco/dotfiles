@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ -z "$1" ]]; then
-    git stash list
-else
-    path=$(repo-path $1)
-    [[ -z "$path" ]] && exit 1
-    cd $path
-    git stash list
-fi
+path=$1
+[[ -z "$path" ]] && path=$(pwd)
+path=$(repo-path $path)
+[[ -z "$path" ]] && exit 1
+cd $path
+
+git stash list

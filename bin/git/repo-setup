@@ -5,10 +5,10 @@ path=$1
 [[ -z "$path" ]] && path=$(pwd)
 path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
-
 cd $path
+
 branch=$(branchname)
 if [[ -f setup.bash ]]; then
-    echo -e "\n===============\n$(pwd) -- $branch"
+    echo -e "\n===============\n$path -- $branch"
     bash ./setup.bash
 fi

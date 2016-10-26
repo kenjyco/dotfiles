@@ -4,6 +4,7 @@ path=$1
 [[ -z "$path" ]] && path=$(pwd)
 path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
+cd $path
 
 branch=$(branchname $path)
 
