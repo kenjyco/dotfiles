@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Display the remote url for the specified repository
+
+path=$1
+[[ -z "$path" ]] && path=$(pwd)
+path=$(repo-path $path)
+[[ -z "$path" ]] && exit 1
+cd $path
+
+git fetch --all --prune
