@@ -1,4 +1,4 @@
-cdd() { mkdir -p "$1" && cd "$1" && pwd && ls -gothrA; }
+cdd() { mkdir -p "$1" && cd "$1" && pwd; }
 
 today() {
     set_autoday_dir

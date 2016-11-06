@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# A wrapper to call grip (in `shell/extra/grip`)
-
-grip_dir="$HOME/.shell/extra/grip"
-[[ ! -d "$grip_dir" ]] && exit 1
-PYTHONPATH=$grip_dir $grip_dir/bin/grip $@

@@ -6,5 +6,6 @@ path=$1
 [[ -z "$path" ]] && path=$(pwd)
 path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
+cd $path
 
-grep "remote \"origin\"" -A 2 $path/.git/config | grep url | perl -pe 's/^\s+url = (.*)$/$1/'
+grep "remote \"origin\"" -A 2 .git/config | grep url | perl -pe 's/^\s+url = (.*)$/$1/'

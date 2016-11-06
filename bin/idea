@@ -22,9 +22,9 @@ if [[ -z "$TMUX" ]]; then
     vim + -c 'startinsert' $fname
 else
     # Create a new window in existing tmux session
-    tmux new-window -n $idea
+    target=$(tmux new-window -n $idea -P)
 
     # Split the tmux window and open the file with vim (in insert mode, at the
     # end of the file)
-    tmux split-window -v "vim + -c 'startinsert' $fname"
+    tmux split-window -v -t $target "vim + -c 'startinsert' $fname"
 fi

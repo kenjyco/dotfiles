@@ -51,7 +51,12 @@ findit-vids() {
         shift 2>/dev/null
     fi
     findit $dirname --complex "\( -iname '*.mp4' -o -iname '*.flv' \
-        -o -iname '*.mkv' -o -iname '*.ogv' -o -iname '*.avi' \)" $@
+        -o -iname '*.mkv' -o -iname '*.ogv' -o -iname '*.mov' \
+        -o -iname '*.webm' -o -iname '*.avi' \)" $@
+}
+
+play-vids() {
+    findit-vids $@ --pipe "vlc --fullscreen" &>/dev/null &
 }
 
 findit-audio() {

@@ -6,6 +6,4 @@ path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
 cd $path
 
-branch=$(branchname $path)
-
-git branch -r | grep "$branch" | grep -v HEAD | perl -pe 's/^\s+(.*)$/$1/'
+git stash list

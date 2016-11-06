@@ -13,6 +13,11 @@ tall-wide() {
     [[ $? -eq 0 ]] && disown && exit
 }
 
+new-asciicast-win() {
+    urxvt -title 'tall-wide2' -geometry 160x40 -e zsh &
+    [[ $? -eq 0 ]] && disown && exit
+}
+
 tallp1360() {
     urxvt -title 'tall' -geometry 128x50 -e zsh &
     [[ $? -eq 0 ]] && disown && exit
@@ -82,7 +87,6 @@ newwin(){
     exec eval "$cmd" &
     [[ $? -eq 0 ]] && disown && exit
 }
-alias n='newwin'
 
 # same dimensions as 'tall-wide'
 lazy() {

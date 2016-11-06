@@ -8,15 +8,16 @@ path=$(repo-path $path)
 remote=$(repo-remote $path)
 branch=$(branchname $path)
 newcommits=$(unpushed-commits $path)
+stashes=$(stashlist $path)
 
 echo -e "$path -- $remote -- $branch"
 if [[ -n "$1" ]]; then
     cd $path
-    git status -s
 else
     # Show the relative paths if inside a repo already
     pwd
-    git status -s
 fi
+git status -s
 
 [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
+[[ -n "$stashes" ]] && echo -e "\nStashes\n$stashes"

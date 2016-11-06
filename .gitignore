@@ -1,7 +1,15 @@
 backup_dotfiles/
 *.swp
+.netrwhist
 *.idea
 private*
 GENERATED-README.md
-py/components/
 wallpapers/landscape/
+ipython/extensions
+ipython/nbextensions
+ipython/profile_default/db
+ipython/profile_default/history.sqlite
+ipython/profile_default/log
+ipython/profile_default/pid
+ipython/profile_default/security
+ipython/profile_default/startup

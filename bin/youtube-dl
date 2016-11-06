@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# A wrapper to call youtube-dl (in `shell/extra/youtube-dl`)
-
-yt_dir="$HOME/.shell/extra/youtube-dl"
-[[ ! -d "$yt_dir" ]] && exit 1
-PYTHONPATH=$yt_dir $yt_dir/bin/youtube-dl $@

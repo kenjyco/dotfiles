@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+otherbranch=$1
+[[ -z "$otherbranch" ]] && otherbranch="master"
+
+branch=$(branchname)
+git diff $(git merge-base $otherbranch $branch)..$branch

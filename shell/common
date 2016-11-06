@@ -8,9 +8,12 @@ common() {
     [[ -f $HOME/.dotfiles_path ]] && cd $(cat $HOME/.dotfiles_path)/shell/common.d
 }
 
-# Call `components` to automatically move to the ~/py/components directory
-components() {
-    [[ -d $HOME/py/components ]] && cd $HOME/py/components
+# Call `n` to invoke the `~/bash/note` script from the ~/notes-markdown directory
+n() {
+    oldpwd=$(pwd)
+    cdd ~/notes-markdown
+    note $@
+    cd "$oldpwd"
 }
 
 # A wrapper around either `which`, `type -a`, or `man`
@@ -52,9 +55,6 @@ helpme() {
         return 0
     fi
 
-    echo -e "\n--------------------" >> $outfile
-    echo -e "shgrep ${cmd}\n" >> $outfile
-    shgrep "\b$cmd\b" >> $outfile
     less -FX $outfile
 }
 
@@ -77,79 +77,44 @@ elif [[ -n "$BASH_VERSION" ]]; then
     _all_files_glob=".[!.]* *"
 fi
 
-# Add ~/bin and any sub-directories to the PATH
+pathmunge () {
+if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+   if [ "$2" = "after" ] ; then
+      PATH=$PATH:$1
+   else
+      PATH=$1:$PATH
+   fi
+   export PATH
+fi
+}
+
+pypathmunge () {
+if ! echo $PYTHONPATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+   if [ "$2" = "after" ] ; then
+      PYTHONPATH=$PYTHONPATH:$1
+   else
+      PYTHONPATH=$1:$PYTHONPATH
+   fi
+   export PYTHONPATH
+fi
+}
+
+# Add ~/bin and any sub-directories to PATH
 for somedir in $(find $HOME/bin/ -type d 2>/dev/null | xargs -d \\n); do
-    PATH="$somedir:$PATH"
+    pathmunge "$somedir"
 done
-export PATH
+
+# Add /usr/sbin directory to PATH
+pathmunge /usr/sbin
+pathmunge /sbin
 
 # Source other `*.sh` files in the `common.d` directory (and sub-directories)
 for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" | xargs -d \\n); do
     source $somefile
 done
 
-# Set the PYTHONPATH variable
-if [[ -d $HOME/py/components ]]; then
-    PYTHONPATH="$HOME/py/components:$PYTHONPATH"
-    export PYTHONPATH
-fi
-
-kpython() {
-    $HOME/py/components/kenjyco/env/bin/ipython $@
-}
-alias kpy='kpython'
-
-kenjyco() {
-    $HOME/py/components/kenjyco/env/bin/python -m kenjyco $@
-}
-alias k='kenjyco'
-
-extract_utils() {
-    oldpwd=$(pwd)
-    today
-    if [[ -f /usr/bin/xvfb-run ]]; then
-        DISPLAY=:1 xvfb-run $HOME/py/components/extract_utils/env/bin/python -m extract_utils $@
-    else
-        $HOME/py/components/extract_utils/env/bin/python -m extract_utils $@
-    fi
-    cd "$oldpwd"
-}
-alias e='extract_utils'
-
-listen() {
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/listen.py $@
-}
-
-vidsearch() {
-    oldpwd=$(pwd)
-    mkdir -p ~/vidsearch 2>/dev/null
-    cd ~/vidsearch
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/vidsearch.py $@
-    cd "$oldpwd"
-}
-alias v='vidsearch'
-
-myvlc() {
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/vlc.py $@
-}
-
-looper() {
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/misc/looper.py $@
-}
-
-input() {
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/core/input.py $@
-}
-
-finder() {
-    $HOME/py/components/kenjyco/env/bin/python $HOME/py/components/kenjyco/core/Finder.py $@
-}
-
 # Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
 [[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
-
-# Load the `h` script (to highlight multiple keywords in output)
-[[ -f $HOME/.shell/extra/hhighlighter/h.sh ]] && source $HOME/.shell/extra/hhighlighter/h.sh
 
 # Run the `bin/startup` script
 [[ -f $HOME/bin/startup ]] && $HOME/bin/startup

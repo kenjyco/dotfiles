@@ -2,6 +2,21 @@ alias shutdown="sudo shutdown -h +0"
 alias reboot="sudo reboot"
 alias partitions2="sudo blkid"
 alias sudoers="getent group sudo"
+alias uninstall-hard="sudo apt-get purge --auto-remove -y"
+APT_SECURITY_ONLY="/etc/apt/sources.security.only.list"
+
+make-security-only-list() {
+    sudo sh -c "grep ^deb /etc/apt/sources.list | grep security > $APT_SECURITY_ONLY"
+}
+
+do-security-upgrades() {
+   [[ ! -f $APT_SECURITY_ONLY ]] && make-security-only-list
+   sudo apt-get update
+   apt-get -s dist-upgrade -o Dir::Etc::SourceList=$APT_SECURITY_ONLY -o Dir::Etc::SourceParts=/dev/null |
+   grep '^Inst' |
+   cut -d' ' -f2 |
+   sudo xargs apt-get install -y -o Dir::Etc::SourceList=$APT_SECURITY_ONLY
+}
 
 newuser() {
     username=$1
@@ -29,8 +44,10 @@ newuser() {
     sudo passwd $username
 
     # Clone dotfiles
-    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/dotfiles" >&2
-    sudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/dotfiles
+    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/repos/dotfiles" >&2
+    sudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/repos/dotfiles
+    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/kenjyco /home/$username/repos/kenjyco" >&2
+    sudo -u $username git clone https://github.com/kenjyco/kenjyco /home/$username/repos/kenjyco
 
     # Make sure the new user owns all the stuff in their directory
     sudo chown -R $username:$username /home/$username/

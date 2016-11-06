@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-# Exit script if not supplied with, or called from a path in a git repository
+# Exit script if not supplied with path, or not called from a path in a git repository
 path=$1
 [[ -z "$path" ]] && path=$(pwd)
 path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
-
 cd $path
+
 remote=$(repo-remote)
 branch=$(branchname)
 tracking=$(branchname-tracking)
-echo -e "\n===============\n$(pwd) -- $branch"
+echo -e "\n===============\n$path -- $branch"
 if [[ -z "$remote" ]]; then
     echo " - Local-only repo, not updating"
 elif [[ -n "$tracking" ]]; then

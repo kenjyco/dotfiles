@@ -23,7 +23,8 @@ DEFAULT_EXCLUDES = [
 BACKUP_DIR = os.environ.get('BACKUP_DIR', '')
 
 
-def backup(source='.', destination='', mirror=False, excludes=[]):
+def backup(source='.', destination='', mirror=False, excludes=[],
+           use_default_excludes=True):
     """Use `rsync` to backup
 
     - source: a directory with read permission
@@ -34,11 +35,13 @@ def backup(source='.', destination='', mirror=False, excludes=[]):
         - defaults to whatever is at environment variable BACKUP_DIR
     - mirror: if True, force destination to be a mirror copy of source
     - excludes: list of file/directory patterns to exclude
-        - defaults to global DEFAULT_EXCLUDES list
+    - use_default_excludes: if True, add global "DEFAULT_EXCLUDES" to excludes
+      list
     """
     source = os.path.abspath(os.path.expanduser(source))
     destination = destination or BACKUP_DIR
-    excludes += DEFAULT_EXCLUDES
+    if use_default_excludes:
+        excludes += DEFAULT_EXCLUDES
 
     # Modify the destination if it is not a manually specified remote location
     if destination and not ':' in destination:

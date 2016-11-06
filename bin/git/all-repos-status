@@ -8,9 +8,11 @@ for repo in $(all-repos-list | xargs -d \\n); do
     remote=$(repo-remote $repo)
     branch=$(branchname $repo)
     newcommits=$(unpushed-commits $repo)
-    if [[ -n "$_filestatus" || -n "$newcommits" ]]; then
+    stashes=$(stashlist $repo)
+    if [[ -n "$_filestatus" || -n "$newcommits" || -n "$stashes" ]]; then
         echo -e "\n==============="
         echo -e "$repo -- $remote --  $branch\n$_filestatus"
         [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
+        [[ -n "$stashes" ]] && echo -e "\nStashes\n$stashes"
     fi
 done
