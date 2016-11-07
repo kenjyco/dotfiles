@@ -115,3 +115,6 @@ vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call
 
 " Use 'Ctrl+v' to paste text from system clipboard in insert mode
 imap <C-v> <ESC>:call setreg("\"",system("xclip -o -selection clipboard"))<CR>p")")")"))
+
+" Use ':w!!' to save file as sudo
+cmap w!! w !sudo tee > /dev/null %
