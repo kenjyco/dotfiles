@@ -16,6 +16,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'pthrasher/conqueterm-vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'wesQ3/vim-windowswap'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
