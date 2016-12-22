@@ -1,6 +1,6 @@
-_ignore_tree="-I '.git|*.py[ocd]|include|lib|local|share|build|dryscrape|webkit-server'"
+_ignore_tree="-I '.git|*.py[ocd]|include|lib|local|share|build|dryscrape|webkit-server|__pycache__|.cache'"
 _ignore_tree_dotfiles="${_ignore_tree%?}|backup_dotfiles|extra|Vundle.vim'"
-_ignore_tree_home="${_ignore_tree_dotfiles%?}|.cache|chromium|.dbus|.pki|.wicd|.grip|.autoenv*'"
+_ignore_tree_home="${_ignore_tree_dotfiles%?}|chromium|.dbus|.pki|.wicd|.grip|.autoenv*'"
 _ignore_tree_home="${_ignore_tree_home%?}|.plugin_install_dir|.dropbox*|Dropbox'"
 _ignore_tree_home="${_ignore_tree_home%?}|.mozilla|.local|.gimp|.thumbnails'"
 
