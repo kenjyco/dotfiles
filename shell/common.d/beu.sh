@@ -11,5 +11,5 @@ beu-ipython() {
 }
 
 beu-test() {
-    PYTHONPATH=$BEU_PATH $BEU_PATH/venv/bin/py.test -vs $@ $BEU_PATH/tests
+    PYTHONPATH=$BEU_PATH $BEU_PATH/venv/bin/py.test -vsx -rs --pdb $@ $BEU_PATH/tests
 }
