@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Display the remote url for the specified repository
+# Cleanup local references to old remote branches
 
 path=$1
 [[ -z "$path" ]] && path=$(pwd)
