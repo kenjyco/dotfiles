@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+path=$1
+[[ -z "$path" ]] && path=$(pwd)
+path=$(repo-path $path)
+[[ -z "$path" ]] && exit 1
+
+if [[ "$(pwd)" != "$path"* ]]; then
+    cd $path
+fi
+
+git ls-tree -r --name-only HEAD |
+while read filename; do
+    echo "$(git log -1 --format="%ai" -- "$filename") $filename"
+done |
+sort -n
