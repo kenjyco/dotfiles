@@ -12,3 +12,7 @@ if [[ -f setup.bash ]]; then
     echo -e "\n===============\n$path -- $branch"
     bash ./setup.bash
 fi
+if [[ -f dev-setup.bash ]]; then
+    echo -e "\n===============\n$path -- $branch"
+    bash ./dev-setup.bash
+fi
