@@ -2,5 +2,6 @@ alias update-submodules="git submodule foreach --recursive git pull origin maste
 
 alias glog="git log --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an'"
 alias glog2="glog --date local --name-status"
+alias glog3="git log --stat --reverse -p"
 
 alias gstatus="repo-status"
