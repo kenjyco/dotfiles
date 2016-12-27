@@ -12,3 +12,17 @@ asciicast() {
     asciinema rec -c "tmux attach-session -t cast" -w 2 -t "$title" "$fname"
     echo -e "Saved recording to $fname"
 }
+
+asciicast-no-tmux() {
+    title=$1
+    now_string="$(date +'%Y_%m%d-%a-%H%M%S')"
+    if [[ -z "$title" ]]; then
+        title="misc--${now_string}"
+    else
+        title="${title}--${now_string}"
+    fi
+    fname="$title.json"
+
+    asciinema rec -w 2 -t "$title" "$fname"
+    echo -e "Saved recording to $fname"
+}
