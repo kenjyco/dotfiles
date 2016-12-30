@@ -18,6 +18,11 @@ new-asciicast-win() {
     [[ $? -eq 0 ]] && disown && exit
 }
 
+new-looper-win() {
+    urxvt -title 'looper' -geometry 213x5 -e zsh &
+    [[ $? -eq 0 ]] && disown && exit
+}
+
 tallp1360() {
     urxvt -title 'tall' -geometry 128x50 -e zsh &
     [[ $? -eq 0 ]] && disown && exit
