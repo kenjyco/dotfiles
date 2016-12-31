@@ -19,7 +19,7 @@ new-asciicast-win() {
 }
 
 new-looper-win() {
-    urxvt -title 'looper' -geometry 213x5 -e zsh &
+    urxvt -title 'looper' -geometry 213x5 -e zsh -c 'source ~/.zshrc && looper' &
     [[ $? -eq 0 ]] && disown && exit
 }
 
