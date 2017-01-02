@@ -13,3 +13,10 @@ beu-ipython() {
 beu-test() {
     PYTHONPATH=$BEU_PATH $BEU_PATH/venv/bin/py.test -vsx -rs --pdb $@ $BEU_PATH/tests
 }
+
+beu-example () {
+    oldpwd=$(pwd)
+    cd $BEU_PATH
+    beu-ipython -i examples/events.py
+    cd "$oldpwd"
+}
