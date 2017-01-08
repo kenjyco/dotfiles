@@ -29,3 +29,6 @@ tmux ls 2>/dev/null | awk '{print $1,$2,$3}'
 
 echo -e "\nVim swap files:"
 find ~ -name ".*sw[po]" -exec basename {} \; | sort | uniq
+
+echo -e "\nPrivate files"
+ls -gothr ~/.ssh/config ~/.ssh/{*{rsa,dsa}*,*.pem} ~/.shell/common.d/private* 2>/dev/null
