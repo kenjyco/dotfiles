@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Wrapper to the `rsync` command
@@ -11,6 +11,8 @@ Defaults:
 
   - source: current directory
   - destination: environment variable BACKUP_DIR
+
+https://raw.githubusercontent.com/kenjyco/dotfiles/master/bin/backup.py
 """
 
 import os
@@ -24,7 +26,7 @@ BACKUP_DIR = os.environ.get('BACKUP_DIR', '')
 
 
 def backup(source='.', destination='', mirror=False, excludes=[],
-           use_default_excludes=True):
+           use_default_excludes=True, confirm=True):
     """Use `rsync` to backup
 
     - source: a directory with read permission
@@ -37,6 +39,7 @@ def backup(source='.', destination='', mirror=False, excludes=[],
     - excludes: list of file/directory patterns to exclude
     - use_default_excludes: if True, add global "DEFAULT_EXCLUDES" to excludes
       list
+    - confirm: if True, print args and ask user if they want to continue
     """
     source = os.path.abspath(os.path.expanduser(source))
     destination = destination or BACKUP_DIR
@@ -69,7 +72,7 @@ def backup(source='.', destination='', mirror=False, excludes=[],
 
     if not ':' in destination and not os.path.exists(destination):
         print('Creating destination {}'.format(repr(destination)))
-        os.makedirs(destination, mode=0700)
+        os.makedirs(destination, mode=700)
 
     if mirror:
         rsync_cmd = 'rsync -hrltpEWvPc --delete-during --force'
@@ -80,6 +83,10 @@ def backup(source='.', destination='', mirror=False, excludes=[],
 
     rsync_cmd += exclude_string + ' {} {}'.format(repr(source), repr(destination))
     print(rsync_cmd)
+    choice = input('Continue? (Y/N): ')
+    if not choice.lower().startswith('y'):
+        return
+
     return subprocess.call(rsync_cmd, shell=True)
 
 
