@@ -31,4 +31,4 @@ echo -e "\nVim swap files:"
 find ~ -name ".*sw[po]" -exec basename {} \; | sort | uniq
 
 echo -e "\nPrivate files"
-ls -gothr ~/.ssh/config ~/.ssh/{*{rsa,dsa}*,*.pem} ~/.shell/common.d/private* 2>/dev/null
+ls -1 ~/.ssh/config ~/.ssh/{*{rsa,dsa}*,*.pem} ~/.shell/common.d/private* 2>/dev/null
