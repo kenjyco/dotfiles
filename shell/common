@@ -1,3 +1,8 @@
+# Want some of the scripts in ~/bin to work if on a mac
+if [[ $(uname) == 'Darwin' ]]; then
+    alias xargs=gxargs
+fi
+
 # Call `dotfiles` to automatically move to the dotfiles directory
 dotfiles() {
     [[ -f $HOME/.dotfiles_path ]] && cd $(cat $HOME/.dotfiles_path)
