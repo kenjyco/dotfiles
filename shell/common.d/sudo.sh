@@ -38,22 +38,31 @@ newuser() {
 
     # Add an empty zshrc file so zsh doesn't bug you on first login
     sudo touch /home/$username/.zshrc
+    sudo chown $username:$username /home/$username/.zshrc
 
     # Set a password for the user
     echo -e "\nsudo passwd $username" >&2
     sudo passwd $username
 
-    # Clone dotfiles
-    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/repos/dotfiles" >&2
-    sudo -u $username git clone https://github.com/kenjyco/dotfiles /home/$username/repos/dotfiles
-    echo -e "\nsudo -u $username git clone https://github.com/kenjyco/kenjyco /home/$username/repos/kenjyco" >&2
-    sudo -u $username git clone https://github.com/kenjyco/kenjyco /home/$username/repos/kenjyco
+    # Move into the user's home directory
+    oldpwd=$(pwd)
+    cd /home/$username
 
-    # Make sure the new user owns all the stuff in their directory
-    sudo chown -R $username:$username /home/$username/
+    # Clone repos
+    sudo mkdir repos
+    sudo chown $username:$username repos
+    cd repos
+    repos=(dotfiles kenjyco beu)
+    for repo in "${repos[@]}"; do
+        echo -e "\nsudo -u $username git clone https://github.com/kenjyco/$repo" >&2
+        sudo -u $username git clone https://github.com/kenjyco/$repo
+    done
 
     # Set permissions for the user home directory
     sudo chmod 700 /home/$username
+
+    # Return to previous directory (before "clone repos" step)
+    cd "$oldpwd"
 }
 
 newusergit() {
