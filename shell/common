@@ -78,7 +78,7 @@ elif [[ -n "$BASH_VERSION" ]]; then
 fi
 
 pathmunge () {
-if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
    if [ "$2" = "after" ] ; then
       PATH=$PATH:$1
    else
@@ -89,7 +89,7 @@ fi
 }
 
 pypathmunge () {
-if ! echo $PYTHONPATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+if ! echo $PYTHONPATH | egrep -q "(^|:)$1($|:)" ; then
    if [ "$2" = "after" ] ; then
       PYTHONPATH=$PYTHONPATH:$1
    else
