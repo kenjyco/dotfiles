@@ -1,6 +1,7 @@
 alias ls="ls -Fq"
 alias l="ls -gothr"
 alias la="ls -gothrA"
+alias swps2="ls -1 **/.*.swp"
 
 # Add shortcut for listing files or directories in the current directory
 if [[ -n $ZSH_VERSION ]]; then
