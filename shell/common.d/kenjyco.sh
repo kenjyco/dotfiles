@@ -1,5 +1,5 @@
 # Don't set anything in this file if `~/.kenjyco_path` does not exist
-[[ -f $HOME/.kenjyco_path ]] && pypathmunge "$(cat $HOME/.kenjyco_path)" || return 1
+[[ ! -f $HOME/.kenjyco_path ]] && return 1
 
 KENJYCO_PATH="$(cat $HOME/.kenjyco_path)"
 
@@ -8,37 +8,37 @@ kenjyco() {
 }
 
 k() {
-    ${KENJYCO_PATH}/venv/bin/python -m kenjyco
+    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python -m kenjyco
 }
 
 v() {
     oldpwd=$(pwd)
     cdd ~/vidsearch
-    ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/vidsearch.py $@
+    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/vidsearch.py $@
     cd "$oldpwd"
 }
 
 websearch() {
     oldpwd=$(pwd)
     cdd ~/websearch
-    ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/websearch.py $@
+    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/websearch.py $@
     cd "$oldpwd"
 }
 
 listen() {
-    ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/listen.py $@
+    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/listen.py $@
 }
 
 download() {
-    ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/download.py $@
+    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/download.py $@
 }
 
 looper() {
-    ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/looper.py $@
+    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/looper.py $@
 }
 
 myvlc() {
-    ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/vlc.py $@
+    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/vlc.py $@
 }
 
 make-home-venv() {
