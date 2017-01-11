@@ -19,8 +19,5 @@ beu-help() {
 }
 
 beu-examples () {
-    oldpwd=$(pwd)
-    cd $BEU_PATH
-    beu-ipython -i examples/__init__.py
-    cd "$oldpwd"
+    beu-ipython -i $BEU_PATH/examples/__init__.py
 }
