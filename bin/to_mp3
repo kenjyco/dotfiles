@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# http://stackoverflow.com/a/2664746
+# http://www.gnu.org/software/bash/manual/bashref.html#Shell-Parameter-Expansion
+# http://www.tldp.org/LDP/LG/issue18/bash.html
+# https://ubuntuforums.org/showthread.php?t=2293328&s=431c328035fd27e44bbb1607e27afe0b
+
+fname="$1"
+[[ -z "$fname" ]] && echo "No filename specified" && exit 1
+time avconv -i "$fname" -acodec libmp3lame -ab 320k "${fname%.*}.mp3"
