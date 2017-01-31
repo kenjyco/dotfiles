@@ -46,11 +46,18 @@ make-home-venv() {
         cd
         python3 -m venv venv && venv/bin/pip3 install wheel
         venv/bin/pip3 install -r ${KENJYCO_PATH}/requirements.txt --upgrade
-        venv/bin/pip3 install flake8 grip jupyter
+        venv/bin/pip3 install flake8 grip jupyter redis-helper mocp
         python3 -m venv --system-site-packages venv
     fi
 }
 make-home-venv
+
+upgrade-home-venv() {
+    [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
+    cd
+    venv/bin/pip3 install -r ${KENJYCO_PATH}/requirements.txt --upgrade
+    venv/bin/pip3 install flake8 grip jupyter redis-helper mocp --upgrade
+}
 
 grip() {
     $HOME/venv/bin/grip $@
