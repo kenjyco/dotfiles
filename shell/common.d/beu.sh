@@ -9,15 +9,3 @@ beu() {
 beu-ipython() {
     PYTHONPATH=$BEU_PATH $BEU_PATH/venv/bin/ipython $@
 }
-
-beu-test() {
-    PYTHONPATH=$BEU_PATH $BEU_PATH/venv/bin/py.test -vsx -rs --pdb $@ $BEU_PATH/tests
-}
-
-beu-help() {
-    beu-ipython -c 'import beu; help(beu)'
-}
-
-beu-examples () {
-    beu-ipython -i $BEU_PATH/examples/__init__.py
-}
