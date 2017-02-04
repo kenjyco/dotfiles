@@ -8,4 +8,7 @@ path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
 cd $path
 
+remote=$(repo-remote $path)
+branch=$(branchname)
+echo -e "\n===============\n$path -- $remote -- $branch"
 git fetch --all --prune
