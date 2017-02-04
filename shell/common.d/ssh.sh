@@ -6,3 +6,7 @@ sshlazy() {
         done
     fi
 }
+
+local-ssh-hosts() {
+    egrep "(192.168|10.0.0.)" -B 1 ~/.ssh/config | grep '^Host' | awk '{print $2}'
+}
