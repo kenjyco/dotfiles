@@ -41,7 +41,7 @@ myvlc() {
     PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/vlc.py $@
 }
 
-make-home-venv() {
+make-home-venv-with-kenjyco() {
     if [[ ! -d "$HOME/venv" ]]; then
         cd
         python3 -m venv venv && venv/bin/pip3 install wheel
@@ -50,28 +50,10 @@ make-home-venv() {
         python3 -m venv --system-site-packages venv
     fi
 }
-make-home-venv
 
-upgrade-home-venv() {
+upgrade-home-venv-with-kenjyco() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
     venv/bin/pip3 install -r ${KENJYCO_PATH}/requirements.txt --upgrade
     venv/bin/pip3 install flake8 grip jupyter redis-helper mocp --upgrade
-}
-
-grip() {
-    $HOME/venv/bin/grip $@
-}
-
-flake8() {
-    $HOME/venv/bin/flake8 $@
-}
-
-jupyter() {
-    $HOME/venv/bin/jupyter $@
-}
-
-flakeit() {
-    flake8 --exclude='venv/*' . |
-    egrep -v '(line too long|import not at top of file|imported but unused|do not assign a lambda)'
 }
