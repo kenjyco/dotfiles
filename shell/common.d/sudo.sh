@@ -54,7 +54,7 @@ newuser() {
     sudo mkdir repos
     sudo chown $username:$username repos
     cd repos
-    repos=(dotfiles kenjyco beu)
+    repos=(dotfiles)
     for repo in "${repos[@]}"; do
         echo -e "\nsudo -u $username git clone https://github.com/kenjyco/$repo" >&2
         sudo -u $username git clone https://github.com/kenjyco/$repo
