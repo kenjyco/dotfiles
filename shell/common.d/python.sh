@@ -42,8 +42,8 @@ activate() {
             source "${envjs}/bin/activate"
         fi
     fi
-    which python
-    which pip
+    which python3
+    which pip3
 }
 
 make-home-venv() {
