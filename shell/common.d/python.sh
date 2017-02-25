@@ -72,6 +72,18 @@ jupyter() {
     $HOME/venv/bin/jupyter $@
 }
 
+rh-download-examples() {
+    $HOME/venv/bin/rh-download-examples $@
+}
+
+rh-notes() {
+    $HOME/venv/bin/rh-notes $@
+}
+
+rh-shell() {
+    $HOME/venv/bin/rh-shell $@
+}
+
 flakeit() {
     flake8 --exclude='venv/*' . |
     egrep -v '(line too long|import not at top of file|imported but unused|do not assign a lambda)'
