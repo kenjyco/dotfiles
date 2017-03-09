@@ -50,14 +50,14 @@ make-home-venv() {
     if [[ ! -d "$HOME/venv" ]]; then
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
-        venv/bin/pip3 install ipython flake8 grip jupyter redis-helper mocp chloop
+        venv/bin/pip3 install ipython flake8 grip jupyter redis-helper mocp chloop yt-helper
     fi
 }
 
 update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
-    venv/bin/pip3 install --upgrade ipython flake8 grip jupyter redis-helper mocp chloop
+    venv/bin/pip3 install --upgrade ipython flake8 grip jupyter redis-helper mocp chloop yt-helper
 }
 
 grip() {
@@ -76,12 +76,20 @@ rh-download-examples() {
     $HOME/venv/bin/rh-download-examples $@
 }
 
+rh-download-scripts() {
+    $HOME/venv/bin/rh-download-scripts $@
+}
+
 rh-notes() {
     $HOME/venv/bin/rh-notes $@
 }
 
 rh-shell() {
     $HOME/venv/bin/rh-shell $@
+}
+
+yt-download() {
+    $HOME/venv/bin/yt-download $@
 }
 
 flakeit() {
