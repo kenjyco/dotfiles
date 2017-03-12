@@ -60,6 +60,29 @@ update-home-venv() {
     venv/bin/pip3 install --upgrade ipython flake8 grip jupyter redis-helper mocp chloop yt-helper parse-helper
 }
 
+test-install-in-tmp() {
+    oldpwd=$(pwd)
+    project_name=$(basename $oldpwd)
+    version=$(grep download_url setup.py 2>/dev/null | perl -pe 's/^.*v([\d\.]+).*/$1/')
+    if [[ -z "$version" ]]; then
+        echo "Could not determine version from 'download_url' in 'setup.py'"
+        return 1
+    fi
+    tmp_dir=/tmp/$project_name--$version
+
+    mkdir -pv $tmp_dir
+    clean-py >/dev/null
+    venv/bin/python3 setup.py bdist_wheel || return 1
+    cp -av dist/* $tmp_dir || return 1
+    cd $tmp_dir || return 1
+    rm -rf venv
+    python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
+    venv/bin/pip3 install *.whl ipython
+    echo -e "\n$(pwd)\n"
+    venv/bin/ipython
+    cd "$oldpwd"
+}
+
 grip() {
     $HOME/venv/bin/grip $@
 }
