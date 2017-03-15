@@ -115,6 +115,10 @@ yt-download() {
     $HOME/venv/bin/yt-download $@
 }
 
+beu-vidsearch() {
+    $HOME/venv/bin/beu-vidsearch $@
+}
+
 flakeit() {
     flake8 --exclude='venv/*' . |
     egrep -v '(line too long|import not at top of file|imported but unused|do not assign a lambda)'
