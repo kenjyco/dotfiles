@@ -50,14 +50,14 @@ make-home-venv() {
     if [[ ! -d "$HOME/venv" ]]; then
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
-        venv/bin/pip3 install ipython flake8 grip jupyter redis-helper mocp chloop yt-helper parse-helper
+        venv/bin/pip3 install ipython flake8 grip jupyter beu
     fi
 }
 
 update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
-    venv/bin/pip3 install --upgrade ipython flake8 grip jupyter redis-helper mocp chloop yt-helper parse-helper
+    venv/bin/pip3 install --upgrade ipython flake8 grip jupyter beu
 }
 
 test-install-in-tmp() {
