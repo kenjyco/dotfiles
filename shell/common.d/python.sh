@@ -91,6 +91,11 @@ flake8() {
     $HOME/venv/bin/flake8 $@
 }
 
+flakeit() {
+    flake8 --exclude='venv/*' . |
+    egrep -v '(line too long|import not at top of file|imported but unused|do not assign a lambda)'
+}
+
 jupyter() {
     $HOME/venv/bin/jupyter $@
 }
@@ -115,13 +120,27 @@ yt-download() {
     $HOME/venv/bin/yt-download $@
 }
 
-beu-vidsearch() {
-    $HOME/venv/bin/beu-vidsearch $@
+ph-goo() {
+    $HOME/venv/bin/ph-goo $@
 }
 
-flakeit() {
-    flake8 --exclude='venv/*' . |
-    egrep -v '(line too long|import not at top of file|imported but unused|do not assign a lambda)'
+ph-you() {
+    $HOME/venv/bin/ph-you $@
+}
+
+ph-soup-explore() {
+    $HOME/venv/bin/ph-soup-explore $@
+}
+
+beu-ipython() {
+    $HOME/venv/bin/beu-ipython $@
+}
+
+beu-vidsearch() {
+    oldpwd=$(pwd)
+    cdd ~/vidsearch2
+    $HOME/venv/bin/beu-vidsearch $@
+    cd "$oldpwd"
 }
 
 # Create a Python virtual environment and an optional Node virtual environment.
