@@ -60,6 +60,10 @@ update-home-venv() {
     venv/bin/pip3 install --upgrade ipython flake8 grip jupyter beu
 }
 
+update-home-config() {
+    dotfiles && repo-update && source ~/.zshrc && update-home-venv
+}
+
 test-install-in-tmp() {
     oldpwd=$(pwd)
     project_name=$(basename $oldpwd)
