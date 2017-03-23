@@ -132,6 +132,18 @@ ph-you() {
     $HOME/venv/bin/ph-you $@
 }
 
+ph-ddg() {
+    $HOME/venv/bin/ph-ddg $@
+}
+
+ph-download-images() {
+    $HOME/venv/bin/ph-download-images $@
+}
+
+ph-download-image-as() {
+    $HOME/venv/bin/ph-download-image-as $@
+}
+
 ph-soup-explore() {
     $HOME/venv/bin/ph-soup-explore $@
 }
