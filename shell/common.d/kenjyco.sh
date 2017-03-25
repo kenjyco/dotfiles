@@ -11,7 +11,7 @@ k() {
     PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python -m kenjyco
 }
 
-v() {
+vidsearch() {
     oldpwd=$(pwd)
     cdd ~/vidsearch
     PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/vidsearch.py $@
