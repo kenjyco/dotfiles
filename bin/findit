@@ -10,7 +10,7 @@
 #   findit . --ipattern "*.jpg" --stamp
 
 dirname=$1
-if [[ "$dirname" =~ '--.*' ]]; then
+if [[ "${dirname:0:2}" == "--" ]]; then
     dirname="."
 elif [[ -z "$dirname" ]]; then
     dirname="."
