@@ -166,6 +166,9 @@ beu-audiosearch() {
     cd "$oldpwd"
 }
 
+alias v=beu-vidsearch
+alias a=beu-audiosearch
+
 # Create a Python virtual environment and an optional Node virtual environment.
 makeenv() {
     envpy="$1"
