@@ -46,8 +46,28 @@ activate() {
     which pip3
 }
 
+install-home-venv-requirements() {
+    if [[ -f /usr/bin/apt-get && -n "$(groups | grep sudo)" ]]; then
+        sudo apt-get update || return 1
+        sudo apt-get install -y binutils-multiarch gcc g++ python3-dev python3-venv python3-pip python3-setuptools
+        sudo apt-get install -y redis-server moc libav-tools sox rtmpdump
+        # Requirements for lxml
+        sudo apt-get install -y libxml2 libxslt1.1 libxml2-dev libxslt1-dev zlib1g-dev
+        # Requirements for bcrypt
+        sudo apt-get install -y libffi-dev
+    elif [[ -f /usr/local/bin/brew ]]; then
+        brew update || return 1
+        brew install moc redis
+        # Requirements for lxml
+        brew install libxml2
+        # Requirements for bcrypt
+        brew install libffi
+    fi
+}
+
 make-home-venv() {
     if [[ ! -d "$HOME/venv" ]]; then
+        install-home-venv-requirements
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
         venv/bin/pip3 install ipython flake8 grip jupyter beu
