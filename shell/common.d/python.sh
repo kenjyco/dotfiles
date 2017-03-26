@@ -107,7 +107,7 @@ test-install-in-tmp() {
     python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
     venv/bin/pip3 install *.whl ipython pdbpp
     echo -e "\n$(pwd)\n"
-    venv/bin/ipython
+    PYTHONPATH="$tmp_dir" venv/bin/ipython
     cd "$oldpwd"
 }
 
