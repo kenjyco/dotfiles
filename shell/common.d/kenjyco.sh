@@ -29,18 +29,6 @@ listen() {
     PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/listen.py $@
 }
 
-download() {
-    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/download.py $@
-}
-
-looper() {
-    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/looper.py $@
-}
-
-myvlc() {
-    PYTHONPATH=$KENJYCO_PATH ${KENJYCO_PATH}/venv/bin/python ${KENJYCO_PATH}/kenjyco/misc/vlc.py $@
-}
-
 make-home-venv-with-kenjyco() {
     if [[ ! -d "$HOME/venv" ]]; then
         cd

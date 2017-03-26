@@ -50,7 +50,7 @@ install-home-venv-requirements() {
     if [[ -f /usr/bin/apt-get && -n "$(groups | grep sudo)" ]]; then
         sudo apt-get update || return 1
         sudo apt-get install -y binutils-multiarch gcc g++ python3-dev python3-venv python3-pip python3-setuptools
-        sudo apt-get install -y redis-server moc libav-tools sox rtmpdump
+        sudo apt-get install -y redis-server moc vlc libav-tools sox rtmpdump imagemagick wmctrl
         # Requirements for lxml
         sudo apt-get install -y libxml2 libxslt1.1 libxml2-dev libxslt1-dev zlib1g-dev
         # Requirements for bcrypt
@@ -71,6 +71,8 @@ make-home-venv() {
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
         venv/bin/pip3 install ipython flake8 grip jupyter beu
+        # Needed for DBUS
+        python3 -m venv --system-site-packages venv
     fi
 }
 
@@ -78,6 +80,8 @@ update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
     venv/bin/pip3 install --upgrade ipython flake8 grip jupyter beu
+    # Needed for DBUS
+    python3 -m venv --system-site-packages venv
 }
 
 update-home-config() {
@@ -166,6 +170,14 @@ ph-download-image-as() {
 
 ph-soup-explore() {
     $HOME/venv/bin/ph-soup-explore $@
+}
+
+vlc-repl() {
+    $HOME/venv/bin/vlc-repl $@
+}
+
+myvlc() {
+    $HOME/venv/bin/myvlc $@
 }
 
 beu-ipython() {
