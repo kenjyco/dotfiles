@@ -84,6 +84,10 @@ update-home-venv() {
     python3 -m venv --system-site-packages venv
 }
 
+home-ipython() {
+    PYTHONPATH=$HOME $HOME/venv/bin/ipython $@
+}
+
 update-home-config() {
     dotfiles && repo-update && source ~/.zshrc && update-home-venv
 }
