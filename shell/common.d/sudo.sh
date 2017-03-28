@@ -20,6 +20,30 @@ do-security-upgrades() {
    sudo xargs apt-get install -y -o Dir::Etc::SourceList=$APT_SECURITY_ONLY
 }
 
+set-hostname() {
+    newhostname=$1
+    if [[ -z "$newhostname" ]]; then
+        echo "Expected the new hostname as first argument" >&2
+        return 1
+    fi
+    sudo hostnamectl set-hostname $newhostname || return 1
+
+    # Modify/append line of /etc/hosts to set `127.0.1.1 $newhostname`
+    matched=$(grep 127.0.1.1 /etc/hosts)
+    if [[ -z "$matched" ]]; then
+        sudo sh -c "echo 127.0.1.1    $newhostname >> /etc/hosts"
+    else
+        sudo sh -c "sed -i \"/127.0.1.1/c\127.0.1.1    $newhostname\" /etc/hosts" 2>/dev/null
+    fi
+
+    echo -e "results of 'hostname' command:"
+    hostname
+    echo -e "\ncontents of '/etc/hostname' file:"
+    cat /etc/hostname
+    echo -e "\ngrep of '127.0.1.1' in '/etc/hosts' file:"
+    grep 127.0.1.1 /etc/hosts
+}
+
 newuser() {
     username=$1
     if [[ -z "$username" ]]; then
