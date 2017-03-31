@@ -29,3 +29,9 @@ fix-monitors-tv-hdmi() {
     xrandr --output HDMI1 --mode 1920x1080
     xrandr --output HDMI1 --primary
 }
+
+fix-monitors-edge-tv() {
+    xrandr --output eDP1 --off
+    xrandr --output HDMI1 --mode 1920x1080
+    xrandr --output HDMI1 --primary
+}
