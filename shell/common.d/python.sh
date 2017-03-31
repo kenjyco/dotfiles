@@ -204,6 +204,7 @@ beu-audiosearch() {
 
 alias v=beu-vidsearch
 alias a=beu-audiosearch
+alias b=beu-ipython
 
 # Create a Python virtual environment and an optional Node virtual environment.
 makeenv() {
