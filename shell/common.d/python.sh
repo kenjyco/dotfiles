@@ -184,6 +184,10 @@ myvlc() {
     $HOME/venv/bin/myvlc $@
 }
 
+mocplayer() {
+    $HOME/venv/bin/mocplayer $@
+}
+
 beu-ipython() {
     $HOME/venv/bin/beu-ipython $@
 }
@@ -202,9 +206,10 @@ beu-audiosearch() {
     cd "$oldpwd"
 }
 
+alias m=mocplayer
+alias b=beu-ipython
 alias v=beu-vidsearch
 alias a=beu-audiosearch
-alias b=beu-ipython
 
 # Create a Python virtual environment and an optional Node virtual environment.
 makeenv() {
