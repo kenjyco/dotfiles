@@ -20,7 +20,8 @@ import subprocess
 
 
 DEFAULT_EXCLUDES = [
-    'env', 'venv', '__pycache__', '.git', '*.swp', '.cache', '.mozilla'
+    'env', 'venv', '__pycache__', '.npm', '*.swp', '.cache', 'cache',
+    '.mozilla', 'chromium',
 ]
 BACKUP_DIR = os.environ.get('BACKUP_DIR', '')
 
