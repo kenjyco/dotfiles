@@ -14,7 +14,7 @@ tall-wide() {
 }
 
 new-asciicast-win() {
-    urxvt -title 'tall-wide2' -geometry 160x40 -e zsh &
+    urxvt -title 'asciinema-optimized' -geometry 160x40 -e zsh &
     [[ $? -eq 0 ]] && disown && exit
 }
 
