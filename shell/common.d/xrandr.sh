@@ -13,6 +13,11 @@ fix-monitors-t420-below-1920() {
     xrandr --output LVDS1 --mode 1366x768 --below VGA1
 }
 
+fix-monitors-t420-below-1280() {
+    xrandr --output VGA1 --mode 1280x720 --primary
+    xrandr --output LVDS1 --mode 1366x768 --below VGA1
+}
+
 fix-monitors-yoga-below-1920() {
     xrandr --output HDMI1 --mode 1920x1080 --primary
     xrandr --output eDP1 --mode 1366x768 --below HDMI1
