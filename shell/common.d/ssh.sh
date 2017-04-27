@@ -13,6 +13,8 @@ local-ssh-hosts() {
 
 other-hosts-status() {
     for server in $(local-ssh-hosts | grep -v $(hostname) | xargs -d \\n echo); do
-        ssh $server -t 'echo -e "\n\n\n\n" && banner $(hostname) && source ~/.zshrc && mystats ip && echo -e "\n\n" && all-repos-status'
+        echo -e "\n\n\n\n"
+        banner $server
+        ssh $server -t 'source ~/.zshrc && mystats ip && echo -e "\n\n" && all-repos-status'
     done
 }
