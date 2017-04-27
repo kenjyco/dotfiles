@@ -10,3 +10,9 @@ sshlazy() {
 local-ssh-hosts() {
     egrep "(192.168|10.0.0.)" -B 1 ~/.ssh/config | grep '^Host' | awk '{print $2}'
 }
+
+other-hosts-status() {
+    for server in $(local-ssh-hosts | grep -v $(hostname) | xargs -d \\n echo); do
+        ssh $server -t 'echo -e "\n\n\n\n" && banner $(hostname) && source ~/.zshrc && mystats ip && echo -e "\n\n" && all-repos-status'
+    done
+}
