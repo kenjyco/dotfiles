@@ -1,3 +1,7 @@
+connected-displays() {
+    xrandr -q | grep -A 1 -e '\bconnected\b'
+}
+
 fix-monitors-x200-below-1920() {
     xrandr --output VGA1 --mode 1920x1080 --primary
     xrandr --output LVDS1 --mode 1280x800 --below VGA1
