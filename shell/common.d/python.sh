@@ -86,6 +86,15 @@ home-ipython() {
     PYTHONPATH=$HOME $HOME/venv/bin/ipython $@
 }
 
+home-site-packages() {
+    if [[ -d "$HOME/venv/lib/python3.5/site-packages" ]]; then
+        cd "$HOME/venv/lib/python3.5/site-packages"
+    elif [[ -d "$HOME/venv/lib/python3.6/site-packages" ]]; then
+        cd "$HOME/venv/lib/python3.6/site-packages"
+    fi
+
+}
+
 update-home-config() {
     dotfiles && repo-update && source ~/.zshrc && update-home-venv
 }
