@@ -59,6 +59,14 @@ play-vids() {
     findit-vids $@ --pipe "vlc --fullscreen" &>/dev/null &
 }
 
+vids() {
+    findit-vids --depth 1 --stamp | sort
+}
+
+vids-all() {
+    findit-vids --stamp | sort
+}
+
 findit-audio() {
     dirname=$1
     if [[ "$dirname" =~ '--.*' ]]; then
@@ -83,4 +91,12 @@ findit-docs() {
     fi
     findit $dirname --complex "\( -iname '*.pdf' -o -iname '*.doc' \
         -o -iname '*.odt' \)" $@
+}
+
+docs() {
+    findit-docs --depth 1 --stamp | sort
+}
+
+docs-all() {
+    findit-docs --stamp | sort
 }
