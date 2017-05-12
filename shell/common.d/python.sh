@@ -57,6 +57,8 @@ install-home-venv-requirements() {
         sudo apt-get install -y libxml2 libxslt1.1 libxml2-dev libxslt1-dev zlib1g-dev
         # Requirements for bcrypt
         sudo apt-get install -y libffi-dev
+        # Requirements for dryscrape
+        sudo apt-get install -y qt5-default libqt5webkit5-dev xvfb build-essential
     elif [[ -f /usr/local/bin/brew ]]; then
         brew update || return 1
         brew install moc redis
@@ -64,6 +66,8 @@ install-home-venv-requirements() {
         brew install libxml2
         # Requirements for bcrypt
         brew install libffi
+        # Requirements for dryscrape
+        brew install qt
     fi
 }
 
