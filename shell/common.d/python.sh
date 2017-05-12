@@ -204,17 +204,11 @@ beu-ipython() {
 }
 
 beu-vidsearch() {
-    oldpwd=$(pwd)
-    cdd ~/vidsearch2
     $HOME/venv/bin/beu-vidsearch $@
-    cd "$oldpwd"
 }
 
 beu-audiosearch() {
-    oldpwd=$(pwd)
-    cdd ~/audiosearch
     $HOME/venv/bin/beu-audiosearch $@
-    cd "$oldpwd"
 }
 
 alias m=mocplayer
