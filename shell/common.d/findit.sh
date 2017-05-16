@@ -24,6 +24,14 @@ findit-py() {
         -o -path '*/build/*' -prune \) -iname '*.py'" $@
 }
 
+pys() {
+    findit-py --depth 1 --stamp $@ | sort
+}
+
+pys-all() {
+    findit-py --stamp $@ | sort
+}
+
 findit-autoday() {
     findit ~/autoday $@
 }
@@ -42,6 +50,22 @@ findit-pics() {
         -o -path '*/venv/*' -o -path '*/env/*' -prune \) \
         \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \
         -o -iname '*.gif' \)" $@
+}
+
+pics() {
+    findit-pics --depth 1 --stamp $@ | sort
+}
+
+pics-all() {
+    findit-pics --stamp $@ | sort
+}
+
+pics-view() {
+    findit-pics --depth 1 $@ --pipesort "feh -Fd" &
+}
+
+pics-all-view() {
+    findit-pics $@ --pipesort "feh -Fd" &
 }
 
 findit-vids() {
@@ -86,6 +110,24 @@ findit-audio() {
     findit $dirname --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
         -prune \) \( -iname '*.mp3' -o -iname '*.flac' \
         -o -iname '*.ogg' -o -iname '*.wav' \)" $@
+}
+
+audio() {
+    findit-audio --depth 1 --stamp $@ | sort
+}
+
+audio-all() {
+    findit-audio --stamp $@ | sort
+}
+
+audio-play() {
+    mocp -S &>/dev/null
+    mocp -c && findit-audio --depth 1 $@ --pipesort "mocp -a" && mocp -p
+}
+
+audio-all-play() {
+    mocp -S &>/dev/null
+    mocp -c && findit-audio $@ --pipesort "mocp -a" && mocp -p
 }
 
 findit-logs() {
