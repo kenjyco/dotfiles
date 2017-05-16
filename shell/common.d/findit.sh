@@ -58,16 +58,20 @@ findit-vids() {
         -o -iname '*.webm' -o -iname '*.avi' \)" $@
 }
 
-play-vids() {
-    findit-vids $@ --pipe "vlc --fullscreen" &>/dev/null &
-}
-
 vids() {
     findit-vids --depth 1 --stamp $@ | sort
 }
 
 vids-all() {
     findit-vids --stamp $@ | sort
+}
+
+vids-play() {
+    findit-vids --depth 1 $@ --pipesort "vlc --fullscreen" &>/dev/null &
+}
+
+vids-all-play() {
+    findit-vids $@ --pipesort "vlc --fullscreen" &>/dev/null &
 }
 
 findit-audio() {
