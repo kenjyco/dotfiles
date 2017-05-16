@@ -20,7 +20,8 @@ findit-py() {
     else
         shift 2>/dev/null
     fi
-    findit $dirname --pattern "*.py" $@
+    findit $dirname --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
+        -o -path '*/build/*' -prune \) -iname '*.py'" $@
 }
 
 findit-autoday() {
@@ -36,8 +37,11 @@ findit-pics() {
     else
         shift 2>/dev/null
     fi
-    findit $dirname --complex "\( -iname '*.png' -o -iname '*.jpg' \
-        -o -iname '*.jpeg' -o -iname '*.gif' \)" $@
+    findit $dirname --complex "-not \( -path '*/.cache/*' -o -path '*/.config/*' \
+        -o -path '*/.thumbnails/*' -o -path '*/.cinnamon/*' \
+        -o -path '*/venv/*' -o -path '*/env/*' -prune \) \
+        \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \
+        -o -iname '*.gif' \)" $@
 }
 
 findit-vids() {
@@ -75,7 +79,8 @@ findit-audio() {
     else
         shift 2>/dev/null
     fi
-    findit $dirname --complex "\( -iname '*.mp3' -o -iname '*.flac' \
+    findit $dirname --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
+        -prune \) \( -iname '*.mp3' -o -iname '*.flac' \
         -o -iname '*.ogg' -o -iname '*.wav' \)" $@
 }
 
@@ -88,8 +93,9 @@ findit-docs() {
     else
         shift 2>/dev/null
     fi
-    findit $dirname --complex "\( -iname '*.pdf' -o -iname '*.doc' \
-        -o -iname '*.odt' \)" $@
+    findit $dirname --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
+        -prune \) \( -iname '*.pdf' -o -iname '*.doc' \
+        -o -iname '*.odt' -o -iname '*.md' \)" $@
 }
 
 docs() {
