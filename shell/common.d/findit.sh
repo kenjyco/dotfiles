@@ -9,7 +9,7 @@ findit-swp() {
     fi
     findit $dirname --pattern ".*sw[po]" $@
 }
-alias swps="findit-swp . --stamp 2>/dev/null | sort -h"
+alias swps="findit-swp . --stamp 2>/dev/null | sort"
 
 findit-py() {
     dirname=$1
@@ -24,8 +24,7 @@ findit-py() {
 }
 
 findit-autoday() {
-    dirname=$HOME/autoday
-    findit $dirname $@ --stamp | sort -n
+    findit ~/autoday $@
 }
 
 findit-pics() {
@@ -60,11 +59,11 @@ play-vids() {
 }
 
 vids() {
-    findit-vids --depth 1 --stamp | sort
+    findit-vids --depth 1 --stamp $@ | sort
 }
 
 vids-all() {
-    findit-vids --stamp | sort
+    findit-vids --stamp $@ | sort
 }
 
 findit-audio() {
@@ -94,9 +93,9 @@ findit-docs() {
 }
 
 docs() {
-    findit-docs --depth 1 --stamp | sort
+    findit-docs --depth 1 --stamp $@ | sort
 }
 
 docs-all() {
-    findit-docs --stamp | sort
+    findit-docs --stamp $@ | sort
 }
