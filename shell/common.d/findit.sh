@@ -88,6 +88,26 @@ findit-audio() {
         -o -iname '*.ogg' -o -iname '*.wav' \)" $@
 }
 
+findit-logs() {
+    dirname=$1
+    if [[ "$dirname" =~ '--.*' ]]; then
+        dirname="."
+    elif [[ -z "$dirname" ]]; then
+        dirname="."
+    else
+        shift 2>/dev/null
+    fi
+    findit $dirname --complex "-iname '*.log' -type f ! -size 0" $@
+}
+
+logs() {
+    findit-logs --depth 1 --stamp $@ | sort
+}
+
+logs-all() {
+    findit-logs --stamp $@ | sort
+}
+
 findit-docs() {
     dirname=$1
     if [[ "$dirname" =~ '--.*' ]]; then
