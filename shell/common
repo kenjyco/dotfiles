@@ -105,7 +105,7 @@ fi
 }
 
 # Add ~/bin and any sub-directories to PATH
-for somedir in $(find $HOME/bin/ -type d 2>/dev/null | xargs -d \\n); do
+for somedir in $(find $HOME/bin/ -type d -print0 2>/dev/null | xargs -0); do
     pathmunge "$somedir"
 done
 
@@ -114,7 +114,7 @@ pathmunge /usr/sbin
 pathmunge /sbin
 
 # Source other `*.sh` files in the `common.d` directory (and sub-directories)
-for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" | xargs -d \\n); do
+for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" -print0 | xargs -0); do
     source $somefile
 done
 

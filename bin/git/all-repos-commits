@@ -2,7 +2,7 @@
 #
 # List recent commits. Any arguments are passed to the git log command
 
-for repo in $(all-repos-list | xargs -d \\n); do
+for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
     branch=$(branchname $repo)
     cd $repo
     commits=$(git --no-pager log --pretty=format:'\n%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an' $@ 2>/dev/null)

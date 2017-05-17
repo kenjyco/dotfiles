@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 find . \( -name '.eggs' -o -name '*.egg-info' -o -name '__pycache__' \
-    -o -name 'build' -o -name 'dist' \) | xargs -d \\n rm -rfv
+    -o -name 'build' -o -name 'dist' \) -print0 | xargs -0 rm -rfv
