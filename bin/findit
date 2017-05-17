@@ -104,11 +104,11 @@ if [[ -n "$stamp" ]]; then
 fi
 
 if [[ -n "$pipesort" ]]; then
-    echo "$find_cmd | sort | xargs -d \\\\n $pipesort" >&2
-    eval "$find_cmd | sort" | xargs -d \\n $pipesort
+    echo "$find_cmd -print0 | sort -z | xargs -0 $pipesort" >&2
+    eval "$find_cmd -print0 | sort -z" | xargs -0 $pipesort
 elif [[ -n "$pipe" ]]; then
-    echo "$find_cmd | xargs -d \\\\n $pipe" >&2
-    eval "$find_cmd" | xargs -d \\n $pipe
+    echo "$find_cmd -print0 | xargs -0 $pipe" >&2
+    eval "$find_cmd -print0" | xargs -0 $pipe
 else
     echo "$find_cmd" >&2
     eval "$find_cmd"
