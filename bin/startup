@@ -3,13 +3,15 @@
 # Exit this script if not running X
 [[ -z "$DISPLAY" ]] && exit
 
-DEFAULT_LANDSCAPE="$HOME/wallpapers/landscape/XQeeMZU.jpg"
-
-SET_RANDOM_WALLPAPER="False"
-if [[ "$SET_RANDOM_WALLPAPER" =~ [Tt][Rr][Uu][Ee] ]]; then
-    if [[ -d $HOME/wallpapers/landscape ]]; then
-        feh --randomize --recursive --bg-fill $HOME/wallpapers/landscape 2>/dev/null
-    fi
-else
-    feh --bg-fill $DEFAULT_LANDSCAPE 2>/dev/null
-fi
+# Uncomment to let `feh` set the desktop wallpaper (if using a minimal window manager)
+#
+# DEFAULT_LANDSCAPE="$HOME/wallpapers/landscape/XQeeMZU.jpg"
+#
+# SET_RANDOM_WALLPAPER="False"
+# if [[ "$SET_RANDOM_WALLPAPER" =~ [Tt][Rr][Uu][Ee] ]]; then
+#     if [[ -d $HOME/wallpapers/landscape ]]; then
+#         feh --randomize --recursive --bg-fill $HOME/wallpapers/landscape 2>/dev/null
+#     fi
+# else
+#     feh --bg-fill $DEFAULT_LANDSCAPE 2>/dev/null
+# fi
