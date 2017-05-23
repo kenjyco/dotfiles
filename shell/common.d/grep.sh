@@ -3,5 +3,5 @@ grepit() {
 }
 
 grepit-no-docs() {
-    grepit --exclude=\*.{txt,md,rst} $@
+    grepit --exclude=\*.{txt,md,rst} --exclude-dir=\*.dist-info $@
 }
