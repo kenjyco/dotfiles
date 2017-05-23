@@ -99,6 +99,18 @@ home-site-packages() {
 
 }
 
+venv-site-packages() {
+    env_name=$1
+    [[ -z "$env_name" ]] && env_name="venv"
+    [[ ! -d $env_name ]] && echo "Can't find '$env_name'" && return 1
+    if [[ -d "$env_name/lib/python3.5/site-packages" ]]; then
+        cd "$env_name/lib/python3.5/site-packages"
+    elif [[ -d "$env_name/lib/python3.6/site-packages" ]]; then
+        cd "$env_name/lib/python3.6/site-packages"
+    fi
+
+}
+
 update-home-config() {
     dotfiles && repo-update && source ~/.zshrc && update-home-venv
 }
