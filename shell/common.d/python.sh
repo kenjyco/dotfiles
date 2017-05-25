@@ -112,7 +112,8 @@ venv-site-packages() {
 }
 
 update-home-config() {
-    dotfiles && repo-update && source ~/.zshrc && update-home-venv
+    dotfiles && repo-update && source ~/.zshrc
+    update-home-venv
 }
 
 test-install-in-tmp() {
