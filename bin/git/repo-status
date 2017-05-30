@@ -9,6 +9,7 @@ remote=$(repo-remote $path)
 branch=$(branchname $path)
 newcommits=$(unpushed-commits $path)
 stashes=$(stashlist $path)
+next_tag_commits=$(since-lasttag $path)
 
 echo -e "$path -- $remote -- $branch"
 if [[ -n "$1" ]]; then
@@ -21,3 +22,4 @@ git status -s
 
 [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
 [[ -n "$stashes" ]] && echo -e "\nStashes\n$stashes"
+[[ -n "$next_tag_commits" ]] && echo -e "\nNew commits since latest tag\n$next_tag_commits"
