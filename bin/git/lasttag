@@ -6,4 +6,4 @@ path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
 cd $path
 
-git describe --tags $(git rev-list --tags --max-count=1)
+git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null
