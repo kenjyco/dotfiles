@@ -6,4 +6,4 @@ path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
 cd $path
 
-git log --find-renames --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an' @{u}.. 2>/dev/null
+git log --find-renames --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an%C(reset)' @{u}.. 2>/dev/null

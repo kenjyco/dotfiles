@@ -5,7 +5,7 @@
 for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
     branch=$(branchname $repo)
     cd $repo
-    commits=$(git --no-pager log --pretty=format:'\n%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an' $@ 2>/dev/null)
+    commits=$(git --no-pager log --pretty=format:'\n%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an%C(reset)' $@ 2>/dev/null)
     if [[ -n "$commits" ]]; then
         numcommits=$(($(echo -e $commits | wc -l) -1))
         if [[ $numcommits -gt 5 ]]; then

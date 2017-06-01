@@ -9,5 +9,5 @@ cd $path
 tag=$(lasttag $path)
 
 if [[ "$tag" =~ v. ]]; then
-    git log --find-renames --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an' ${tag}..
+    git log --find-renames --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an%C(reset)' ${tag}..
 fi
