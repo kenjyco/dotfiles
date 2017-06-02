@@ -9,10 +9,12 @@ for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
     branch=$(branchname $repo)
     newcommits=$(unpushed-commits $repo)
     stashes=$(stashlist $repo)
-    if [[ -n "$_filestatus" || -n "$newcommits" || -n "$stashes" ]]; then
+    next_tag_commits=$(since-lasttag $repo)
+    if [[ -n "$_filestatus" || -n "$newcommits" || -n "$stashes" || -n "$next_tag_commits" ]]; then
         echo -e "\n==============="
         echo -e "$repo -- $remote --  $branch\n$_filestatus"
         [[ -n "$newcommits" ]] && echo -e "\nNot pushed\n$newcommits"
         [[ -n "$stashes" ]] && echo -e "\nStashes\n$stashes"
+        [[ -n "$next_tag_commits" ]] && echo -e "\nNew commits since latest tag\n$next_tag_commits"
     fi
 done
