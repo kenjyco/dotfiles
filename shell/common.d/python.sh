@@ -224,10 +224,20 @@ beu-audiosearch() {
     $HOME/venv/bin/beu-audiosearch $@
 }
 
+beu-trending() {
+    $HOME/venv/bin/beu-trending $@
+}
+
+beu-related-to() {
+    $HOME/venv/bin/beu-related-to $@
+}
+
 alias m=mocplayer
 alias b=beu-ipython
 alias v=beu-vidsearch
 alias a=beu-audiosearch
+alias trending=beu-trending
+alias related=beu-related-to
 
 # Create a Python virtual environment and an optional Node virtual environment.
 makeenv() {
