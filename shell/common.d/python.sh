@@ -238,6 +238,7 @@ alias v=beu-vidsearch
 alias a=beu-audiosearch
 alias trending=beu-trending
 alias related=beu-related-to
+alias pdfsearch='ph-goo --filetype pdf'
 
 # Create a Python virtual environment and an optional Node virtual environment.
 makeenv() {
