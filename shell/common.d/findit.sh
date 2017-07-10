@@ -171,3 +171,7 @@ docs() {
 docs-all() {
     findit-docs --stamp $@ | sort
 }
+
+annotated() {
+    findit --pattern 'annotated*pdf' --stamp $@ | sort
+}
