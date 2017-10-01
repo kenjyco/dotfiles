@@ -61,7 +61,18 @@ install-home-venv-requirements() {
         sudo apt-get install -y qt5-default libqt5webkit5-dev xvfb build-essential
     elif [[ -f /usr/local/bin/brew ]]; then
         brew update || return 1
-        brew install moc redis
+        brew install dbus dbus-glib moc libav sox rtmpdump
+        brew tap homebrew/versions
+        brew install redis@3.2
+        if [[ -z $(brew services list | grep "redis@3.2.*started") ]]; then
+            brew services start redis@3.2
+        fi
+        if [[ -z $(brew services list | grep "dbus.*started") ]]; then
+            brew services start dbus
+        fi
+        if [[ -z $(brew services list | grep "jack.*started") ]]; then
+            brew services start jack
+        fi
         # Requirements for lxml
         brew install libxml2
         # Requirements for bcrypt
