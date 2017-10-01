@@ -89,6 +89,17 @@ tmux source-file ~/.tmux.conf
 # Copy a xscreensaver config file if none in use
 [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 
+# Install nvm, a couple versions of node, and some "global" packages
+if [[ ! -d ~/.nvm ]]; then
+    echo -e "\nInstalling nvm, node 4.8.4, node 6.10, and some global packages"
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    source "$NVM_DIR/nvm.sh"
+    nvm install 4.8.4
+    npm install -g nodemon mocha karma-cli karma watchr
+    nvm install 6.10
+fi
+
 # List the symbolic links that exist in $HOME
 echo -e "\nListing symbolic links that exist in $HOME"
 ls -FgohA $HOME | grep '^l'

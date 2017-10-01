@@ -43,5 +43,10 @@ prompt-terse() {
     PS1="\[\e[1;34m\][\T] \[\e[1;33m\]\[\e[1;33m\]\W\[\e[1;32m\]\$(parse_git_branch) \$\[\e[0m\] "
 }
 
+# Setup nvm (node version manager)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common

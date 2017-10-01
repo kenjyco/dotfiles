@@ -57,5 +57,10 @@ prompt-terse() {
 	PROMPT="%{$fg[blue]%}%D{[%I:%M:%S]} %{$fg_bold[yellow]%}%c%{$fg[green]%}\$(parse_git_branch) %# %{$reset_color%}"
 }
 
+# Setup nvm (node version manager)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
