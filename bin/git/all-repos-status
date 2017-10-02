@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# Display info about repositories that have changes
+# Display info about repositories that have changes or commits not on the latest tag
 
-echo "Showing repos that have changes"
+echo "Showing repos that have changes or commits not on the latest tag"
 for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
     _filestatus=$(filestatus $repo)
     remote=$(repo-remote $repo)
