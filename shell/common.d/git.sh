@@ -5,3 +5,4 @@ alias glog2="glog --date local --name-status"
 alias glog3="git log --find-renames --stat --reverse -p"
 
 alias gstatus="repo-status"
+alias gstatus-all="all-repos-status--changes-only"
