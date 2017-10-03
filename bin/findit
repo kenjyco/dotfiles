@@ -10,6 +10,12 @@
 #   findit --complex "\( -iname '*.mp4' -o -iname '*.mkv' \)" --pipesort "vlc --fullscreen"
 #   findit . --ipattern "*.jpg" --stamp
 
+if [[ $(uname) == 'Darwin' ]]; then
+    _find="gfind"
+else
+    _find="find"
+fi
+
 dirname=$1
 if [[ "${dirname:0:2}" == "--" ]]; then
     dirname="."
@@ -74,9 +80,9 @@ while [[ -n "$1" ]]; do
 done
 
 if [[ "$depth" == [0-9]* ]]; then
-    find_cmd="find $dirname -maxdepth $depth -type f"
+    find_cmd="$_find $dirname -maxdepth $depth -type f"
 else
-    find_cmd="find $dirname -type f"
+    find_cmd="$_find $dirname -type f"
 fi
 
 if [[ -n "$pattern" ]]; then
