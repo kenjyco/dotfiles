@@ -114,7 +114,7 @@ endif
 
 " Use 'Ctrl+c' to copy selected text with system clipboard in visual mode
 vmap <C-x> :!pbcopy<CR>
-vmap <C-c> :w !pbcopy<CR><CR>
+vmap <C-c> :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy", @") \| let @"=@a<CR>
 
 " Use 'Ctrl+v' to paste text from system clipboard in insert mode
 imap <C-v> <ESC>:call setreg("\"",system("pbpaste"))<CR>p")")")"))
