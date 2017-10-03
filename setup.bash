@@ -51,15 +51,21 @@ ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
 ln -s "$DIR/git/gitconfig" "$HOME/.gitconfig"
 ln -s "$DIR/input/inputrc" "$HOME/.inputrc"
 ln -s "$DIR/input/editrc" "$HOME/.editrc"
-ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
 ln -s "$DIR/psql/psqlrc" "$HOME/.psqlrc"
 ln -s "$DIR/vim" "$HOME/.vim"
 ln -s "$DIR/ipython" "$HOME/.ipython"
 ln -s "$DIR/tmux" "$HOME/.tmux"
-ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
 ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
+
+if [[ $(uname) == 'Darwin' ]]; then
+    ln -s "$DIR/tmux/tmux-mac.conf" "$HOME/.tmux.conf"
+    ln -s "$DIR/vim/vimrc-mac" "$HOME/.vimrc"
+else
+    ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+    ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
+fi
 
 # Create symbolic links to individual dotfiles that live in ~/.config
 [[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"

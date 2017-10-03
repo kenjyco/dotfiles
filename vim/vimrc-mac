@@ -1,0 +1,123 @@
+" Setup Vundle and configure Plugins
+set nocompatible
+filetype off
+
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+" Path where Vundle should install plugins
+call vundle#begin('~/.plugin_install_dir/vundle')
+
+" Let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Extra plugins
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'pthrasher/conqueterm-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-obsession'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'wesQ3/vim-windowswap'
+
+" All of your Plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on
+
+" ---------- Finished setting up Vundle ---------- "
+
+syntax on
+
+" Set the current row of the cursor to be darkgrey
+" set cursorline
+" hi CursorLine cterm=None ctermbg=darkgrey ctermfg=None
+
+" Allow mouse to resize splits without moving the cursor
+set mouse=a
+nnoremap <LeftMouse> m'<LeftMouse>
+nnoremap <LeftRelease> <LeftRelease>g``
+
+" Improve mouse selections when using vim in tmux
+set ttymouse=xterm2
+
+" Specify if vim window is in a dark or light terminal
+set bg=dark
+
+" Keep window split sizes from changing when closed
+set noequalalways
+
+" Enhanced mode for command-line/tab completion
+set wildmenu
+set wildignore+=*.o,*~,*.pyc,*.swp,*.swo
+
+" Allow virtual editing in all modes (move cursor where nothing exists)
+set virtualedit=all
+
+" Set end-of-line format (dos, unix, mac)
+set fileformat=unix
+
+" Show cursor position at all times
+set ruler
+
+" Show partial command and display current mode in status line
+set showcmd
+set showmode
+
+" Always display the status line
+set laststatus=2
+
+" Highlight all search matches and show in-progress matches while typing
+set hlsearch
+set incsearch
+
+" Allow search commands to wrap around to end of buffer
+set wrapscan
+
+" Ignore case while searching, unless search has uppercase characters
+set ignorecase
+set smartcase
+
+" Use spaces to insert a <tab> and set number of spaces that a <tab> inserts
+set expandtab
+set tabstop=4
+set softtabstop=4
+
+" Auto-indent new lines and set number of spaces for indent
+set autoindent
+set shiftwidth=4
+set smarttab
+
+" Round to 'shiftwidth' for << and >>
+set shiftround
+
+" Send file to printer in landscape mode
+set popt=portrait:n
+
+if has("autocmd")
+    " Remember cursor position when re-editing a file
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exec "normal! g`\"" | endif
+
+    " Change tab settings for different file types
+    autocmd FileType gitcommit setlocal tw=72 spell
+    autocmd FileType markdown setlocal ts=4 sts=4 sw=4 tw=80 fo=tcq expandtab
+    autocmd FileType text setlocal ts=4 sts=4 sw=4 tw=80 fo=tcq expandtab
+    autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+
+    " Treat *.md as markdown file
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+    " Treat *.idea as markdown file
+    autocmd BufRead,BufNewFile *.idea set filetype=markdown
+endif
+
+" Use 'Ctrl+c' to copy selected text with system clipboard in visual mode
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
+
+" Use 'Ctrl+v' to paste text from system clipboard in insert mode
+imap <C-v> <ESC>:call setreg("\"",system("pbpaste"))<CR>p")")")"))
+
+" Use ':w!!' to save file as sudo
+cmap w!! w !sudo tee > /dev/null %
