@@ -102,7 +102,7 @@ if has("autocmd")
     autocmd FileType text setlocal ts=4 sts=4 sw=4 tw=80 fo=tcq expandtab
     autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 
     " Treat *.md as markdown file
