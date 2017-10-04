@@ -119,5 +119,5 @@ vmap <C-c> :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy",
 " Use 'Ctrl+v' to paste text from system clipboard in insert mode
 imap <C-v> <ESC>:call setreg("\"",system("pbpaste"))<CR>p")")")"))
 
-" Use ':w!!' to save file as sudo
-cmap w!! w !sudo tee > /dev/null %
+" Use ':W' to save file as sudo
+cmap W w !sudo tee > /dev/null %
