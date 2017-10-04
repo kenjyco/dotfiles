@@ -60,6 +60,8 @@ ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
 if [[ $(uname) == 'Darwin' ]]; then
+    echo -e "\nMaking sure reattach-to-user-namespace is installed (for tmux)"
+    brew install reattach-to-user-namespace
     ln -s "$DIR/tmux/tmux-mac.conf" "$HOME/.tmux.conf"
     ln -s "$DIR/vim/vimrc-mac" "$HOME/.vimrc"
 else
