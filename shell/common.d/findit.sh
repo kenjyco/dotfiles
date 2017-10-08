@@ -142,12 +142,68 @@ findit-logs() {
     findit $dirname --complex "-iname '*.log' -type f ! -size 0" $@
 }
 
+findit-logs-empty() {
+    dirname=$1
+    if [[ "$dirname" =~ '--.*' ]]; then
+        dirname="."
+    elif [[ -z "$dirname" ]]; then
+        dirname="."
+    else
+        shift 2>/dev/null
+    fi
+    findit $dirname --complex "-iname '*.log' -type f -empty" $@
+}
+
+findit-logs-empty-delete() {
+    dirname=$1
+    if [[ "$dirname" =~ '--.*' ]]; then
+        dirname="."
+    elif [[ -z "$dirname" ]]; then
+        dirname="."
+    else
+        shift 2>/dev/null
+    fi
+    findit $dirname --complex "-iname '*.log' -type f -empty -delete" $@
+}
+
 logs() {
-    findit-logs --depth 1 --stamp $@ | sort
+    findit-logs $@ --depth 1 --stamp | sort
+}
+
+logs-wcl() {
+    findit-logs $@ --depth 1 --pipesort 'wc -l'
+}
+
+logs-info() {
+    findit-logs $@ --depth 1 --pipesort 'grep -Hn --color INFO'
+}
+
+logs-error() {
+    findit-logs $@ --depth 1 --pipesort 'grep -Hn --color ERROR'
+}
+
+logs-debug() {
+    findit-logs $@ --depth 1 --pipesort 'grep -Hn --color DEBUG'
 }
 
 logs-all() {
-    findit-logs --stamp $@ | sort
+    findit-logs $@ --stamp | sort
+}
+
+logs-all-wcl() {
+    findit-logs $@ --pipesort 'wc -l'
+}
+
+logs-all-info() {
+    findit-logs $@ --pipesort 'grep -Hn --color INFO'
+}
+
+logs-all-error() {
+    findit-logs $@ --pipesort 'grep -Hn --color ERROR'
+}
+
+logs-all-debug() {
+    findit-logs $@ --pipesort 'grep -Hn --color DEBUG'
 }
 
 findit-docs() {
