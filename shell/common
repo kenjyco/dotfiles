@@ -106,7 +106,7 @@ fi
 }
 
 # Add ~/bin and any sub-directories to PATH
-for somedir in $(find $HOME/bin/ -type d -print0 2>/dev/null | xargs -0); do
+for somedir in $(find -L $HOME/bin -type d -print0 2>/dev/null | xargs -0); do
     pathmunge "$somedir"
 done
 
