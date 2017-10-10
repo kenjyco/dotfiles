@@ -187,6 +187,10 @@ yt-download() {
     $HOME/venv/bin/yt-download $@
 }
 
+yt-search() {
+    $HOME/venv/bin/yt-search $@
+}
+
 ph-goo() {
     $HOME/venv/bin/ph-goo $@
 }
@@ -227,14 +231,6 @@ beu-ipython() {
     $HOME/venv/bin/beu-ipython $@
 }
 
-beu-vidsearch() {
-    $HOME/venv/bin/beu-vidsearch $@
-}
-
-beu-audiosearch() {
-    $HOME/venv/bin/beu-audiosearch $@
-}
-
 beu-trending() {
     $HOME/venv/bin/beu-trending $@
 }
@@ -245,8 +241,8 @@ beu-related-to() {
 
 alias m=mocplayer
 alias b=beu-ipython
-alias v=beu-vidsearch
-alias a=beu-audiosearch
+alias v='yt-search'
+alias a='yt-search --audio-only'
 alias trending=beu-trending
 alias related=beu-related-to
 alias pdfsearch='ph-goo --filetype pdf'
