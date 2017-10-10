@@ -1,6 +1,7 @@
 # Want some of the scripts in ~/bin to work if on a mac
 if [[ $(uname) == 'Darwin' ]]; then
     alias xargs=gxargs
+    alias sort=gsort
 fi
 
 # Call `dotfiles` to automatically move to the dotfiles directory
