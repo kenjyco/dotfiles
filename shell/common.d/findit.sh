@@ -91,11 +91,15 @@ vids-all() {
 }
 
 vids-play() {
-    findit-vids --depth 1 $@ --pipesort "vlc --fullscreen" &>/dev/null &
+    _vlc="vlc"
+    [[ $(uname) == 'Darwin' ]] && _vlc="/Applications/VLC.app/Contents/MacOS/VLC"
+    findit-vids --depth 1 $@ --pipesort "$_vlc --fullscreen"
 }
 
 vids-all-play() {
-    findit-vids $@ --pipesort "vlc --fullscreen" &>/dev/null &
+    _vlc="vlc"
+    [[ $(uname) == 'Darwin' ]] && _vlc="/Applications/VLC.app/Contents/MacOS/VLC"
+    findit-vids $@ --pipesort "$_vlc --fullscreen" &>/dev/null &
 }
 
 findit-audio() {
