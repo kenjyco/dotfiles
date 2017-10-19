@@ -151,11 +151,11 @@ test-install-in-tmp() {
 }
 
 grip() {
-    $HOME/venv/bin/grip $@
+    PYTHONPATH=$HOME $HOME/venv/bin/grip $@
 }
 
 flake8() {
-    $HOME/venv/bin/flake8 $@
+    PYTHONPATH=$HOME $HOME/venv/bin/flake8 $@
 }
 
 flakeit() {
@@ -164,7 +164,7 @@ flakeit() {
 }
 
 jupyter() {
-    $HOME/venv/bin/jupyter $@
+    PYTHONPATH=$HOME $HOME/venv/bin/jupyter $@
 }
 
 aws() {
@@ -176,75 +176,75 @@ http() {
 }
 
 rh-download-examples() {
-    $HOME/venv/bin/rh-download-examples $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-download-examples $@
 }
 
 rh-download-scripts() {
-    $HOME/venv/bin/rh-download-scripts $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-download-scripts $@
 }
 
 rh-notes() {
-    $HOME/venv/bin/rh-notes $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-notes $@
 }
 
 rh-shell() {
-    $HOME/venv/bin/rh-shell $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-shell $@
 }
 
 yt-download() {
-    $HOME/venv/bin/yt-download $@
+    PYTHONPATH=$HOME $HOME/venv/bin/yt-download $@
 }
 
 yt-search() {
-    $HOME/venv/bin/yt-search $@
+    PYTHONPATH=$HOME $HOME/venv/bin/yt-search $@
 }
 
 ph-goo() {
-    $HOME/venv/bin/ph-goo $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-goo $@
 }
 
 ph-you() {
-    $HOME/venv/bin/ph-you $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-you $@
 }
 
 ph-ddg() {
-    $HOME/venv/bin/ph-ddg $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-ddg $@
 }
 
 ph-download-files() {
-    $HOME/venv/bin/ph-download-files $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-download-files $@
 }
 
 ph-download-file-as() {
-    $HOME/venv/bin/ph-download-file-as $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-download-file-as $@
 }
 
 ph-soup-explore() {
-    $HOME/venv/bin/ph-soup-explore $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-soup-explore $@
 }
 
 vlc-repl() {
-    $HOME/venv/bin/vlc-repl $@
+    PYTHONPATH=$HOME $HOME/venv/bin/vlc-repl $@
 }
 
 myvlc() {
-    $HOME/venv/bin/myvlc $@
+    PYTHONPATH=$HOME $HOME/venv/bin/myvlc $@
 }
 
 mocplayer() {
-    $HOME/venv/bin/mocplayer $@
+    PYTHONPATH=$HOME $HOME/venv/bin/mocplayer $@
 }
 
 beu-ipython() {
-    $HOME/venv/bin/beu-ipython $@
+    PYTHONPATH=$HOME $HOME/venv/bin/beu-ipython $@
 }
 
 beu-trending() {
-    $HOME/venv/bin/beu-trending $@
+    PYTHONPATH=$HOME $HOME/venv/bin/beu-trending $@
 }
 
 beu-related-to() {
-    $HOME/venv/bin/beu-related-to $@
+    PYTHONPATH=$HOME $HOME/venv/bin/beu-related-to $@
 }
 
 alias m=mocplayer
