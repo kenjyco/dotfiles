@@ -87,14 +87,14 @@ make-home-venv() {
         install-home-venv-requirements
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
-        venv/bin/pip3 install ipython flake8 grip jupyter beu vlc-helper
+        venv/bin/pip3 install ipython flake8 grip jupyter awscli httpie beu vlc-helper
     fi
 }
 
 update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
-    venv/bin/pip3 install --upgrade ipython flake8 grip jupyter beu vlc-helper
+    venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie beu vlc-helper
 }
 
 home-ipython() {
@@ -165,6 +165,14 @@ flakeit() {
 
 jupyter() {
     $HOME/venv/bin/jupyter $@
+}
+
+aws() {
+    PYTHONPATH=$HOME $HOME/venv/bin/aws $@
+}
+
+http() {
+    PYTHONPATH=$HOME $HOME/venv/bin/http $@
 }
 
 rh-download-examples() {
