@@ -132,7 +132,9 @@ elif [[ "$months" == [0-9]* ]]; then
 fi
 
 if [[ -n "$stamp" ]]; then
-    find_cmd="$find_cmd $stamp"
+    if [[ -z "$pipesort" && -z "$pipe" ]]; then
+        find_cmd="$find_cmd $stamp"
+    fi
 fi
 
 if [[ -n "$pipesort" ]]; then
