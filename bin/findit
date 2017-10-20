@@ -70,6 +70,30 @@ while [[ -n "$1" ]]; do
         --stamp)
             stamp="-printf '%TY_%Tm%Td-%Ta-%TH%TM%.2TS %p\n'"
             ;;
+        --help)
+            echo "Usage: findit [dir] [options]"
+            echo -e "\n  Wrapper to the find command\n\nOptions:\n"
+            echo "  --depth number              maxdepth to search for files"
+            echo "  --pattern string            filename pattern"
+            echo "  --ipattern string           filname pattern (case insensitive)"
+            echo "  --complex string            raw options passed directly to 'find'"
+            echo "  --months number             only match files modified in a number of months"
+            echo "  --weeks number              only match files modified in a number of weeks"
+            echo "  --days number               only match files modified in a number of days"
+            echo "  --hours number              only match files modified in a number of hours"
+            echo "  --minutes number            only match files modified in a number of minutes"
+            echo "  --pipe command              pipe files to a command"
+            echo "  --pipesort command          pipe sorted files to a command"
+            echo "  --stamp                     prepend timestamps to output"
+            echo "  --help                      show this message and exit"
+            echo -e '\nExamples:\n'
+            echo '  findit . --pattern "*.md" --weeks 1'
+            echo "  findit . --complex \"\( -iname '*.md' -o -iname '*.txt' \)\" --months 2 --depth 3"
+            echo '  findit . --pattern ".*.sw[po]" --pipe "ls -gothr"'
+            echo "  findit --complex \"\( -iname '*.mp4' -o -iname '*.mkv' \)\" --pipesort \"vlc --fullscreen\""
+            echo '  findit . --ipattern "*.jpg" --stamp'
+            exit 0
+            ;;
         *)
             echo "Unknown parameter: $1" >&2
             exit 1
