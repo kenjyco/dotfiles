@@ -11,3 +11,10 @@ grepit-logs() {
 grepit-no-docs() {
     grepit --exclude=\*.{txt,md,rst,log} --exclude-dir=\*.dist-info $@
 }
+
+grep-object-info() {
+    object="$1"
+    [[ -z "$object" ]] && return 1
+    grepit-no-docs -p "\b$object\b" | egrep -o "($object\(|$object(\.\w+)+\(?)" |
+    sort | uniq -c | sort -nr | egrep -v '.(js|py)$'
+}
