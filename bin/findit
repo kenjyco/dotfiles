@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# A wrapper function to find files in a specified directory, with a maxdepth,
-# a particular filename pattern, and modified within a certain time period
+# A wrapper script to find files in a specified directory, with a maxdepth,
+# a particular filename pattern, modified within a certain time period, with
+# results optionally piped to another command
 #
-# Ex:
+# Examples:
+#
 #   findit . --pattern "*.md" --weeks 1
 #   findit . --complex "\( -iname '*.md' -o -iname '*.txt' \)" --months 2 --depth 3
 #   findit . --pattern ".*.sw[po]" --pipe "ls -gothr"
