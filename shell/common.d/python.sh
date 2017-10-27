@@ -123,7 +123,12 @@ venv-site-packages() {
 }
 
 update-home-config() {
-    dotfiles && repo-update && source ~/.zshrc
+    dotfiles && repo-update
+	if [[ -n "$BASH_VERSION" ]]; then
+        source ~/.bashrc
+	elif [[ -n "$ZSH_VERSION" ]]; then
+        source ~/.zshrc
+	fi
     update-home-venv
 }
 
