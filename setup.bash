@@ -108,6 +108,11 @@ if [[ ! -d ~/.nvm ]]; then
     nvm install 6.10
     nvm install 4.3.2
 fi
+
+# Download git completion for bash
+if [[ ! -s ~/.git-completion.bash ]]; then
+    echo -e "\nDownloading git-completion.bash"
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
 fi
 
 # List the symbolic links that exist in $HOME

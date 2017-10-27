@@ -5,7 +5,31 @@ case $- in
 esac
 
 # Enable tab-completion
-[[ -f /etc/bash_completion ]] && source /etc/bash_completion
+if [[ -f /etc/bash_completion ]]; then
+    source /etc/bash_completion
+elif [[ -f /usr/local/etc/bash_completion ]]; then
+    source /usr/local/etc/bash_completion
+fi
+[[ -f ~/.git-completion.bash ]] && source ~/.git-completion.bash
+
+# Tab-completion for SSH
+_complete_ssh_hosts ()
+{
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    comp_ssh_hosts=`cat ~/.ssh/known_hosts | \
+        cut -f 1 -d ' ' | \
+        sed -e s/,.*//g | \
+        grep -v ^# | \
+        uniq | \
+        grep -v "\[" ;
+    cat ~/.ssh/config | \
+        grep "^Host " | \
+        awk '{print $2}'`
+    COMPREPLY=( $(compgen -W "${comp_ssh_hosts}" -- $cur))
+    return 0
+}
+complete -F _complete_ssh_hosts ssh
 
 # Append to history file instead of overwriting
 shopt -s histappend
