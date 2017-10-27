@@ -87,14 +87,22 @@ make-home-venv() {
         install-home-venv-requirements
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
-        venv/bin/pip3 install ipython flake8 grip jupyter awscli httpie beu vlc-helper
+        if [[ $(uname) == 'Darwin' ]]; then
+            venv/bin/pip3 install ipython flake8 grip jupyter awscli httpie beu
+        else
+            venv/bin/pip3 install ipython flake8 grip jupyter awscli httpie beu vlc-helper
+        fi
     fi
 }
 
 update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
-    venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie beu vlc-helper
+    if [[ $(uname) == 'Darwin' ]]; then
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie beu
+    else
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie beu vlc-helper
+    fi
 }
 
 home-ipython() {
