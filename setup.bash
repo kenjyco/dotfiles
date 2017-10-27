@@ -106,6 +106,8 @@ if [[ ! -d ~/.nvm ]]; then
     nvm install 4.8.4
     npm install -g nodemon mocha karma-cli karma watchr
     nvm install 6.10
+    nvm install 4.3.2
+fi
 fi
 
 # List the symbolic links that exist in $HOME
