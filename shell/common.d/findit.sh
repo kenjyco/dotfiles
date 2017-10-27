@@ -32,6 +32,28 @@ pys-all() {
     findit-py --stamp $@ | sort
 }
 
+findit-js-backend() {
+    dirname=$1
+    if [[ "$dirname" =~ '--.*' ]]; then
+        dirname="."
+    elif [[ -z "$dirname" ]]; then
+        dirname="."
+    else
+        shift 2>/dev/null
+    fi
+    findit $dirname --complex "-not \( -path '*/node_modules/*' -o -path '*/lib/*' \
+        -o -path '*/static/*' -o -path '*/ui/*' -o -path '*/deploy/*' \
+        -o -path '*/test/*' -o -path '*/unitTests/*' -o -path '*/apidoc/*' -prune \) -iname '*.js'" $@
+}
+
+jss() {
+    findit-js-backend --depth 1 --stamp $@ | sort
+}
+
+jss-all() {
+    findit-js-backend --stamp $@ | sort
+}
+
 findit-autoday() {
     findit ~/autoday $@
 }
