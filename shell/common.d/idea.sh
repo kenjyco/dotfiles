@@ -4,6 +4,6 @@ idea-list() {
 
 idea-rm-empty() {
     dirname=$1
-    [[ -n "$dirname" ]] && shift || dirname="$HOME"
-    find $dirname -name "*.idea" -empty -delete
+    [[ -z "$dirname" ]] && dirname="."
+    find $dirname -name "*.idea" -empty -delete -print
 }
