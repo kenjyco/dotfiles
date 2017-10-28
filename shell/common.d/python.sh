@@ -106,7 +106,7 @@ update-home-venv() {
 }
 
 home-ipython() {
-    PYTHONPATH=$HOME $HOME/venv/bin/ipython $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ipython "$@"
 }
 
 home-site-packages() {
@@ -164,11 +164,11 @@ test-install-in-tmp() {
 }
 
 grip() {
-    PYTHONPATH=$HOME $HOME/venv/bin/grip $@
+    PYTHONPATH=$HOME $HOME/venv/bin/grip "$@"
 }
 
 flake8() {
-    PYTHONPATH=$HOME $HOME/venv/bin/flake8 $@
+    PYTHONPATH=$HOME $HOME/venv/bin/flake8 "$@"
 }
 
 flakeit() {
@@ -177,87 +177,87 @@ flakeit() {
 }
 
 jupyter() {
-    PYTHONPATH=$HOME $HOME/venv/bin/jupyter $@
+    PYTHONPATH=$HOME $HOME/venv/bin/jupyter "$@"
 }
 
 aws() {
-    PYTHONPATH=$HOME $HOME/venv/bin/aws $@
+    PYTHONPATH=$HOME $HOME/venv/bin/aws "$@"
 }
 
 http() {
-    PYTHONPATH=$HOME $HOME/venv/bin/http $@
+    PYTHONPATH=$HOME $HOME/venv/bin/http "$@"
 }
 
 rh-download-examples() {
-    PYTHONPATH=$HOME $HOME/venv/bin/rh-download-examples $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-download-examples "$@"
 }
 
 rh-download-scripts() {
-    PYTHONPATH=$HOME $HOME/venv/bin/rh-download-scripts $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-download-scripts "$@"
 }
 
 rh-notes() {
-    PYTHONPATH=$HOME $HOME/venv/bin/rh-notes $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-notes "$@"
 }
 
 rh-shell() {
-    PYTHONPATH=$HOME $HOME/venv/bin/rh-shell $@
+    PYTHONPATH=$HOME $HOME/venv/bin/rh-shell "$@"
 }
 
 yt-download() {
-    PYTHONPATH=$HOME $HOME/venv/bin/yt-download $@
+    PYTHONPATH=$HOME $HOME/venv/bin/yt-download "$@"
 }
 
 yt-search() {
-    PYTHONPATH=$HOME $HOME/venv/bin/yt-search $@
+    PYTHONPATH=$HOME $HOME/venv/bin/yt-search "$@"
 }
 
 ph-goo() {
-    PYTHONPATH=$HOME $HOME/venv/bin/ph-goo $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-goo "$@"
 }
 
 ph-you() {
-    PYTHONPATH=$HOME $HOME/venv/bin/ph-you $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-you "$@"
 }
 
 ph-ddg() {
-    PYTHONPATH=$HOME $HOME/venv/bin/ph-ddg $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-ddg "$@"
 }
 
 ph-download-files() {
-    PYTHONPATH=$HOME $HOME/venv/bin/ph-download-files $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-download-files "$@"
 }
 
 ph-download-file-as() {
-    PYTHONPATH=$HOME $HOME/venv/bin/ph-download-file-as $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-download-file-as "$@"
 }
 
 ph-soup-explore() {
-    PYTHONPATH=$HOME $HOME/venv/bin/ph-soup-explore $@
+    PYTHONPATH=$HOME $HOME/venv/bin/ph-soup-explore "$@"
 }
 
 vlc-repl() {
-    PYTHONPATH=$HOME $HOME/venv/bin/vlc-repl $@
+    PYTHONPATH=$HOME $HOME/venv/bin/vlc-repl "$@"
 }
 
 myvlc() {
-    PYTHONPATH=$HOME $HOME/venv/bin/myvlc $@
+    PYTHONPATH=$HOME $HOME/venv/bin/myvlc "$@"
 }
 
 mocplayer() {
-    PYTHONPATH=$HOME $HOME/venv/bin/mocplayer $@
+    PYTHONPATH=$HOME $HOME/venv/bin/mocplayer "$@"
 }
 
 beu-ipython() {
-    PYTHONPATH=$HOME $HOME/venv/bin/beu-ipython $@
+    PYTHONPATH=$HOME $HOME/venv/bin/beu-ipython "$@"
 }
 
 beu-trending() {
-    PYTHONPATH=$HOME $HOME/venv/bin/beu-trending $@
+    PYTHONPATH=$HOME $HOME/venv/bin/beu-trending "$@"
 }
 
 beu-related-to() {
-    PYTHONPATH=$HOME $HOME/venv/bin/beu-related-to $@
+    PYTHONPATH=$HOME $HOME/venv/bin/beu-related-to "$@"
 }
 
 alias m=mocplayer

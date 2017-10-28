@@ -3,5 +3,5 @@ if [[ -s "/Applications/VLC.app/Contents/MacOS/VLC" ]]; then
 fi
 
 vlcf() {
-    vlc --fullscreen $@ &>/dev/null &
+    vlc --fullscreen "$@" &>/dev/null &
 }

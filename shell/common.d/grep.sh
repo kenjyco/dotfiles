@@ -1,6 +1,6 @@
 grepit() {
     [[ -z "$@" ]] && return 1
-    grep -Hn --color -R --exclude=\*.{pyc,swp,min.js} --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=.git $@ \.
+    grep -Hn --color -R --exclude=\*.{pyc,swp,min.js} --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=.git "$@" \.
 }
 
 grepit-logs() {
@@ -10,7 +10,7 @@ grepit-logs() {
 }
 
 grepit-no-docs() {
-    grepit --exclude=\*.{txt,md,rst,log} --exclude-dir=\*.dist-info $@
+    grepit --exclude=\*.{txt,md,rst,log} --exclude-dir=\*.dist-info "$@"
 }
 
 grepit-exact() {
@@ -28,7 +28,7 @@ grep-object-info() {
 }
 
 grep-history() {
-    grep -Hn --color $@ ~/.*history*
+    grep -Hn --color "$@" ~/.*history*
 }
 
 grep-history-exact() {
