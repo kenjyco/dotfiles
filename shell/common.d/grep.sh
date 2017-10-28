@@ -17,13 +17,13 @@ grepit-exact() {
     pattern=$1
     [[ -z "$pattern" ]] && return 1
     shift
-    grepit -p "\b$pattern\b" $@
+    grepit "\b$pattern\b" "$@"
 }
 
 grep-object-info() {
     object="$1"
     [[ -z "$object" ]] && return 1
-    grepit-no-docs -p "\b$object\b" | egrep -o "($object\(|$object(\.\w+)+\(?)" |
+    grepit-no-docs "\b$object\b" | egrep -o "($object\(|$object(\.\w+)+\(?)" |
     sort | uniq -c | sort -nr | egrep -v '.(js|py)$'
 }
 
@@ -35,5 +35,5 @@ grep-history-exact() {
     pattern=$1
     [[ -z "$pattern" ]] && return 1
     shift
-    grep-history -p "\b$pattern\b" $@
+    grep-history "\b$pattern\b" "$@"
 }

@@ -11,7 +11,7 @@ repo_path=$(repo-path $(pwd))
 [[ ! $(pwd) =~ $repo_path\.* ]] && cd $repo_path
 
 git ls-tree -r --name-only HEAD |
-grep -p "$pattern" |
+grep "$pattern" |
 while read filename; do
     echo "$(git log -1 --format="%ai" -- "$filename") $filename"
 done |
