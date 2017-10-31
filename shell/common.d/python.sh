@@ -62,7 +62,6 @@ install-home-venv-requirements() {
     elif [[ -f /usr/local/bin/brew ]]; then
         brew update || return 1
         brew install dbus dbus-glib moc libav sox rtmpdump
-        brew tap homebrew/versions
         brew install redis@3.2
         if [[ -z $(brew services list | grep "redis@3.2.*started") ]]; then
             brew services start redis@3.2
@@ -88,9 +87,9 @@ make-home-venv() {
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
         if [[ $(uname) == 'Darwin' ]]; then
-            venv/bin/pip3 install ipython flake8 grip jupyter awscli httpie beu
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie beu
         else
-            venv/bin/pip3 install ipython flake8 grip jupyter awscli httpie beu vlc-helper
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie beu vlc-helper
         fi
     fi
 }
