@@ -180,3 +180,8 @@ docs-all() {
 annotated() {
     findit "$@" --pattern 'annotated*pdf' --stamp | sort
 }
+
+delete-mac-garbage() {
+    find . \( -name '._*' -o -name '.Trashes' -o -name '.Spotlight-V100' \
+        -o -name '__MACOSX' \) -print0 | xargs -0 rm -rfv
+}
