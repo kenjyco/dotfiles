@@ -183,5 +183,5 @@ annotated() {
 
 delete-mac-garbage() {
     find . \( -name '._*' -o -name '.Trashes' -o -name '.Spotlight-V100' \
-        -o -name '__MACOSX' \) -print0 | xargs -0 rm -rfv
+        -o -name '__MACOSX' -o -name '.TemporaryItems' \) -print0 | xargs -0 rm -rfv
 }
