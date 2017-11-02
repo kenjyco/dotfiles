@@ -114,7 +114,11 @@ update-home-config() {
         source ~/.zshrc
 	fi
     update-home-venv
-    beu-update
+    if [[ ! -d "$HOME/.beu" ]]
+        curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
+    else
+        beu-update
+    fi
 }
 
 test-install-in-tmp() {
