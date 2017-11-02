@@ -114,7 +114,7 @@ update-home-config() {
         source ~/.zshrc
 	fi
     update-home-venv
-    if [[ ! -d "$HOME/.beu" ]]
+    if [[ ! -d "$HOME/.beu" ]]; then
         curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
     else
         beu-update
