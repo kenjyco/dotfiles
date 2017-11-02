@@ -48,36 +48,13 @@ activate() {
 
 install-home-venv-requirements() {
     if [[ -f /usr/bin/apt-get && -n "$(groups | grep sudo)" ]]; then
+        echo -e "\nUpdating apt-get package listing"
         sudo apt-get update || return 1
         sudo apt-get install -y binutils-multiarch gcc g++ python3-dev python3-venv python3-pip python3-setuptools
-        sudo apt-get install -y redis-server moc vlc libav-tools sox rtmpdump imagemagick wmctrl
-        # Requirements for dbus-python
-        sudo apt-get install -y pkg-config libdbus-1-dev libdbus-glib-1-dev
-        # Requirements for lxml
-        sudo apt-get install -y libxml2 libxslt1.1 libxml2-dev libxslt1-dev zlib1g-dev
-        # Requirements for bcrypt
-        sudo apt-get install -y libffi-dev
-        # Requirements for dryscrape
-        sudo apt-get install -y qt5-default libqt5webkit5-dev xvfb build-essential
     elif [[ -f /usr/local/bin/brew ]]; then
+        echo -e "\nUpdating homebrew package listing"
         brew update || return 1
-        brew install dbus dbus-glib moc libav sox rtmpdump
-        brew install redis@3.2
-        if [[ -z $(brew services list | grep "redis@3.2.*started") ]]; then
-            brew services start redis@3.2
-        fi
-        if [[ -z $(brew services list | grep "dbus.*started") ]]; then
-            brew services start dbus
-        fi
-        if [[ -z $(brew services list | grep "jack.*started") ]]; then
-            brew services start jack
-        fi
-        # Requirements for lxml
-        brew install libxml2
-        # Requirements for bcrypt
-        brew install libffi
-        # Requirements for dryscrape
-        brew install qt
+        brew install python3
     fi
 }
 
@@ -87,9 +64,9 @@ make-home-venv() {
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
         if [[ $(uname) == 'Darwin' ]]; then
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie beu
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie
         else
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie beu vlc-helper
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie
         fi
     fi
 }
@@ -98,9 +75,9 @@ update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
     if [[ $(uname) == 'Darwin' ]]; then
-        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie beu
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie
     else
-        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie beu vlc-helper
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie
     fi
 }
 
