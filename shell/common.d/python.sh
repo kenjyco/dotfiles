@@ -114,6 +114,7 @@ update-home-config() {
         source ~/.zshrc
 	fi
     update-home-venv
+    beu-update
 }
 
 test-install-in-tmp() {
