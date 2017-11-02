@@ -94,6 +94,12 @@ vim +PluginInstall +qall
 # Source the ~/.tmux.conf file
 tmux source-file ~/.tmux.conf
 
+# Install beu
+if [[ ! -d ~/.beu ]]; then
+    echo -e "\nInstalling beu"
+    curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
+fi
+
 # Copy a xscreensaver config file if none in use
 [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 

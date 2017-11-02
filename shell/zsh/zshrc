@@ -57,6 +57,9 @@ prompt-terse() {
 	PROMPT="%{$fg[blue]%}%D{[%I:%M:%S]} %{$fg_bold[yellow]%}%c%{$fg[green]%}\$(parse_git_branch) %# %{$reset_color%}"
 }
 
+# Source beu wrappers
+[[ -f $HOME/.beu/wrappers.sh ]] && source $HOME/.beu/wrappers.sh
+
 # Setup nvm (node version manager)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm

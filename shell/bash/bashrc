@@ -67,6 +67,9 @@ prompt-terse() {
     PS1="\[\e[1;34m\][\T] \[\e[1;33m\]\[\e[1;33m\]\W\[\e[1;32m\]\$(parse_git_branch) \$\[\e[0m\] "
 }
 
+# Source beu wrappers
+[[ -f $HOME/.beu/wrappers.sh ]] && source $HOME/.beu/wrappers.sh
+
 # Setup nvm (node version manager)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
