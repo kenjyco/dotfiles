@@ -18,17 +18,17 @@ else
     _find="find"
 fi
 
-dirname=$1
-if [[ "${dirname:0:2}" == "--" ]]; then
-    dirname="."
-elif [[ -z "$dirname" ]]; then
-    dirname="."
+_dirname=$1
+if [[ "${_dirname:0:2}" == "--" ]]; then
+    _dirname="."
+elif [[ -z "$_dirname" ]]; then
+    _dirname="."
 else
     shift 2>/dev/null
 fi
 
-if [[ ! -d "$dirname" ]]; then
-    echo "$dirname is not a directory"
+if [[ ! -d "$_dirname" ]]; then
+    echo "$_dirname is not a directory"
     exit 1
 fi
 
@@ -106,9 +106,9 @@ while [[ -n "$1" ]]; do
 done
 
 if [[ "$depth" == [0-9]* ]]; then
-    find_cmd="$_find $dirname -maxdepth $depth -type f"
+    find_cmd="$_find $_dirname -maxdepth $depth -type f"
 else
-    find_cmd="$_find $dirname -type f"
+    find_cmd="$_find $_dirname -type f"
 fi
 
 if [[ -n "$pattern" ]]; then

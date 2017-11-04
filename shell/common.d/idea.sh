@@ -3,7 +3,7 @@ idea-list() {
 }
 
 idea-rm-empty() {
-    dirname=$1
-    [[ -z "$dirname" ]] && dirname="."
-    find $dirname -name "*.idea" -empty -delete -print
+    _dirname=$1
+    [[ -z "$_dirname" ]] && _dirname="."
+    find $_dirname -name "*.idea" -empty -delete -print
 }

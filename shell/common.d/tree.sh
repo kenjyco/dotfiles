@@ -5,22 +5,22 @@ _ignore_tree_home="${_ignore_tree_home%?}|.plugin_install_dir|.dropbox*|Dropbox'
 _ignore_tree_home="${_ignore_tree_home%?}|.mozilla|.local|.gimp|.thumbnails'"
 
 t() {
-    dirname="$1"
+    _dirname="$1"
     level="$2"
-    [[ -z "$dirname" ]] && dirname="."
-    [[ ! -d "$dirname" ]] && dirname="."
+    [[ -z "$_dirname" ]] && _dirname="."
+    [[ ! -d "$_dirname" ]] && _dirname="."
     oldpwd=$(pwd)
-    cd "$dirname"
+    cd "$_dirname"
 
     local ignore=$_ignore_tree
     [[ $(pwd) == $HOME ]] && ignore=$_ignore_tree_home
     [[ $(pwd) =~ "$(cat $HOME/.dotfiles_path)" ]] && ignore=$_ignore_tree_dotfiles
 
     if [[ "$level" =~ [0-9]+ ]]; then
-        echo -e "tree -Fa -L $level $ignore $dirname | less -FX\n$(pwd)" >&2
+        echo -e "tree -Fa -L $level $ignore $_dirname | less -FX\n$(pwd)" >&2
         eval "tree -Fa -L $level $ignore . | less -FX"
     else
-        echo -e "tree -Fa $ignore $dirname | less -FX\n$(pwd)" >&2
+        echo -e "tree -Fa $ignore $_dirname | less -FX\n$(pwd)" >&2
         eval "tree -Fa $ignore . | less -FX"
     fi
 
