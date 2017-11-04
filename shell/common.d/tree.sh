@@ -1,4 +1,6 @@
 _ignore_tree="-I '.git|node_modules|*.py[ocd]|include|lib|local|share|build|dryscrape|webkit-server|__pycache__|.cache|.eggs'"
+_ignore_tree="${_ignore_tree%?}|.Trashes|.Spotlight-V100|__MACOSX|.TemporaryItems|.fseventsd'"
+_ignore_tree="${_ignore_tree%?}|.Trash|.DS_Store'"
 _ignore_tree_dotfiles="${_ignore_tree%?}|backup_dotfiles|extra|Vundle.vim'"
 _ignore_tree_home="${_ignore_tree_dotfiles%?}|chromium|.dbus|.pki|.wicd|.grip|.autoenv*'"
 _ignore_tree_home="${_ignore_tree_home%?}|.plugin_install_dir|.dropbox*|Dropbox'"
