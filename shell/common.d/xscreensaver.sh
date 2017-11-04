@@ -1,3 +1,5 @@
+[[ $(uname) == 'Darwin' ]] && return
+
 alias stopsaver="xscreensaver-command -exit"
 
 startsaver() {

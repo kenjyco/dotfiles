@@ -1,3 +1,5 @@
+[[ $(uname) == 'Darwin' ]] && return
+
 connected-displays() {
     xrandr -q | grep -A 1 -e '\bconnected\b'
 }

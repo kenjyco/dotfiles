@@ -1,3 +1,5 @@
+[[ $(uname) == 'Darwin' ]] && return
+
 tall-tmux() {
     urxvt -title 'tall-tmux' -geometry 83x50 -e zsh -c 'tmux' &
     [[ $? -eq 0 ]] && disown && exit

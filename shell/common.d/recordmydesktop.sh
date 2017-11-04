@@ -1,3 +1,5 @@
+[[ $(uname) == 'Darwin' ]] && return
+
 screencast() {
     fname=$1
     if [[ -z "$fname" ]]; then
