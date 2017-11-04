@@ -181,7 +181,12 @@ annotated() {
     findit "$@" --pattern 'annotated*pdf' --stamp | sort
 }
 
-delete-mac-garbage() {
+show-mac-garbage() {
     find . \( -name '._*' -o -name '.Trashes' -o -name '.Spotlight-V100' \
-        -o -name '__MACOSX' -o -name '.TemporaryItems' \) -print0 | xargs -0 rm -rfv
+        -o -name '__MACOSX' -o -name '.TemporaryItems' -o -name '.fseventsd' \
+        -o -name '.Trash' -o -name '.DS_Store' \) "$@"
+}
+
+delete-mac-garbage() {
+    show-mac-garbage -print0 | xargs -0 rm -rfv
 }
