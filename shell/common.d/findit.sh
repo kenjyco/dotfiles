@@ -8,7 +8,7 @@ swps() {
 
 findit-py() {
     findit "$@" --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
-        -o -path '*/build/*' -prune \) -iname '*.py'"
+        -o -path '*/build/*' -o -path '*/node_modules/*' -prune \) -iname '*.py'"
 }
 
 pys() {
