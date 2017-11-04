@@ -19,6 +19,10 @@ pys-all() {
     findit-py "$@" --stamp | sort
 }
 
+findit-node-modules() {
+    findit "$@" --pattern "node_modules" --type d
+}
+
 findit-js-backend() {
     findit "$@" --complex "-not \( -path '*/node_modules/*' -o -path '*/lib/*' \
         -o -path '*/static/*' -o -path '*/ui/*' -o -path '*/deploy/*' \
