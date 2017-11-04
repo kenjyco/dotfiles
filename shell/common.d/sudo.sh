@@ -22,6 +22,12 @@ do-security-upgrades() {
    sudo xargs apt-get install -y -o Dir::Etc::SourceList=$APT_SECURITY_ONLY
 }
 
+reload-mongo-apt-key() {
+    [[ ! -f /usr/bin/apt-key ]] && return 1
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+    sudo apt-get update
+}
+
 set-hostname() {
     newhostname=$1
     if [[ -z "$newhostname" ]]; then
