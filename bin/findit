@@ -37,6 +37,9 @@ while [[ -n "$1" ]]; do
         --depth)
             depth=$2
             shift ;;
+        --type)
+            _type=$2
+            shift ;;
         --complex)
             complex=$2
             shift ;;
@@ -74,8 +77,9 @@ while [[ -n "$1" ]]; do
             echo "Usage: findit [dir] [options]"
             echo -e "\n  Wrapper to the find command\n\nOptions:\n"
             echo "  --depth number              maxdepth to search for files"
-            echo "  --pattern string            filename pattern"
-            echo "  --ipattern string           filname pattern (case insensitive)"
+            echo "  --type character            regular (f)ile, (d)irectory, symbolic (l)ink, (s)ocket, (b)lock special"
+            echo "  --pattern string            filename pattern or exact name"
+            echo "  --ipattern string           filename pattern or exact name (case insensitive)"
             echo "  --complex string            raw options passed directly to 'find'"
             echo "  --months number             only match files modified in a number of months"
             echo "  --weeks number              only match files modified in a number of weeks"
@@ -92,6 +96,7 @@ while [[ -n "$1" ]]; do
             echo '  findit . --pattern ".*.sw[po]" --pipe "ls -gothr"'
             echo "  findit --complex \"\( -iname '*.mp4' -o -iname '*.mkv' \)\" --pipesort \"vlc --fullscreen\""
             echo '  findit . --ipattern "*.jpg" --stamp'
+            echo '  findit --pattern "node_modules" --type d'
             exit 0
             ;;
         *)
@@ -105,10 +110,14 @@ while [[ -n "$1" ]]; do
     fi
 done
 
+if [[ "$_type" != [fdlspbc] ]]; then
+    _type=f
+fi
+
 if [[ "$depth" == [0-9]* ]]; then
-    find_cmd="$_find $_dirname -maxdepth $depth -type f"
+    find_cmd="$_find $_dirname -maxdepth $depth -type $_type"
 else
-    find_cmd="$_find $_dirname -type f"
+    find_cmd="$_find $_dirname -type $_type"
 fi
 
 if [[ -n "$pattern" ]]; then
