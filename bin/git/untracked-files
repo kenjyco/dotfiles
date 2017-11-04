@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 path=$1
-[[ -z "$path" ]] && path=$(pwd)
-path=$(repo-path $path)
-[[ -z "$path" ]] && exit 1
-cd $path
+[[ -n "$path" ]] && [[ -d "$path" ]] && cd "$path"
+repo_path=$(repo-path $(pwd))
+[[ -z "$repo_path" ]] && exit 1
+[[ ! $(pwd) =~ $repo_path\.* ]] && cd $repo_path
 
 git ls-files -o --exclude-standard
