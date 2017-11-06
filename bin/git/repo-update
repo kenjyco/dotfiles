@@ -25,6 +25,6 @@ elif [[ -n "$tracking" ]]; then
         git stash pop
     fi
 else
-    echo " - No tracking branch, gonna do 'remote update'"
-    git remote update
+    echo " - No tracking branch, gonna do 'fetch'"
+    git fetch
 fi
