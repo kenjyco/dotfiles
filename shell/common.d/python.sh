@@ -153,6 +153,53 @@ test-install-in-tmp() {
     cd "$oldpwd"
 }
 
+tag-and-release() {
+    if [[ ! -s ~/.pypirc ]]; then
+        echo "Could not find ~/.pypirc file"
+        return 1
+    fi
+    repo_path=$(repo-path $(pwd))
+    if [[ -z "$repo_path" ]]; then
+        echo "Not currently in a git repo"
+        return 1
+    fi
+    oldpwd=$(pwd)
+    cd "$repo_path"
+    version=$(get-version-from-setup)
+    if [[ -z "$version" ]]; then
+        echo "Could not determine version from 'download_url' in 'setup.py'"
+        cd "$oldpwd"
+        return 1
+    elif [[ "$version" = $(lasttag) ]]; then
+        echo "Most recent git tag matches 'download_url' in 'setup.py'"
+        cd "$oldpwd"
+        return 1
+    fi
+
+    cmd="git tag -a $version"
+    echo -e "cmd would be: $cmd"
+    if [[ -n "$BASH_VERSION" ]]
+    then
+        read -p "Continue? [y/n] " yn
+    elif [[ -n "$ZSH_VERSION" ]]
+    then
+        vared -p "Continue? [y/n] " -c yn
+    fi
+    if [[ "$yn" =~ [yY].* ]]
+    then
+        eval "$cmd"
+    else
+        return 1
+    fi
+    [[ $? != 0 ]] && return 1
+    git push --tags
+
+    clean-py >/dev/null
+    venv/bin/python3 setup.py bdist_wheel || return 1
+    twine upload dist/*
+    cd "$oldpwd"
+}
+
 grip() {
     PYTHONPATH=$HOME $HOME/venv/bin/grip "$@"
 }
