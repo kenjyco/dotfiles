@@ -124,6 +124,9 @@ fi
 # Set python2.7 config for npm (otherwise node-gyp may raise many errors when doing `npm install`)
 [[ "$(npm config get python)" = "undefined" ]] && npm config set python /usr/bin/python
 
+# Remove any empty directories
+rmdir * 2>/dev/null
+
 # List the symbolic links that exist in $HOME
 echo -e "\nListing symbolic links that exist in $HOME"
 ls -FgohA $HOME | grep '^l'
