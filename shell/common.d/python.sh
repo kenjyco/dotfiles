@@ -108,11 +108,11 @@ venv-site-packages() {
 
 update-home-config() {
     dotfiles && repo-update
-	if [[ -n "$BASH_VERSION" ]]; then
+    if [[ -n "$BASH_VERSION" ]]; then
         source ~/.bashrc
-	elif [[ -n "$ZSH_VERSION" ]]; then
+    elif [[ -n "$ZSH_VERSION" ]]; then
         source ~/.zshrc
-	fi
+    fi
     update-home-venv
     if [[ ! -d "$HOME/.beu" ]]; then
         curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
