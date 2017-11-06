@@ -121,10 +121,19 @@ update-home-config() {
     fi
 }
 
+get-version-from-setup() {
+    oldpwd=$(pwd)
+    repo_path=$(repo-path $(pwd))
+    [[ -z "$repo_path" ]] && return 1
+    cd "$repo_path"
+    grep download_url setup.py 2>/dev/null | perl -pe 's/^.*(v[\d\.]+).*/$1/'
+    cd "$oldpwd"
+}
+
 test-install-in-tmp() {
     oldpwd=$(pwd)
     project_name=$(basename $oldpwd)
-    version=$(grep download_url setup.py 2>/dev/null | perl -pe 's/^.*v([\d\.]+).*/$1/')
+    version=$(get-version-from-setup)
     if [[ -z "$version" ]]; then
         echo "Could not determine version from 'download_url' in 'setup.py'"
         return 1
