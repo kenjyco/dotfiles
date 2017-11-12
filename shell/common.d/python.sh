@@ -153,6 +153,47 @@ test-install-in-tmp() {
     cd "$oldpwd"
 }
 
+bump-setup-version() {
+    repo_path=$(repo-path $(pwd))
+    if [[ -z "$repo_path" ]]; then
+        echo "Not currently in a git repo"
+        return 1
+    fi
+    oldpwd=$(pwd)
+    cd "$repo_path"
+    version=$(get-version-from-setup)
+    if [[ -z "$version" ]]; then
+        echo "Could not determine version from 'download_url' in 'setup.py'"
+        cd "$oldpwd"
+        return 1
+    elif [[ "${version:0:1}" = 'v' ]]; then
+        version=$(echo $version | cut -c 2-)
+    fi
+    incr_type="$1"
+    if [[ -z "$incr_type" ]]; then
+        incr_type='0.0.1'
+    fi
+    _major=$(echo $version | cut -d. -f1)
+    _minor=$(echo $version | cut -d. -f2)
+    _micro=$(echo $version | cut -d. -f3)
+    if [[ "$incr_type" = '1.0.0' ]]; then
+        _major=$((_major+1))
+        _minor=0
+        _micro=0
+    elif [[ "$incr_type" = '0.1.0' ]]; then
+        _minor=$((_minor+1))
+        _micro=0
+    elif [[ "$incr_type" = '0.0.1' ]]; then
+        _micro=$((_micro+1))
+    else
+        echo "incr_type must be '1.0.0', '0.1.0', or '0.0.1', not $incr_type"
+        return 1
+    fi
+    new_version="$_major.$_minor.$_micro"
+    sed -i "" "s/${version}/${new_version}/" setup.py
+    git diff setup.py
+}
+
 tag-and-release() {
     if [[ ! -s ~/.pypirc ]]; then
         echo "Could not find ~/.pypirc file"
