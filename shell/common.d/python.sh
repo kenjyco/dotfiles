@@ -222,7 +222,7 @@ tag-and-release() {
     fi
 
     cmd="git tag -a $version"
-    echo -e "cmd would be: $cmd"
+    echo -e "lasttag was $(lasttag)\ncmd would be: $cmd"
     if [[ -n "$BASH_VERSION" ]]
     then
         read -p "Continue? [y/n] " yn
