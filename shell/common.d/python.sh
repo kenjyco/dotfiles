@@ -190,7 +190,11 @@ bump-setup-version() {
         return 1
     fi
     new_version="$_major.$_minor.$_micro"
-    sed -i "" "s/${version}/${new_version}/" setup.py
+    if [[ $(uname) == 'Darwin' ]]; then
+        sed -i "" "s/${version}/${new_version}/" setup.py
+    else
+        sed -i "s/${version}/${new_version}/" setup.py
+    fi
     git diff setup.py
 }
 
