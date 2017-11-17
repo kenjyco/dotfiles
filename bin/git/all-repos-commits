@@ -17,4 +17,4 @@ for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
         echo -e $commits | head -n 6
         echo -e "==============="
     fi
-done
+done | less -rFX

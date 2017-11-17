@@ -17,4 +17,4 @@ for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
         [[ -n "$stashes" ]] && echo -e "\nStashes\n$stashes"
         [[ -n "$next_tag_commits" ]] && echo -e "\nNew commits since latest tag\n$next_tag_commits"
     fi
-done
+done | less -FX

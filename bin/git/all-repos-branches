@@ -2,5 +2,4 @@
 
 for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
     echo -e "$repo -- $(branchname $repo)"
-done
-
+done | less -FX
