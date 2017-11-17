@@ -14,4 +14,4 @@
 [difftool]
     prompt = false
 [core]
-    pager = less -F -X
+    pager = less -rFX
