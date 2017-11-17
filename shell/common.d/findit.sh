@@ -94,7 +94,7 @@ vids-all-play() {
 findit-audio() {
     findit "$@" --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
         -prune \) \( -iname '*.mp3' -o -iname '*.flac' \
-        -o -iname '*.ogg' -o -iname '*.wav' \)"
+        -o -iname '*.ogg' -o -iname '*.m4a' -o -iname '*.wav' \)"
 }
 
 audio() {
