@@ -57,3 +57,7 @@ grep-history-exact() {
     shift
     grep-history "\b$pattern\b" "$@"
 }
+
+history-comments() {
+    grep-history "^#"
+}
