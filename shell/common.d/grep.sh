@@ -3,6 +3,26 @@ grepit() {
     grep -Hn --color -R --exclude=\*.{pyc,swp,min.js} --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=.git "$@" \.
 }
 
+grepit-ba1() {
+    [[ -z "$@" ]] && return 1
+    grepit -B 1 -A 1 "$@"
+}
+
+grepit-ba3() {
+    [[ -z "$@" ]] && return 1
+    grepit -B 3 -A 3 "$@"
+}
+
+grepit-ba5() {
+    [[ -z "$@" ]] && return 1
+    grepit -B 5 -A 5 "$@"
+}
+
+grepit-ba9() {
+    [[ -z "$@" ]] && return 1
+    grepit -B 9 -A 9 "$@"
+}
+
 grepit-logs() {
     findit . --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
         -o -path '*/build/*' -o -path '*/.git/*' -prune \) -iname '*.log'" \
