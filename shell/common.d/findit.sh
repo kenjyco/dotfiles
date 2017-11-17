@@ -115,6 +115,10 @@ audio-all-play() {
     mocp -c && findit-audio "$@" --pipesort "mocp -a" && mocp -p
 }
 
+findit-webm() {
+    findit "$@" --ipattern "*.webm"
+}
+
 findit-logs() {
     findit "$@" --complex "-iname '*.log' -type f ! -size 0"
 }
