@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+path=$1
+[[ -z "$path" ]] && path=$(pwd)
+path=$(repo-path $path)
+[[ -z "$path" ]] && exit 1
+cd $path
+
+for branch in $(git branch -r | grep -v HEAD); do
+    echo -e "$(git show --format="%ci %cr" $branch | head -n 1) $branch"
+done | sort -n | less -FX
