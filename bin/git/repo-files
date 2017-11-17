@@ -13,6 +13,5 @@ repo_path=$(repo-path $(pwd))
 git ls-tree -r --name-only HEAD |
 grep "$pattern" |
 while read filename; do
-    echo "$(git log -1 --format="%ai" -- "$filename") $filename"
-done |
-sort -n
+    echo "$(git log -1 --format="%ai %ar" -- "$filename") $filename"
+done | sort -n | less -FX
