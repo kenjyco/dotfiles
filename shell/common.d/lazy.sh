@@ -6,3 +6,15 @@ lazy-update() {
         source ~/.zshrc
     fi
 }
+
+weekend-refresh() {
+    oldpwd=$(pwd)
+    cd
+    _output_diff=$(beu-repos-diff)
+    _output_swps=$(swps)
+    if [[ -z "$_output_diff" && -z "$_output_swps" ]]; then
+        lazy-update "reinstall"
+    fi
+    beu-repos-diff
+    cd "$oldpwd"
+}
