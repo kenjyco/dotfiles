@@ -68,6 +68,8 @@ update-home-config() {
     update-home-venv
     if [[ ! -d "$HOME/.beu" ]]; then
         curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
+    elif [[ "$1" == "reinstall" ]]; then
+        beu-reinstall
     else
         beu-update
     fi
