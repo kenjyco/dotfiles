@@ -149,7 +149,10 @@ bump-setup-version() {
     else
         sed -i "s/${version}/${new_version}/" setup.py
     fi
-    git diff setup.py
+    git add setup.py
+    git commit -m "Bump to v$new_version"
+    echo -e "\nNot pushed\n"
+    unpushed-commits
 }
 
 tag-and-release() {
