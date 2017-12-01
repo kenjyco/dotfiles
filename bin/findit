@@ -7,6 +7,7 @@
 # Examples:
 #
 #   findit . --pattern "*.md" --weeks 1
+#   findit --pattern "*.md" --weeks 1 --pipesort "cp -av {} /tmp/stuff"
 #   findit . --complex "\( -iname '*.md' -o -iname '*.txt' \)" --months 2 --depth 3
 #   findit . --pattern ".*.sw[po]" --pipe "ls -gothr"
 #   findit --complex "\( -iname '*.mp4' -o -iname '*.mkv' \)" --pipesort "vlc --fullscreen"
@@ -92,6 +93,7 @@ while [[ -n "$1" ]]; do
             echo "  --help                      show this message and exit"
             echo -e '\nExamples:\n'
             echo '  findit . --pattern "*.md" --weeks 1'
+            echo '  findit --pattern "*.md" --weeks 1 --pipesort "cp -av {} /tmp/stuff"'
             echo "  findit . --complex \"\( -iname '*.md' -o -iname '*.txt' \)\" --months 2 --depth 3"
             echo '  findit . --pattern ".*.sw[po]" --pipe "ls -gothr"'
             echo "  findit --complex \"\( -iname '*.mp4' -o -iname '*.mkv' \)\" --pipesort \"vlc --fullscreen\""
@@ -146,12 +148,15 @@ if [[ -n "$stamp" ]]; then
     fi
 fi
 
+xargs_dash_i=
+[[ -n $(echo "$pipe$pipesort" | grep "{}") ]] && xargs_dash_i="-I {}"
+
 if [[ -n "$pipesort" ]]; then
-    echo "$find_cmd -print0 | sort -z | xargs -0 $pipesort" >&2
-    eval "$find_cmd -print0 | sort -z" | xargs -0 $pipesort
+    echo "$find_cmd -print0 | sort -z | xargs -0 $xargs_dash_i $pipesort" >&2
+    eval "$find_cmd -print0 | sort -z" | xargs -0 $xargs_dash_i $pipesort
 elif [[ -n "$pipe" ]]; then
-    echo "$find_cmd -print0 | xargs -0 $pipe" >&2
-    eval "$find_cmd -print0" | xargs -0 $pipe
+    echo "$find_cmd -print0 | xargs -0 $xargs_dash_i $pipe" >&2
+    eval "$find_cmd -print0" | xargs -0 $xargs_dash_i $pipe
 else
     echo "$find_cmd" >&2
     eval "$find_cmd"
