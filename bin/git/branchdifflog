@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
+#
+# First argument is the other branch to compare current to; all other args passed to `git log`
 
 otherbranch=$1
+shift
+git_log_args="$@"
 [[ -z "$otherbranch" ]] && otherbranch="master"
+[[ -z "$git_log_args" ]] && git_log_args="--name-status"
 
 branch=$(branchname)
-git log --name-status $(git merge-base $otherbranch $branch)..$branch
+git log $git_log_args $(git merge-base $otherbranch $branch)..$branch
