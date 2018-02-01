@@ -16,9 +16,9 @@ make-home-venv() {
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
         if [[ $(uname) == 'Darwin' ]]; then
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema
         else
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema
         fi
     fi
 }
@@ -27,9 +27,9 @@ update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
     if [[ $(uname) == 'Darwin' ]]; then
-        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinema
     else
-        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinama
     fi
 }
 
@@ -225,6 +225,10 @@ aws() {
 
 http() {
     PYTHONPATH=$HOME $HOME/venv/bin/http "$@"
+}
+
+asciinema() {
+    PYTHONPATH=$HOME $HOME/venv/bin/asciinema "$@"
 }
 
 #----------------------------------------------------------------------#
