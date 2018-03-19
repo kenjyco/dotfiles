@@ -117,7 +117,7 @@ lazy1920() {
 }
 
 lazy2560() {
-    cd "$1" && activate &>/dev/null && sshlazy || return 1 ;
+    cd "$1" && activate &>/dev/null && sshlazy
     if [[ -z "$1" ]]; then
         urxvt -title "$(basename $(pwd)) [lazy]" -geometry 106x110 -e zsh &
     else
