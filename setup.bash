@@ -116,6 +116,21 @@ if [[ ! -d ~/.nvm ]]; then
     nvm install 4.3.2
 fi
 
+# Install phantomjs
+if [[ ! -d ~/.phantomjs ]]; then
+    echo -e "\nInstalling PhantomJS"
+    if [[ $(uname) == 'Darwin' ]]; then
+        curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip
+        unzip phantomjs-2.1.1-macosx.zip && rm phantomjs-2.1.1-macosx.zip
+        mv phantomjs-2.1.1-macosx ~/.phantomjs
+    else
+        curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+        tar xvf phantomjs-2.1.1-linux-x86_64.tar.bz2 && rm phantomjs-2.1.1-linux-x86_64.tar.bz2
+        mv phantomjs-2.1.1-linux-x86_64 ~/.phantomjs
+    fi
+
+fi
+
 # Download git completion for bash
 if [[ ! -s ~/.git-completion.bash ]]; then
     echo -e "\nDownloading git-completion.bash"
