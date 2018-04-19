@@ -11,6 +11,10 @@ install-home-venv-requirements() {
 }
 
 make-home-venv() {
+    if [[ "$1" == "clean" ]]; then
+        echo -e "\nDeleting ~/venv"
+        rm -rf ~/venv
+    fi
     if [[ ! -d "$HOME/venv" ]]; then
         install-home-venv-requirements
         cd
@@ -20,6 +24,8 @@ make-home-venv() {
         else
             venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema
         fi
+    else
+        echo -e "\nThe ~/venv directory already exists. Use \`make-home-venv clean\` to delete and re-create"
     fi
 }
 
