@@ -9,7 +9,7 @@ asciicast() {
     fname="$title.json"
 
     tmux -2 new-session -s cast -d
-    asciinema rec -c "tmux attach-session -t cast" -w 2 -t "$title" "$fname"
+    asciinema rec -c "tmux attach-session -t cast" -i 2 -t "$title" "$fname"
     echo -e "Saved recording to $fname"
 }
 
@@ -23,6 +23,6 @@ asciicast-no-tmux() {
     fi
     fname="$title.json"
 
-    asciinema rec -w 2 -t "$title" "$fname"
+    asciinema rec -i 2 -t "$title" "$fname"
     echo -e "Saved recording to $fname"
 }
