@@ -3,6 +3,13 @@
 # Get the directory where this script lives
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
+_call_make_home_venv=
+if [[ "$1" == "clean" ]]; then
+    [[ -d ~/venv ]] && _call_make_home_venv=yes
+    echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, and ~/venv"
+    rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv 2>/dev/null
+fi
+
 # Create $BACKUP_DOTFILES directory if it doesn't exist
 BACKUP_DOTFILES="$DIR/backup_dotfiles"
 [[ ! -d "$BACKUP_DOTFILES" ]] && mkdir -pv "$BACKUP_DOTFILES"
@@ -105,14 +112,14 @@ fi
 
 # Install nvm, a couple versions of node, and some "global" packages
 if [[ ! -d ~/.nvm ]]; then
-    echo -e "\nInstalling nvm, node 4.8.4, node 6.x, node 8.x, node 4.3.2, and some global packages"
+    echo -e "\nInstalling nvm, node 4.8.4, node 6.10.3, node 8.10, node 4.3.2, and some global packages"
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
     source "$NVM_DIR/nvm.sh"
     nvm install 4.8.4
     npm install -g nodemon mocha karma-cli karma watchr speed-test
-    nvm install 6
-    nvm install 8
+    nvm install 6.10.3
+    nvm install 8.10
     nvm install 4.3.2
 fi
 
@@ -129,6 +136,13 @@ if [[ ! -d ~/.phantomjs ]]; then
         mv phantomjs-2.1.1-linux-x86_64 ~/.phantomjs
     fi
 
+fi
+
+# Call make-home-venv if ~/venv was deleted (via "clean" arg passed to script)
+if [[ -n "$_call_make_home_venv" ]]; then
+    echo -e "\nCalling make-home-venv"
+    source $DIR/shell/common.d/python.sh
+    make-home-venv
 fi
 
 # Download git completion for bash
