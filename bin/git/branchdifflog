@@ -6,7 +6,7 @@ otherbranch=$1
 shift
 git_log_args="$@"
 [[ -z "$otherbranch" ]] && otherbranch="master"
-[[ -z "$git_log_args" ]] && git_log_args="--name-status"
+[[ -z "$git_log_args" ]] && git_log_args="--name-status --no-merges"
 
 branch=$(branchname)
 git log $git_log_args $(git merge-base $otherbranch $branch)..$branch
