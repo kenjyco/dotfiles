@@ -135,7 +135,6 @@ if [[ ! -d ~/.phantomjs ]]; then
         tar xvf phantomjs-2.1.1-linux-x86_64.tar.bz2 && rm phantomjs-2.1.1-linux-x86_64.tar.bz2
         mv phantomjs-2.1.1-linux-x86_64 ~/.phantomjs
     fi
-
 fi
 
 # Call make-home-venv if ~/venv was deleted (via "clean" arg passed to script)
