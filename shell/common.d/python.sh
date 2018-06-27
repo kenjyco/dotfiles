@@ -186,15 +186,12 @@ tag-and-release() {
 
     cmd="git tag -a $version"
     echo -e "lasttag was $(lasttag)\ncmd would be: $cmd"
-    if [[ -n "$BASH_VERSION" ]]
-    then
+    if [[ -n "$BASH_VERSION" ]]; then
         read -p "Continue? [y/n] " yn
-    elif [[ -n "$ZSH_VERSION" ]]
-    then
+    elif [[ -n "$ZSH_VERSION" ]]; then
         vared -p "Continue? [y/n] " -c yn
     fi
-    if [[ "$yn" =~ [yY].* ]]
-    then
+    if [[ "$yn" =~ [yY].* ]]; then
         eval "$cmd"
     else
         return 1
