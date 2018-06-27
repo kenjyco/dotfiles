@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+path=$1
+shift
+pattern=$1
+if [[ -n "$path" ]]; then
+    [[ -d "$path" ]] && cd "$path" || pattern="$path"
+fi
+repo_path=$(repo-path $(pwd))
+[[ -z "$repo_path" ]] && exit 1
+[[ ! $(pwd) =~ $repo_path\.* ]] && cd $repo_path
+
+git ls-tree -r --name-only HEAD |
+grep "$pattern" |
+while read filename; do
+    echo "$(git log --diff-filter=A --format="%ai %ar" -- "$filename") $filename"
+done | sort -n | less -FX
