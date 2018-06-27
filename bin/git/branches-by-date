@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+path=$1
+shift
+pattern=$1
+if [[ -n "$path" ]]; then
+    [[ -d "$path" ]] && cd "$path" || pattern="$path"
+fi
+repo_path=$(repo-path $(pwd))
+[[ -z "$repo_path" ]] && exit 1
+[[ ! $(pwd) =~ $repo_path\.* ]] && cd $repo_path
+
+git branch -r | grep -v HEAD |
+grep -i "$pattern" |
+while read branch; do
+    echo "$(git show --format='%ai %ar by %an' $branch | head -n 1)   $branch"
+done | sort -n | less -FX
