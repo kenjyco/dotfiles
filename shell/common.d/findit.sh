@@ -174,7 +174,7 @@ logs-all-debug() {
 findit-docs() {
     findit "$@" --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
         -o -path '*/node_modules/*' -prune \) \( -iname '*.pdf' -o -iname '*.doc' \
-        -o -iname '*.odt' -o -iname '*.md' -o -iname '*.idea' \)"
+        -o -iname '*.odt' -o -iname '*.md' -o -iname '*.txt' -o -iname '*.idea' \)"
 }
 
 docs() {
