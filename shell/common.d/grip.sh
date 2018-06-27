@@ -3,14 +3,8 @@
 #   grip-many . --depth 2
 #   grip-many . --hours 5
 grip-many() {
-    _dirname=$1
-    if [[ "$_dirname" =~ '--.*' ]]; then
-        _dirname="."
-    elif [[ -z "$_dirname" ]]; then
-        _dirname="."
-    else
-        shift 2>/dev/null
-    fi
+    [[ ! "$1" =~ ^-.* ]] && _dirname=$1 && shift
+    [[ -z "$_dirname" ]] && _dirname="."
 
     if [[ ! -d "$_dirname" ]]; then
         echo "$_dirname is not a directory" >&2
