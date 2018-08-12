@@ -8,6 +8,13 @@ startsaver() {
     disown
 }
 
+setsaver() {
+    IFS=$'\n'; select saver in $(find $(cat ~/.dotfiles_path)/x/xscreensaver -type f); do
+        cp -av "$saver" ~/.xscreensaver
+        break
+    done; unset IFS
+}
+
 lockscreen() {
     if [[ -z "$DISPLAY" ]]; then
         if [[ -n "$TMUX" ]]; then
