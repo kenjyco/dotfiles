@@ -6,3 +6,7 @@ alias glog3="git log --find-renames --stat --reverse -p"
 
 alias gstatus="repo-status--changes-only"
 alias gstatus-all="all-repos-status--changes-only"
+
+gstatus-ignored() {
+    git status -s --ignored | grep '^!'
+}
