@@ -8,8 +8,8 @@ compinit
 autoload -U zmv
 
 # Set number of commands stored in memory and in the history file
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 HISTFILE=$HOME/.history_zsh
 
 # Enable bash-style comments at command line and extended zsh globbing

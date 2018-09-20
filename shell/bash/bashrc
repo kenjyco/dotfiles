@@ -38,8 +38,8 @@ shopt -s histappend
 HISTCONTROL=ignoreboth
 
 # Set number of commands stored in memory and in the history file
-HISTSIZE=10000
-HISTFILESIZE=10000
+HISTSIZE=50000
+HISTFILESIZE=50000
 HISTFILE=$HOME/.history_bash
 
 # Update values of LINES and COLUMNS after window resize
