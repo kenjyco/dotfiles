@@ -18,11 +18,11 @@ _complete_ssh_hosts ()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     comp_ssh_hosts=`cat ~/.ssh/known_hosts | \
+        egrep -v '^(\||\[|#)' | \
         cut -f 1 -d ' ' | \
-        sed -e s/,.*//g | \
-        grep -v ^# | \
-        uniq | \
-        grep -v "\[" ;
+        cut -f 1 -d ',' | \
+        grep -v ':' | \
+        uniq ;
     cat ~/.ssh/config | \
         grep "^Host " | \
         awk '{print $2}'`
