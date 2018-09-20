@@ -48,6 +48,8 @@ home-site-packages() {
         cd "$HOME/venv/lib/python3.5/site-packages"
     elif [[ -d "$HOME/venv/lib/python3.6/site-packages" ]]; then
         cd "$HOME/venv/lib/python3.6/site-packages"
+    elif [[ -d "$HOME/venv/lib/python3.7/site-packages" ]]; then
+        cd "$HOME/venv/lib/python3.7/site-packages"
     fi
 
 }
@@ -60,6 +62,8 @@ venv-site-packages() {
         cd "$env_name/lib/python3.5/site-packages"
     elif [[ -d "$env_name/lib/python3.6/site-packages" ]]; then
         cd "$env_name/lib/python3.6/site-packages"
+    elif [[ -d "$env_name/lib/python3.7/site-packages" ]]; then
+        cd "$env_name/lib/python3.7/site-packages"
     fi
 
 }
