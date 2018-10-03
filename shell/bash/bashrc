@@ -11,6 +11,8 @@ elif [[ -f /usr/local/etc/bash_completion ]]; then
     source /usr/local/etc/bash_completion
 fi
 [[ -f ~/.git-completion.bash ]] && source ~/.git-completion.bash
+[[ -f ~/.docker-completion.bash ]] && source ~/.docker-completion.bash
+[[ -f ~/.docker-compose-completion.bash ]] && source ~/.docker-compose-completion.bash
 
 # Tab-completion for SSH
 _complete_ssh_hosts ()

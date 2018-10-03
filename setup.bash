@@ -150,6 +150,16 @@ if [[ ! -s ~/.git-completion.bash ]]; then
     curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
 fi
 
+# Download docker completion for bash
+if [[ ! -s ~/.docker-completion.bash ]]; then
+    echo -e "\nDownloading docker-completion.bash"
+    curl https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker > ~/.docker-completion.bash
+fi
+if [[ ! -s ~/.docker-compose-completion.bash ]]; then
+    echo -e "\nDownloading docker-compose-completion.bash"
+    curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose > ~/.docker-compose-completion.bash
+fi
+
 # Set python2.7 config for npm (otherwise node-gyp may raise many errors when doing `npm install`)
 [[ "$(npm config get python)" = "undefined" ]] && npm config set python /usr/bin/python
 
