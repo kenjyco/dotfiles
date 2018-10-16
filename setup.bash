@@ -72,7 +72,12 @@ if [[ $(uname) == 'Darwin' ]]; then
     ln -s "$DIR/tmux/tmux-mac.conf" "$HOME/.tmux.conf"
     ln -s "$DIR/vim/vimrc-mac" "$HOME/.vimrc"
 else
-    ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+    tmux_version=$(tmux -V | perl -pe 's/^tmux\s+(\d+\.*\d*).*/$1/')
+    if (( $(echo "$tmux_version < 2.6" | bc -l) )); then
+        ln -s "$DIR/tmux/tmux-pre2.6.conf" "$HOME/.tmux.conf"
+    else
+        ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+    fi
     ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
 fi
 
