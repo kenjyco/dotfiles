@@ -20,9 +20,9 @@ make-home-venv() {
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
         if [[ $(uname) == 'Darwin' ]]; then
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine
         else
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine
         fi
     else
         echo -e "\nThe ~/venv directory already exists. Use \`make-home-venv clean\` to delete and re-create"
@@ -232,6 +232,10 @@ aws() {
 
 http() {
     PYTHONPATH=$HOME $HOME/venv/bin/http "$@"
+}
+
+twine() {
+    PYTHONPATH=$HOME $HOME/venv/bin/twine "$@"
 }
 
 asciinema() {
