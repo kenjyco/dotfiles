@@ -65,7 +65,6 @@ venv-site-packages() {
     elif [[ -d "$env_name/lib/python3.7/site-packages" ]]; then
         cd "$env_name/lib/python3.7/site-packages"
     fi
-
 }
 
 update-home-config() {
