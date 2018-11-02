@@ -8,6 +8,8 @@ if [[ "$1" == "clean" ]]; then
     [[ -d ~/venv ]] && _call_make_home_venv=yes
     echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, and ~/venv"
     rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv 2>/dev/null
+    echo -e "\nDeleting ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash"
+    rm -f ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash 2>/dev/null
 fi
 
 # Create $BACKUP_DOTFILES directory if it doesn't exist
