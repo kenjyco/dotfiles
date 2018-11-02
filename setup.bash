@@ -119,15 +119,12 @@ fi
 
 # Install nvm, a couple versions of node, and some "global" packages
 if [[ ! -d ~/.nvm ]]; then
-    echo -e "\nInstalling nvm, node 4.8.4, node 6.10.3, node 8.10, node 4.3.2, and some global packages"
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+    echo -e "\nInstalling nvm, node 8.10, and some global packages"
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
     source "$NVM_DIR/nvm.sh"
-    nvm install 4.8.4
-    npm install -g nodemon mocha karma-cli karma watchr speed-test
-    nvm install 6.10.3
     nvm install 8.10
-    nvm install 4.3.2
+    npm install -g nodemon mocha karma-cli karma watchr speed-test
 fi
 
 # Install phantomjs
