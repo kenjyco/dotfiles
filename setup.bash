@@ -120,6 +120,7 @@ fi
 # Install nvm, a couple versions of node, and some "global" packages
 if [[ ! -d ~/.nvm ]]; then
     echo -e "\nInstalling nvm, node 8.10, and some global packages"
+    unset NVM_DIR
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
     source "$NVM_DIR/nvm.sh"
