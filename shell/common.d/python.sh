@@ -94,6 +94,10 @@ get-version-from-setup() {
 }
 
 test-install-in-tmp() {
+    if [[ ! -f venv/bin/python3 ]]; then
+        echo "Could not find venv/bin/python3 in $(pwd)"
+        return 1
+    fi
     oldpwd=$(pwd)
     project_name=$(basename $oldpwd)
     version=$(get-version-from-setup)
@@ -104,6 +108,7 @@ test-install-in-tmp() {
     tmp_dir=/tmp/$project_name--$version
 
     mkdir -pv $tmp_dir
+    stashstatus=$(git stash)
     clean-py >/dev/null
     venv/bin/python3 setup.py bdist_wheel || return 1
     cp -av dist/* $tmp_dir || return 1
@@ -114,6 +119,9 @@ test-install-in-tmp() {
     echo -e "\n$(pwd)\n"
     PYTHONPATH="$tmp_dir" venv/bin/ipython
     cd "$oldpwd"
+    if [[ $stashstatus != "No local changes to save" ]]; then
+        git stash pop
+    fi
 }
 
 bump-setup-version() {
@@ -169,6 +177,10 @@ tag-and-release() {
         echo "Could not find ~/.pypirc file"
         return 1
     fi
+    if [[ ! -f venv/bin/python3 ]]; then
+        echo "Could not find venv/bin/python3 in $(pwd)"
+        return 1
+    fi
     repo_path=$(repo-path $(pwd))
     if [[ -z "$repo_path" ]]; then
         echo "Not currently in a git repo"
@@ -202,9 +214,13 @@ tag-and-release() {
     [[ $? != 0 ]] && return 1
     git push --tags
 
+    stashstatus=$(git stash)
     clean-py >/dev/null
     venv/bin/python3 setup.py bdist_wheel || return 1
     twine upload dist/*
+    if [[ $stashstatus != "No local changes to save" ]]; then
+        git stash pop
+    fi
     cd "$oldpwd"
 }
 
