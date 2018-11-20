@@ -98,6 +98,8 @@ test-install-in-tmp() {
         echo "Could not find venv/bin/python3 in $(pwd)"
         return 1
     fi
+    do_stash=
+    [[ "$1" == 'stash' ]] && do_stash="yes"
     oldpwd=$(pwd)
     project_name=$(basename $oldpwd)
     version=$(get-version-from-setup)
@@ -108,7 +110,7 @@ test-install-in-tmp() {
     tmp_dir=/tmp/$project_name--$version
 
     mkdir -pv $tmp_dir
-    stashstatus=$(git stash)
+    [[ -n "$do_stash" ]] && stashstatus=$(git stash)
     clean-py >/dev/null
     venv/bin/python3 setup.py bdist_wheel || return 1
     cp -av dist/* $tmp_dir || return 1
@@ -119,7 +121,7 @@ test-install-in-tmp() {
     echo -e "\n$(pwd)\n"
     PYTHONPATH="$tmp_dir" venv/bin/ipython
     cd "$oldpwd"
-    if [[ $stashstatus != "No local changes to save" ]]; then
+    if [[ -n "$do_stash" &&  $stashstatus != "No local changes to save" ]]; then
         git stash pop
     fi
 }
