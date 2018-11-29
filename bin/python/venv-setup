@@ -2,5 +2,11 @@
 
 env_name=$1
 [[ -z "$env_name" ]] && env_name="venv"
-[[ ! -d $env_name ]] && python3 -m venv $env_name && $env_name/bin/pip3 install wheel pip --upgrade
-[[ -f requirements.txt ]] && $env_name/bin/pip3 install -r requirements.txt --upgrade
+pip_args="--upgrade"
+[[ ! -d $env_name ]] && python3 -m venv $env_name && $env_name/bin/pip3 install wheel pip $pip_args
+pip_version=$($env_name/bin/pip3 --version | egrep -o 'pip (\d+)' | cut -c 5-)
+[[ -z "$pip_version" ]] && pip_version=$(venv/bin/pip3 --version | perl -pe 's/^pip\s+(\d+).*/$1/')
+[[ -z "$pip_version" ]] && pip_version=0;
+[[ $pip_version -gt 9 ]] && pip_args=" --upgrade --upgrade-strategy=eager"
+[[ -f requirements.txt ]] && $env_name/bin/pip3 install -r requirements.txt $pip_args
+$env_name/bin/pip3 install ipython pdbpp $pip_args
