@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Display diffs from lasttag through latest commit for all repos that have diffs
+
+for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
+    remote=$(repo-remote $repo)
+    branch=$(branchname $repo)
+    cd $repo
+    the_diff=$(repo-diff-since-lasttag)
+    if [[ -n "$the_diff" ]]; then
+        echo -e "\n==============="
+        echo -e "$repo -- $remote --  $branch\n$the_diff"
+    fi
+done | colordiff | less -rFX
+
