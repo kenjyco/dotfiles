@@ -123,11 +123,11 @@ findit-logs() {
     findit "$@" --complex "-iname '*.log' -type f ! -size 0"
 }
 
-findit-logs-empty() {
+logs-empty() {
     findit "$@" --complex "-iname '*.log' -type f -empty"
 }
 
-findit-logs-empty-delete() {
+logs-empty-delete() {
     findit "$@" --complex "-iname '*.log' -type f -empty -delete"
 }
 
