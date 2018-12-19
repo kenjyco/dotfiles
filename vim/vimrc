@@ -89,6 +89,9 @@ set smarttab
 " Round to 'shiftwidth' for << and >>
 set shiftround
 
+" Don't fix 'no end of line' if editing a file that doesn't have one
+set nofixendofline
+
 " Send file to printer in landscape mode
 set popt=portrait:n
 
