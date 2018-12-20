@@ -65,6 +65,12 @@ pics-all-view() {
     findit-pics "$@" --pipesort "feh -Fd" &
 }
 
+recent-mac-screenshots() {
+    hours=$1
+    [[ -z "$hours" ]] && hours=4
+    findit-pics ~/Desktop --hours $hours --pipesort "open"
+}
+
 findit-vids() {
     findit "$@" --complex "\( -iname '*.mp4' -o -iname '*.flv' \
         -o -iname '*.mkv' -o -iname '*.ogv' -o -iname '*.mov' \
