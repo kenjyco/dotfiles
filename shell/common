@@ -56,6 +56,90 @@ helpme() {
     less -FX $outfile
 }
 
+# Make sure bash/zsh (tab) completions are enabled for git, docker, & docker-compose
+get-completions() {
+    git_version=$(git --version | perl -pe 's/^git version (\S+).*$/$1/')
+    docker_version=$(docker --version | perl -pe 's/^Docker version (\S+),.*/$1/')
+    docker_compose_version=$(docker-compose --version | perl -pe 's/^docker-compose version (\S+),.*/$1/')
+    zsh_urls=(
+        https://raw.githubusercontent.com/git/git/v$git_version/contrib/completion/git-completion.zsh
+        https://raw.githubusercontent.com/docker/cli/v$docker_version/contrib/completion/zsh/_docker
+        https://raw.githubusercontent.com/docker/compose/$docker_compose_version/contrib/completion/zsh/_docker-compose
+    )
+    bash_urls=(
+        https://raw.githubusercontent.com/git/git/v$git_version/contrib/completion/git-completion.bash
+        https://raw.githubusercontent.com/docker/cli/v$docker_version/contrib/completion/bash/docker
+        https://raw.githubusercontent.com/docker/compose/$docker_compose_version/contrib/completion/bash/docker-compose
+    )
+    if [[ -n "$ZSH_VERSION" ]]; then
+        # Determine if there is a custom dir in $fpath already, or make $HOME/.zsh/completions
+        custom_fpaths=()
+        for some_path in "${fpath[@]}"; do
+            if [[ "${some_path:0:11}" != "/usr/local/" && "${some_path:0:11}" != "/usr/share/" ]]; then
+                custom_fpaths+=("$some_path")
+            fi
+        done
+        if [[ -n "$custom_fpaths" ]]; then
+            custom_fpath="${custom_fpaths[[0]}"
+        else
+            custom_fpath="$HOME/.zsh/completion"
+            if [[ ! -d "$custom_fpath" ]]; then
+                echo -e "\n$ mkdir -pv $custom_fpath"
+                mkdir -pv "$custom_fpath"
+            fi
+        fi
+        # Copy the completion files
+        for url in "${zsh_urls[@]}"; do
+            fname=$(basename "$url")
+            if [[ ! -f ${custom_fpath}/$fname ]]; then
+                echo -e "\n$ curl -L $url > ${custom_fpath}/$fname"
+                curl -L "$url" > "${custom_fpath}/$fname" || return 1
+            fi
+        done
+        # Make sure custom_fpath is set in fpath and that compinit is loade
+        fpath_set=$(grep fpath $HOME/.zshrc | grep "$custom_fpath")
+        if [[ -z "$fpath_set" ]]; then
+            echo -e "\nfpath=($custom_fpath \$fpath)" >> $HOME/.zshrc
+        fi
+        compinit_set=$(grep compinit $HOME/.zshrc)
+        if [[ -z "$compinit_set" ]]; then
+            echo -e "\nautoload -Uz compinit && compinit -i" >> $HOME/.zshrc
+        fi
+    elif [[ -n "$BASH_VERSION" ]]; then
+        # Make sure bash-completion package is installed and set bash_completion_* vars
+        if [[ $(uname) == 'Darwin' ]]; then
+            brew_version=$(brew --version 2>/dev/null | head -n 1)
+            if [[ -z "$brew_version" ]]; then
+                echo -e "\nHomebrew not found"
+                return 1
+            fi
+            brew_completions=$(brew list bash-completion 2>/dev/null)
+            if [[ -z "$brew_completions" ]]; then
+                echo -e "\n$ brew install bash-completion"
+                brew install bash-completion || return 1
+            fi
+            bash_completion_dir="$(brew --prefix)/etc/bash_completion.d"
+            bash_completion_file="$(brew --prefix)/etc/bash_completion"
+        elif [[ -f /usr/bin/apt-get && -n "$(groups | grep sudo)" ]]; then
+            echo -e "\n$ sudo apt-get install -y bash-completion"
+            sudo apt-get install -y bash-completion
+            bash_completion_dir="/etc/bash_completion.d"
+            bash_completion_file="/etc/bash_completion"
+        else
+            echo -e "\nNot sure what to do... going to return"
+            return 1
+        fi
+        # Copy the completion files
+        for url in "${bash_urls[@]}"; do
+            fname=$(basename "$url")
+            if [[ ! -f $bash_completion_dir/$fname ]]; then
+                echo -e "\n$ sudo sh -c \"curl -L $url > $bash_completion_dir/$fname\""
+                sudo sh -c "curl -L $url > $bash_completion_dir/$fname" || return 1
+            fi
+        done
+    fi
+}
+
 # Get today's autoday directory
 set_autoday_dir() {
     day_dir="$HOME/autoday/$(date +%Y)/$(date +%b-%d)"

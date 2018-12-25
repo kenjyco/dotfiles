@@ -10,6 +10,11 @@ if [[ "$1" == "clean" ]]; then
     rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv 2>/dev/null
     echo -e "\nDeleting ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash"
     rm -f ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash 2>/dev/null
+    bash_completion_dir="$(brew --prefix)/etc/bash_completion.d"
+    echo -e "\n Deleting from $bash_completion_dir: docker, docker-compose, git-completion.bash"
+    sudo rm -f $bash_completion_dir/docker $bash_completion_dir/docker-compose $bash_completion_dir/git-completion.bash 2>/dev/null
+    echo -e "\n Deleting from ~/.zsh/completion: _docker, _docker-compose, git-completion.zsh"
+    rm -f ~/.zsh/completion/_docker ~/.zsh/completion/_docker-compose ~/.zsh/completion/git-completion.zsh 2>/dev/null
 fi
 
 # Create $BACKUP_DOTFILES directory if it doesn't exist
@@ -139,6 +144,19 @@ for node_version in "${NODE_VERSIONS[@]}"; do
 done
 nvm alias default $NODE_DEFAULT
 
+# Setup completions
+source $HOME/.shell/common
+get-completions
+if [[ $? -ne 0 ]]; then
+    echo -e "\nFailed to get bash completion files..."
+    sleep 2
+fi
+zsh -c "source $HOME/.shell/common; get-completions"
+if [[ $? -ne 0 ]]; then
+    echo -e "\nFailed to get zsh completion files..."
+    sleep 2
+fi
+
 # Install phantomjs
 if [[ ! -d ~/.phantomjs ]]; then
     echo -e "\nInstalling PhantomJS"
@@ -158,22 +176,6 @@ if [[ -n "$_call_make_home_venv" ]]; then
     echo -e "\nCalling make-home-venv"
     source $DIR/shell/common.d/python.sh
     make-home-venv
-fi
-
-# Download git completion for bash
-if [[ ! -s ~/.git-completion.bash ]]; then
-    echo -e "\nDownloading git-completion.bash"
-    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.git-completion.bash
-fi
-
-# Download docker completion for bash
-if [[ ! -s ~/.docker-completion.bash ]]; then
-    echo -e "\nDownloading docker-completion.bash"
-    curl https://raw.githubusercontent.com/docker/cli/master/contrib/completion/bash/docker > ~/.docker-completion.bash
-fi
-if [[ ! -s ~/.docker-compose-completion.bash ]]; then
-    echo -e "\nDownloading docker-compose-completion.bash"
-    curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose > ~/.docker-compose-completion.bash
 fi
 
 # Set python2.7 config for npm (otherwise node-gyp may raise many errors when doing `npm install`)

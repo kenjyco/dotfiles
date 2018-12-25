@@ -67,3 +67,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
+
+fpath=(/home/ken/.zsh/completion $fpath)
