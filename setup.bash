@@ -8,6 +8,7 @@ if [[ "$1" == "clean" ]]; then
     [[ -d ~/venv ]] && _call_make_home_venv=yes
     echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, and ~/venv"
     rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv 2>/dev/null
+    unset NVM_DIR
     echo -e "\nDeleting ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash"
     rm -f ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash 2>/dev/null
     bash_completion_dir="$(brew --prefix)/etc/bash_completion.d"
@@ -122,10 +123,10 @@ fi
 # Copy a xscreensaver config file if none in use
 [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 
+# Install nvm, some versions of node, and some "global" packages
 NODE_VERSIONS=(8.10 10.13)
 NODE_DEFAULT=10.13
 NODE_TOOLS=(grunt gulp @angular/cli speed-test)
-# Install nvm, some versions of node, and some "global" packages
 if [[ ! -d ~/.nvm ]]; then
     echo -e "\nInstalling nvm, specific node version(s), and some global packages"
     unset NVM_DIR
@@ -137,10 +138,15 @@ else
     source "$NVM_DIR/nvm.sh"
 fi
 for node_version in "${NODE_VERSIONS[@]}"; do
-    echo -e "\n$ nvm install $node_version"
-    nvm install $node_version
-    echo -e "\n$ npm install -g ${NODE_TOOLS[@]}"
-    npm install -g "${NODE_TOOLS[@]}"
+    installed=$(nvm list $node_version | perl -pe 's/.*v(\d+\S+).*/$1/' | grep -v 'N/A')
+    if [[ -z "$installed" ]]; then
+        echo -e "\n$ nvm install $node_version"
+        nvm install $node_version
+        echo -e "\n$ npm install -g ${NODE_TOOLS[@]}"
+        npm install -g "${NODE_TOOLS[@]}"
+    else
+        echo -e "\nAlready installed node $installed"
+    fi
 done
 nvm alias default $NODE_DEFAULT
 
