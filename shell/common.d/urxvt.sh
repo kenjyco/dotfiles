@@ -91,7 +91,7 @@ newwin(){
         cmd="${cmd} -geometry $geom"
     fi
     echo "$cmd"
-    exec eval "$cmd" &
+    eval "$cmd" &
     [[ $? -eq 0 ]] && disown && exit
 }
 
