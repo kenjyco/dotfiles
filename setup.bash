@@ -117,16 +117,27 @@ fi
 # Copy a xscreensaver config file if none in use
 [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 
-# Install nvm, a couple versions of node, and some "global" packages
+NODE_VERSIONS=(8.10 10.13)
+NODE_DEFAULT=10.13
+NODE_TOOLS=(grunt gulp @angular/cli speed-test)
+# Install nvm, some versions of node, and some "global" packages
 if [[ ! -d ~/.nvm ]]; then
-    echo -e "\nInstalling nvm, node 8.10, and some global packages"
+    echo -e "\nInstalling nvm, specific node version(s), and some global packages"
     unset NVM_DIR
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
     source "$NVM_DIR/nvm.sh"
-    nvm install 8.10
-    npm install -g nodemon mocha karma-cli karma watchr speed-test
+else
+    export NVM_DIR="$HOME/.nvm"
+    source "$NVM_DIR/nvm.sh"
 fi
+for node_version in "${NODE_VERSIONS[@]}"; do
+    echo -e "\n$ nvm install $node_version"
+    nvm install $node_version
+    echo -e "\n$ npm install -g ${NODE_TOOLS[@]}"
+    npm install -g "${NODE_TOOLS[@]}"
+done
+nvm alias default $NODE_DEFAULT
 
 # Install phantomjs
 if [[ ! -d ~/.phantomjs ]]; then
