@@ -10,7 +10,7 @@ if [[ -f /etc/bash_completion ]]; then
 elif [[ -f /usr/local/etc/bash_completion ]]; then
     source /usr/local/etc/bash_completion
 else
-    fname=$(bash --prefix 2>/dev/null)/etc/bash_completion
+    fname=$(brew --prefix 2>/dev/null)/etc/bash_completion
     [[ -f "$fname" ]] && source "$fname"
 fi
 
