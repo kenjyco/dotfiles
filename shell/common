@@ -97,7 +97,7 @@ get-completions() {
             fi
         done
         # Make sure custom_fpath is set in fpath and that compinit is loade
-        fpath_set=$(grep fpath $HOME/.zshrc | grep "$custom_fpath")
+        fpath_set=$(grep fpath $HOME/.zshrc | egrep "($custom_fpath|HOME)")
         if [[ -z "$fpath_set" ]]; then
             echo -e "\nfpath=($custom_fpath \$fpath)" >> $HOME/.zshrc
         fi
