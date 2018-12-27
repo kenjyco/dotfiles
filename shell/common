@@ -80,13 +80,13 @@ get-completions() {
             fi
         done
         if [[ -n "$custom_fpaths" ]]; then
-            custom_fpath="${custom_fpaths[[0]}"
+            custom_fpath="${custom_fpaths[1]}"
         else
             custom_fpath="$HOME/.zsh/completion"
-            if [[ ! -d "$custom_fpath" ]]; then
-                echo -e "\n$ mkdir -pv $custom_fpath"
-                mkdir -pv "$custom_fpath"
-            fi
+        fi
+        if [[ ! -d "$custom_fpath" ]]; then
+            echo -e "\n$ mkdir -pv $custom_fpath"
+            mkdir -pv "$custom_fpath"
         fi
         # Copy the completion files
         for url in "${zsh_urls[@]}"; do
