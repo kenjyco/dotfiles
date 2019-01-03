@@ -14,3 +14,13 @@ circleci-local-test() {
         -e DOCKER_USER=$DOCKER_USER \
         -e DOCKER_PASSWORD=$DOCKER_PASSWORD
 }
+
+get-circleci() {
+    if [[ ! -f "/usr/local/bin/circleci" && ! -f "$HOME/bin/circleci" ]]; then
+        curl https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh --fail --silent | bash
+        if [[ $? -ne 0 ]]; then
+            echo "Failed to add circleci to /usr/local/bin... gonna try to add to ~/bin (since probably on linux)"
+            curl https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh --fail --silent | DESTDIR="$HOME/bin" bash
+        fi
+    fi
+}
