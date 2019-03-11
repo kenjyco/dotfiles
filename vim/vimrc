@@ -123,4 +123,4 @@ vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call
 imap <C-v> <ESC>:call setreg("\"",system("xclip -o -selection clipboard"))<CR>p")")")"))
 
 " Use ':W' to save file as sudo
-cmap W w !sudo tee > /dev/null %
+" cmap W w !sudo tee > /dev/null %

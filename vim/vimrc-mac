@@ -124,4 +124,4 @@ vmap <C-c> :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy",
 imap <C-v> <ESC>:call setreg("\"",system("pbpaste"))<CR>p")")")"))
 
 " Use ':W' to save file as sudo
-cmap W w !sudo tee > /dev/null %
+" cmap W w !sudo tee > /dev/null %
