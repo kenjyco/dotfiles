@@ -11,7 +11,7 @@ if [[ "$1" == "clean" ]]; then
     unset NVM_DIR
     echo -e "\nDeleting ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash"
     rm -f ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash 2>/dev/null
-    bash_completion_dir="$(brew --prefix)/etc/bash_completion.d"
+    bash_completion_dir="$(brew --prefix 2>/dev/null)/etc/bash_completion.d"
     echo -e "\n Deleting from $bash_completion_dir: docker, docker-compose, git-completion.bash"
     sudo rm -f $bash_completion_dir/docker $bash_completion_dir/docker-compose $bash_completion_dir/git-completion.bash 2>/dev/null
     echo -e "\n Deleting from ~/.zsh/completion: _docker, _docker-compose, git-completion.zsh"
