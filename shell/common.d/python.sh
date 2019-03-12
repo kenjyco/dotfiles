@@ -105,7 +105,7 @@ test-install-in-tmp() {
     version=$(get-version-from-setup)
     if [[ -z "$version" ]]; then
         echo "Could not determine version from 'download_url' in 'setup.py'"
-        return 1
+        version='unknown-version'
     fi
     tmp_dir=/tmp/$project_name--$version
 
