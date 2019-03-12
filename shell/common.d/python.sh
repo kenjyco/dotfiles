@@ -20,9 +20,9 @@ make-home-venv() {
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
         if [[ $(uname) == 'Darwin' ]]; then
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine pipdeptree rdbtools python-lzf
         else
-            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine
+            venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine pipdeptree
         fi
     else
         echo -e "\nThe ~/venv directory already exists. Use \`make-home-venv clean\` to delete and re-create"
@@ -33,9 +33,9 @@ update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
     if [[ $(uname) == 'Darwin' ]]; then
-        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinema
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinema twine pipdeptree rdbtools python-lzf
     else
-        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinama
+        venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinama twine pipdeptree
     fi
 }
 
@@ -255,8 +255,18 @@ twine() {
     PYTHONPATH=$HOME $HOME/venv/bin/twine "$@"
 }
 
+rdb() {
+    if [[ $(uname) == 'Darwin' ]]; then
+        PYTHONPATH=$HOME $HOME/venv/bin/rdb "$@"
+    fi
+}
+
 asciinema() {
     PYTHONPATH=$HOME $HOME/venv/bin/asciinema "$@"
+}
+
+pipdeptree() {
+    PYTHONPATH=$HOME $HOME/venv/bin/pipdeptree "$@"
 }
 
 #----------------------------------------------------------------------#
