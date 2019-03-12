@@ -187,8 +187,16 @@ docs() {
     findit-docs "$@" --depth 1 --stamp | sort
 }
 
+docs-by-length() {
+    findit-docs --depth 1 --pipe "wc -l" | sort -n
+}
+
 docs-all() {
     findit-docs "$@" --stamp | sort
+}
+
+docs-all-by-length() {
+    findit-docs  --pipe "wc -l" | sort -n
 }
 
 annotated() {
