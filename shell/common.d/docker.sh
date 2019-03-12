@@ -65,6 +65,27 @@ docker-show-all-containers-and-images() {
     docker images
 }
 
+docker-prune() {
+    docker system prune --all --force --volumes
+}
+
+docker-ls () {
+    echo -e "\nContainers:"
+    docker container ls -a
+    echo -e "\nImages:"
+    docker image ls -a
+    echo -e "\nVolumes:"
+    docker volume ls
+    echo -e "\nNetworks:"
+    docker network ls
+}
+
+docker-destroy-all() {
+    docker stop $(docker ps -qa | sort -u)
+    docker system prune --all --force --volumes
+    docker-ls
+}
+
 docker-top() {
     docker stats --all
 }
