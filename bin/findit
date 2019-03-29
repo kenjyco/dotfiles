@@ -12,6 +12,8 @@
 #   findit . --pattern ".*.sw[po]" --pipe "ls -gothr"
 #   findit --complex "\( -iname '*.mp4' -o -iname '*.mkv' \)" --pipesort "vlc --fullscreen"
 #   findit . --ipattern "*.jpg" --stamp
+#   findit --pattern "node_modules" --type d
+#   findit --exclude_dirs "node_modules, .git, venv, build, alembic, __pycache__, .pytest_cache" --exclude_exts "json, yml, xml, txt, md" --pipe "wc -l"
 
 if [[ $(uname) == 'Darwin' ]]; then
     _find="gfind"
@@ -43,6 +45,12 @@ while [[ -n "$1" ]]; do
             shift ;;
         --complex)
             complex=$2
+            shift ;;
+        --exclude_dirs)
+            exclude_dirs=$2
+            shift ;;
+        --exclude_exts)
+            exclude_exts=$2
             shift ;;
         --pattern)
             pattern=$2
@@ -82,6 +90,8 @@ while [[ -n "$1" ]]; do
             echo "  --pattern string            filename pattern or exact name"
             echo "  --ipattern string           filename pattern or exact name (case insensitive)"
             echo "  --complex string            raw options passed directly to 'find'"
+            echo "  --exclude_dirs string       comma-separated list of directories to exclude"
+            echo "  --exclude_exts string       comma-separated list of extensionss to exclude"
             echo "  --months number             only match files modified in a number of months"
             echo "  --weeks number              only match files modified in a number of weeks"
             echo "  --days number               only match files modified in a number of days"
@@ -99,6 +109,7 @@ while [[ -n "$1" ]]; do
             echo "  findit --complex \"\( -iname '*.mp4' -o -iname '*.mkv' \)\" --pipesort \"vlc --fullscreen\""
             echo '  findit . --ipattern "*.jpg" --stamp'
             echo '  findit --pattern "node_modules" --type d'
+            echo '  findit --exclude_dirs "node_modules, .git, venv, build, alembic, __pycache__, .pytest_cache" --exclude_exts "json, yml, xml, txt, md" --pipe "wc -l"'
             exit 0
             ;;
         *)
@@ -120,6 +131,34 @@ if [[ "$depth" == [0-9]* ]]; then
     find_cmd="$_find $_dirname -maxdepth $depth -type $_type"
 else
     find_cmd="$_find $_dirname -type $_type"
+fi
+
+if [[ -n "$exclude_dirs" ]]; then
+    IFS=',' read -ra items <<< "$exclude_dirs"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        exclude_part="-not -path '*/${items[0]}/*'"
+    else
+        exclude_part="-not \( -path '*/${items[0]}/*'"
+        for item in ${items[@]:1}; do
+            exclude_part="$exclude_part -o -path '*/$item/*'"
+        done
+        exclude_part="$exclude_part \)"
+    fi
+    find_cmd="$find_cmd $exclude_part"
+fi
+
+if [[ -n "$exclude_exts" ]]; then
+    IFS=',' read -ra items <<< "$exclude_exts"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        exclude_part="! -iname '*.${items[0]}'"
+    else
+        exclude_part="! \( -iname '*.${items[0]}'"
+        for item in ${items[@]:1}; do
+            exclude_part="$exclude_part -o -iname '*.$item'"
+        done
+        exclude_part="$exclude_part \)"
+    fi
+    find_cmd="$find_cmd $exclude_part"
 fi
 
 if [[ -n "$pattern" ]]; then
