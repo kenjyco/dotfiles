@@ -58,6 +58,9 @@ while [[ -n "$1" ]]; do
         --ipattern)
             ipattern=$2
             shift ;;
+        --exts)
+            exts=$2
+            shift ;;
         --months)
             months=$2
             shift ;;
@@ -92,6 +95,7 @@ while [[ -n "$1" ]]; do
             echo "  --complex string            raw options passed directly to 'find'"
             echo "  --exclude_dirs string       comma-separated list of directories to exclude"
             echo "  --exclude_exts string       comma-separated list of extensionss to exclude"
+            echo "  --exts string               comma-separated list of extensionss to include"
             echo "  --months number             only match files modified in a number of months"
             echo "  --weeks number              only match files modified in a number of weeks"
             echo "  --days number               only match files modified in a number of days"
@@ -159,6 +163,20 @@ if [[ -n "$exclude_exts" ]]; then
         exclude_part="$exclude_part \)"
     fi
     find_cmd="$find_cmd $exclude_part"
+fi
+
+if [[ -n "$exts" ]]; then
+    IFS=',' read -ra items <<< "$exts"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        part="-iname '*.${items[0]}'"
+    else
+        part="\( -iname '*.${items[0]}'"
+        for item in ${items[@]:1}; do
+            part="$part -o -iname '*.$item'"
+        done
+        part="$part \)"
+    fi
+    find_cmd="$find_cmd $part"
 fi
 
 if [[ -n "$pattern" ]]; then
