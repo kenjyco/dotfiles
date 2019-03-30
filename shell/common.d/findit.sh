@@ -39,7 +39,8 @@ findit-autoday() {
 }
 
 findit-pics() {
-    findit "$@"--exclude_dirs ".cache, .config, .thumbnails, .cinnamon, .Trash, Library, venv, env, nvm, node_modules" --exts "png, jpg, jpeg, gif"
+    findit "$@" --exclude_dirs ".cache, .config, .thumbnails, .cinnamon, .Trash, Library, venv, env, nvm, node_modules" --exts "png, jpg, jpeg, gif"
+}
 
 pics() {
     findit-pics "$@" --depth 1 --stamp | sort
@@ -88,7 +89,7 @@ vids-all-play() {
 }
 
 findit-audio() {
-    findit --exclude_dirs "venv, env, node_modules, Library," --exts "mp3, flac, ogg, m4a, wav"
+    findit --exclude_dirs "venv, env, node_modules, Library" --exts "mp3, flac, ogg, m4a, wav"
 }
 
 audio() {
