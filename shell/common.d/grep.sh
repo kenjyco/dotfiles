@@ -28,9 +28,7 @@ grepit-ba9() {
 }
 
 grepit-logs() {
-    findit . --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
-        -o -path '*/build/*' -o -path '*/.git/*' -prune \) -iname '*.log'" \
-        --pipesort "grep -Hn --color $@"
+    findit . --exclude_dirs "venv, env, build, .git" --ipattern "*.log" --pipesort "grep -Hn --color $@"
 }
 
 grepit-no-docs() {

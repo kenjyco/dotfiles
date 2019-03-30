@@ -7,8 +7,7 @@ swps() {
 }
 
 findit-py() {
-    findit "$@" --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
-        -o -path '*/build/*' -o -path '*/node_modules/*' -prune \) -iname '*.py'"
+    findit "$@" --exclude_dirs "venv, env, build, node_modules" --ipattern "*.py"
 }
 
 pys() {
@@ -24,9 +23,7 @@ findit-node-modules() {
 }
 
 findit-js-backend() {
-    findit "$@" --complex "-not \( -path '*/node_modules/*' -o -path '*/lib/*' \
-        -o -path '*/static/*' -o -path '*/ui/*' -o -path '*/deploy/*' \
-        -o -path '*/test/*' -o -path '*/unitTests/*' -o -path '*/apidoc/*' -prune \) -iname '*.js'"
+    findit "$@" --exclude_dirs "node_modules, lib, static, ui, deploy, test, unitTests, apidoc" --ipattern "*.js"
 }
 
 jss() {
@@ -42,12 +39,7 @@ findit-autoday() {
 }
 
 findit-pics() {
-    findit "$@" --complex "-not \( -path '*/.cache/*' -o -path '*/.config/*' \
-        -o -path '*/.thumbnails/*' -o -path '*/.cinnamon/*' \
-        -o -path '*/venv/*' -o -path '*/env/*' -prune \) \
-        \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \
-        -o -iname '*.gif' \)"
-}
+    findit "$@"--exclude_dirs ".cache, .config, .thumbnails, .cinnamon, .Trash, Library, venv, env, nvm, node_modules" --exts "png, jpg, jpeg, gif"
 
 pics() {
     findit-pics "$@" --depth 1 --stamp | sort
@@ -72,9 +64,7 @@ recent-mac-screenshots() {
 }
 
 findit-vids() {
-    findit "$@" --complex "\( -iname '*.mp4' -o -iname '*.flv' \
-        -o -iname '*.mkv' -o -iname '*.ogv' -o -iname '*.mov' \
-        -o -iname '*.webm' -o -iname '*.avi' \)"
+    findit --exclude_dirs ".Trash" --exts "mp4, flv, mkv, ogv, mov, webm, avi"
 }
 
 vids() {
@@ -98,9 +88,7 @@ vids-all-play() {
 }
 
 findit-audio() {
-    findit "$@" --complex "-not \( -path '*/venv/*' -o -path '*/env/*' \
-        -prune \) \( -iname '*.mp3' -o -iname '*.flac' \
-        -o -iname '*.ogg' -o -iname '*.m4a' -o -iname '*.wav' \)"
+    findit --exclude_dirs "venv, env, node_modules, Library," --exts "mp3, flac, ogg, m4a, wav"
 }
 
 audio() {
