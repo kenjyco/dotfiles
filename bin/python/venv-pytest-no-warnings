@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+[[ -d "$1" && -d "$1/bin" ]] && env_name=$1 && shift
+[[ -z "$env_name" ]] && env_name="venv"
+[[ ! -d $env_name ]] && echo "Can't find '$env_name'" && exit 1
+if [[ ! -x $env_name/bin/pytest ]]; then
+    read -p "Install pytest to $env_name/bin? [y/n] " yn
+    if [[ "$yn" =~ [yY].* ]]; then
+        echo -e "\n$ $env_name/bin/pip3 install pytest"
+        $env_name/bin/pip3 install pytest
+    else
+        exit 1
+    fi
+fi
+
+default_pytest_args=(-vsx -rsfe --showlocals --pdb --disable-pytest-warnings)
+pytest_args=()
+custom_options=
+
+if [[ -f "$1" || -d "$1" ]]; then
+    # First argument is a file or directory, so assume no options were passed in
+    pytest_args=("${default_pytest_args[@]}" "$@")
+else
+    pytest_args="$@"
+    [[ -z "$pytest_args" ]] && pytest_args=("${default_pytest_args[@]}")
+
+    args=()
+    for arg in "$@"; do
+        args+=("$arg")
+        if [[ ${arg:0:1} == '-' ]]; then
+            if [[ "$arg" != '-m' && "$arg" != '-k' ]]; then
+                custom_options=yes
+            fi
+        fi
+    done
+
+    if [[ -z "$custom_options" ]]; then
+        pytest_args=("${default_pytest_args[@]}" "${args[@]}")
+    else
+        pytest_args=("${args[@]}")
+    fi
+fi
+
+echo -e "\n$" PYTHONPATH="$(pwd)" $env_name/bin/pytest "${pytest_args[@]}"
+PYTHONPATH="$(pwd)" $env_name/bin/pytest "${pytest_args[@]}"
