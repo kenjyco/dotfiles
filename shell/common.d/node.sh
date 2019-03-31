@@ -1,5 +1,5 @@
 npm-list-docs() {
-    ls ~/.nvm/versions/node/*/lib/node_modules/npm/doc/api
+    ls ~/.nvm/versions/node/*/lib/node_modules/npm/doc/*
 }
 
 delete-node-modules() {
