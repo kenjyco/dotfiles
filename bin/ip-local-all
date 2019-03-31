@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+
 ifconfig | grep "inet addr" | awk '{print $2}' | cut -c 6-
+ifconfig | grep "inet [12]" | awk '{print $2}'
