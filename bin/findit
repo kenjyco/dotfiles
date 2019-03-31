@@ -4,16 +4,7 @@
 # a particular filename pattern, modified within a certain time period, with
 # results optionally piped to another command
 #
-# Examples:
-#
-#   findit . --pattern "*.md" --weeks 1
-#   findit --pattern "*.md" --weeks 1 --pipesort "cp -av {} /tmp/stuff"
-#   findit . --complex "\( -iname '*.md' -o -iname '*.txt' \)" --months 2 --depth 3
-#   findit . --pattern ".*.sw[po]" --pipe "ls -gothr"
-#   findit --complex "\( -iname '*.mp4' -o -iname '*.mkv' \)" --pipesort "vlc --fullscreen"
-#   findit . --ipattern "*.jpg" --stamp
-#   findit --pattern "node_modules" --type d
-#   findit --exclude_dirs "node_modules, .git, venv, build, alembic, __pycache__, .pytest_cache" --exclude_exts "json, yml, xml, txt, md" --pipe "wc -l"
+#   findit --help
 
 if [[ $(uname) == 'Darwin' ]]; then
     _find="gfind"
@@ -90,12 +81,12 @@ while [[ -n "$1" ]]; do
             echo -e "\n  Wrapper to the find command\n\nOptions:\n"
             echo "  --depth number              maxdepth to search for files"
             echo "  --type character            regular (f)ile, (d)irectory, symbolic (l)ink, (s)ocket, (b)lock special"
-            echo "  --pattern string            filename pattern or exact name"
-            echo "  --ipattern string           filename pattern or exact name (case insensitive)"
+            echo "  --pattern string            comma-separated list of filename patterns"
+            echo "  --ipattern string           comma-separated list of filename patterns (case insensitive)"
             echo "  --complex string            raw options passed directly to 'find'"
             echo "  --exclude_dirs string       comma-separated list of directories to exclude"
-            echo "  --exclude_exts string       comma-separated list of extensionss to exclude"
-            echo "  --exts string               comma-separated list of extensionss to include"
+            echo "  --exclude_exts string       comma-separated list of extensions to exclude"
+            echo "  --exts string               comma-separated list of extensions to include"
             echo "  --months number             only match files modified in a number of months"
             echo "  --weeks number              only match files modified in a number of weeks"
             echo "  --days number               only match files modified in a number of days"
@@ -106,14 +97,17 @@ while [[ -n "$1" ]]; do
             echo "  --stamp                     prepend timestamps to output"
             echo "  --help                      show this message and exit"
             echo -e '\nExamples:\n'
-            echo '  findit . --pattern "*.md" --weeks 1'
-            echo '  findit --pattern "*.md" --weeks 1 --pipesort "cp -av {} /tmp/stuff"'
-            echo "  findit . --complex \"\( -iname '*.md' -o -iname '*.txt' \)\" --months 2 --depth 3"
-            echo '  findit . --pattern ".*.sw[po]" --pipe "ls -gothr"'
-            echo "  findit --complex \"\( -iname '*.mp4' -o -iname '*.mkv' \)\" --pipesort \"vlc --fullscreen\""
-            echo '  findit . --ipattern "*.jpg" --stamp'
+            echo '  findit --exts "md" --weeks 1 --stamp'
+            echo '  findit --exts "md" --weeks 1 --pipesort "cp -av {} /tmp/stuff"'
+            echo '  findit ~ --exts "md, txt" --exclude_dirs "venv, node_modules, Library" --months 2 --depth 3'
+            echo '  findit --pattern ".*.sw[po]" --pipe "ls -gothr"'
+            echo '  findit --exts "mp4, mkv" --pipesort "vlc --fullscreen"'
+            echo '  findit --exts "jpg, jpeg, png, gif" --pipe "du -sch"'
+            echo "  findit --complex \"-iname '*.log' -type f ! -size 0\""
+            echo "  findit --complex \"-iname '*.log' -type f -empty -delete\""
             echo '  findit --pattern "node_modules" --type d'
             echo '  findit --exclude_dirs "node_modules, .git, venv, build, alembic, __pycache__, .pytest_cache" --exclude_exts "json, yml, xml, txt, md" --pipe "wc -l"'
+            echo '  findit --exclude_dirs "venv, env" --exclude_exts "js, json, java, map, htm, html, pyc" --pattern "test*" --pipe "grep assert" | egrep "(==|!=)"'
             exit 0
             ;;
         *)
