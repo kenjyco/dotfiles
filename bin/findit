@@ -186,10 +186,38 @@ if [[ -n "$exts" ]]; then
 fi
 
 if [[ -n "$pattern" ]]; then
-    find_cmd="$find_cmd -name '$pattern'"
-elif [[ -n "$ipattern" ]]; then
-    find_cmd="$find_cmd -iname '$ipattern'"
-elif [[ -n "$complex" ]]; then
+    IFS=',' read -ra items <<< "$pattern"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        part="-name '${items[0]}'"
+    else
+        part="\( -name '${items[0]}'"
+        set -f
+        for item in ${items[@]:1}; do
+            part="$part -o -name '$item'"
+        done
+        set +f
+        part="$part \)"
+    fi
+    find_cmd="$find_cmd $part"
+fi
+
+if [[ -n "$ipattern" ]]; then
+    IFS=',' read -ra items <<< "$ipattern"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        part="-iname '${items[0]}'"
+    else
+        part="\( -iname '${items[0]}'"
+        set -f
+        for item in ${items[@]:1}; do
+            part="$part -o -iname '$item'"
+        done
+        set +f
+        part="$part \)"
+    fi
+    find_cmd="$find_cmd $part"
+fi
+
+if [[ -n "$complex" ]]; then
     find_cmd="$find_cmd $complex"
 fi
 
