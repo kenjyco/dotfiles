@@ -191,9 +191,7 @@ annotated() {
 }
 
 show-mac-garbage() {
-    find . \( -name '._*' -o -name '.Trashes' -o -name '.Spotlight-V100' \
-        -o -name '__MACOSX' -o -name '.TemporaryItems' -o -name '.fseventsd' \
-        -o -name '.Trash' -o -name '.DS_Store' \) "$@"
+    findit --pattern '._*, .Trashes, .Trash, .Spotlight-V100, __MACOSX, .TemporaryItems, .fseventsd, .DS_Store' "$@"
 }
 
 delete-mac-garbage() {
