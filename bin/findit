@@ -143,9 +143,11 @@ if [[ -n "$exclude_dirs" ]]; then
         exclude_part="-not -path '*/${items[0]}/*'"
     else
         exclude_part="-not \( -path '*/${items[0]}/*'"
+        set -f
         for item in ${items[@]:1}; do
             exclude_part="$exclude_part -o -path '*/$item/*'"
         done
+        set +f
         exclude_part="$exclude_part \)"
     fi
     find_cmd="$find_cmd $exclude_part"
@@ -157,9 +159,11 @@ if [[ -n "$exclude_exts" ]]; then
         exclude_part="! -iname '*.${items[0]}'"
     else
         exclude_part="! \( -iname '*.${items[0]}'"
+        set -f
         for item in ${items[@]:1}; do
             exclude_part="$exclude_part -o -iname '*.$item'"
         done
+        set +f
         exclude_part="$exclude_part \)"
     fi
     find_cmd="$find_cmd $exclude_part"
@@ -171,9 +175,11 @@ if [[ -n "$exts" ]]; then
         part="-iname '*.${items[0]}'"
     else
         part="\( -iname '*.${items[0]}'"
+        set -f
         for item in ${items[@]:1}; do
             part="$part -o -iname '*.$item'"
         done
+        set +f
         part="$part \)"
     fi
     find_cmd="$find_cmd $part"
