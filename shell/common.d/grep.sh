@@ -4,7 +4,7 @@ env-check() {
 
 grepit() {
     [[ -z "$@" ]] && return 1
-    grep -Hn --color -R --exclude=\*.{pyc,swp,min.js,svg,png,jpg,jpeg,ttf,pdf,doc,xlsx,otf} --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=.git "$@" \.
+    grep -Hn --color -R --exclude=\*.{pyc,swp,min.js,svg,png,jpg,jpeg,ttf,pdf,doc,xlsx,otf} --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=build "$@" \.
 }
 
 grepit-ba1() {
