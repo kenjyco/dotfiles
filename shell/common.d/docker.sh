@@ -89,3 +89,7 @@ docker-destroy-all() {
 docker-top() {
     docker stats --all
 }
+
+docker-shell() {
+    docker exec -it $1 bash
+}
