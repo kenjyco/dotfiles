@@ -91,5 +91,23 @@ docker-top() {
 }
 
 docker-shell() {
+    if [[ -z "$1" ]]; then
+        echo "Container must be specified" >&2
+        return 1
+    fi
+    if [[ -z $(docker ps -q | grep $1) ]]; then
+        if [[ -z $(docker ps -qa | grep $1) ]]; then
+            echo "Container $1 does not exist" >&2
+            return 1
+        fi
+        docker start $1
+        if [[ $? -ne 0 ]]; then
+            echo "Failed to start container $1" >&2
+            return 1
+        else
+            echo "Started container $1 and sleeping 1 second..."
+            sleep 1
+        fi
+    fi
     docker exec -it $1 bash
 }
