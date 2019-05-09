@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#
+# https://support.comodo.com/index.php?/Knowledgebase/Article/View/684/17/how-do-i-verify-that-a-private-key-matches-a-certificate-openssl
+
+cert_file="$1"
+key_file="$2"
+
+if [[ -z "$cert_file" || -z "$key_file" ]]; then
+    echo -e "Must pass in cert file and key file" >&2
+    exit 1
+fi
+if [[ $(echo ${cert_file: -4} | tr '[:upper:]' '[:lower:]') != '.crt' ]]; then
+    echo -e "Expected a .crt extension for cert file '$cert_file'" >&2
+    exit 1
+fi
+if [[ $(echo ${key_file: -4} | tr '[:upper:]' '[:lower:]') != '.key' ]]; then
+    echo -e "Expected a .key extension for key file '$key_file'" >&2
+    exit 1
+fi
+if [[ ! -s "$cert_file" ]]; then
+    echo -e "File does not exist:  $cert_file" >&2
+    exit 1
+fi
+if [[ ! -s "$key_file" ]]; then
+    echo -e "File does not exist:  $key_file" >&2
+    exit 1
+fi
+
+echo -e "\nGonna check '$cert_file' and '$key_file'.."
+key_md5=$(openssl rsa -modulus -noout -in "$key_file" | openssl md5)
+key_ok_output=$(openssl rsa -check -noout -in "$key_file")
+cert_md5=$(openssl x509 -modulus -noout -in "$cert_file" | openssl md5)
+
+echo "key_md5 -> $key_md5"
+echo "cert_md5 -> $cert_md5"
+echo "key_ok_output -> $key_ok_output"
+
+if [[ $key_md5 != $cert_md5 ]]; then
+    echo -e "\n'$cert_file' and '$key_file do not match'" >&2
+    exit 1
+fi
+if [[ $key_ok_output != "RSA key ok" ]]; then
+    echo -e "Key file $key_file is not ok" >&2
+    exit 1
+fi
+
+echo -e "\n'$cert_file' and '$key_file are OK'"
