@@ -6,6 +6,10 @@ grepit() {
     [[ -z "$@" ]] && return 1
     grep -HnI --color -R --exclude=\*.{pyc,swp,min.js,svg,png,jpg,jpeg,ttf,pdf,doc,xlsx,otf,mp3} --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude-dir=build --exclude-dir=.eggs --exclude-dir=.cache --exclude-dir=\*.egg-info "$@" \.
 }
+
+grepit-cut() {
+    [[ -z "$@" ]] && return 1
+    grepit "$@" | cut -c 1-350 | grep --color "$@"
 }
 
 grepit-ba1() {
