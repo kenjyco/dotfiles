@@ -136,17 +136,29 @@ get-completions() {
             bash_completion_dir="/etc/bash_completion.d"
             bash_completion_file="/etc/bash_completion"
         else
-            echo -e "\nNot sure what to do... going to return"
-            return 1
+            bash_completion_dir="$HOME/.downloaded-completions"
+            mkdir -p "$bash_completion_dir" 2>/dev/null
+            bash_completion_file="$HOME/.bash_completion"
         fi
         # Copy the completion files
-        for url in "${bash_urls[@]}"; do
-            fname=$(basename "$url")
-            if [[ ! -f $bash_completion_dir/$fname ]]; then
-                echo -e "\n$ sudo sh -c \"curl -L $url > $bash_completion_dir/$fname\""
-                sudo sh -c "curl -L $url > $bash_completion_dir/$fname" || return 1
-            fi
-        done
+        if [[ "$bash_completion_dir" =~ ${HOME}.* ]]; then
+            for url in "${bash_urls[@]}"; do
+                fname=$(basename "$url")
+                if [[ ! -f $bash_completion_dir/$fname ]]; then
+                    echo -e "\n$ curl -L $url > \"$bash_completion_dir/$fname\""
+                    curl -L $url > "$bash_completion_dir/$fname" || return 1
+                fi
+            done
+            cat "$bash_completion_dir"/* > "$bash_completion_file"
+        else
+            for url in "${bash_urls[@]}"; do
+                fname=$(basename "$url")
+                if [[ ! -f $bash_completion_dir/$fname ]]; then
+                    echo -e "\n$ sudo sh -c \"curl -L $url > $bash_completion_dir/$fname\""
+                    sudo sh -c "curl -L $url > $bash_completion_dir/$fname" || return 1
+                fi
+            done
+        fi
     fi
 }
 
