@@ -159,10 +159,13 @@ if [[ $? -ne 0 ]]; then
     echo -e "\nFailed to get bash completion files..."
     sleep 2
 fi
-zsh -c "source $HOME/.shell/common; get-completions"
-if [[ $? -ne 0 ]]; then
-    echo -e "\nFailed to get zsh completion files..."
-    sleep 2
+command -v zsh &>/dev/null
+if [[ $? -eq 0 ]]; then
+    zsh -c "source $HOME/.shell/common; get-completions"
+    if [[ $? -ne 0 ]]; then
+        echo -e "\nFailed to get zsh completion files..."
+        sleep 2
+    fi
 fi
 
 # Install phantomjs
