@@ -28,10 +28,6 @@ fi
 BACKUP_DOTFILES="$DIR/backup_dotfiles"
 [[ ! -d "$BACKUP_DOTFILES" ]] && mkdir -pv "$BACKUP_DOTFILES"
 
-# Destroy/re-create subdirectories of $PLUGIN_INSTALL_DIR
-PLUGIN_INSTALL_DIR="$HOME/.plugin_install_dir"
-rm -rf "$PLUGIN_INSTALL_DIR/vundle" && mkdir -pv "$PLUGIN_INSTALL_DIR/vundle"
-
 # Backup original dotfiles if they are not symbolic links, otherwise delete
 echo -e "\nSaving a copy of real dotfiles and deleting symbolic links"
 echo "cd $HOME"
@@ -115,56 +111,8 @@ ln -s "$DIR/x/awesome/theme.lua" "$HOME/.config/awesome/theme.lua"
 # Save the full path to this dotfiles repository to `~/.dotfiles_path`
 echo "$DIR" > $HOME/.dotfiles_path
 
-# Download wallpapers
-cd $DIR/wallpapers
-bash ./download.sh
-
-# Fetch the git submodules required
-cd $DIR
-echo -e "\nUpdating git submodules, if necessary"
-git submodule init && git submodule update
-
-# Download/install Vim plugins added to vundle
-vim +PluginInstall +qall
-
 # Source the ~/.tmux.conf file
 tmux source-file ~/.tmux.conf
-
-# Install beu
-if [[ ! -d ~/.beu ]]; then
-    echo -e "\nInstalling beu"
-    curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
-fi
-
-# Copy a xscreensaver config file if none in use
-[[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
-
-# Install nvm, some versions of node, and some "global" packages
-NODE_VERSIONS=(8.10 10.13)
-NODE_DEFAULT=10.13
-NODE_TOOLS=(grunt gulp @angular/cli speed-test)
-if [[ ! -d ~/.nvm ]]; then
-    echo -e "\nInstalling nvm, specific node version(s), and some global packages"
-    unset NVM_DIR
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-    export NVM_DIR="$HOME/.nvm"
-    source "$NVM_DIR/nvm.sh"
-else
-    export NVM_DIR="$HOME/.nvm"
-    source "$NVM_DIR/nvm.sh"
-fi
-for node_version in "${NODE_VERSIONS[@]}"; do
-    installed=$(nvm list $node_version | perl -pe 's/.*v(\d+\S+).*/$1/' | grep -v 'N/A')
-    if [[ -z "$installed" ]]; then
-        echo -e "\n$ nvm install $node_version"
-        nvm install $node_version
-        echo -e "\n$ npm install -g ${NODE_TOOLS[@]}"
-        npm install -g "${NODE_TOOLS[@]}"
-    else
-        echo -e "\nAlready installed node $installed"
-    fi
-done
-nvm alias default $NODE_DEFAULT
 
 # Setup completions
 source $HOME/.shell/common
@@ -182,29 +130,83 @@ if [[ $? -eq 0 ]]; then
     fi
 fi
 
-# Install phantomjs
-if [[ ! -d ~/.phantomjs ]]; then
-    echo -e "\nInstalling PhantomJS"
-    if [[ $(uname) == 'Darwin' ]]; then
-        curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip
-        unzip phantomjs-2.1.1-macosx.zip && rm phantomjs-2.1.1-macosx.zip
-        mv phantomjs-2.1.1-macosx ~/.phantomjs
-    else
-        curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
-        tar xvf phantomjs-2.1.1-linux-x86_64.tar.bz2 && rm phantomjs-2.1.1-linux-x86_64.tar.bz2
-        mv phantomjs-2.1.1-linux-x86_64 ~/.phantomjs
+if [[ -z "$_lite_install" ]]; then
+    # Destroy/re-create subdirectories of $PLUGIN_INSTALL_DIR
+    PLUGIN_INSTALL_DIR="$HOME/.plugin_install_dir"
+    rm -rf "$PLUGIN_INSTALL_DIR/vundle" && mkdir -pv "$PLUGIN_INSTALL_DIR/vundle"
+
+    # Download wallpapers
+    cd $DIR/wallpapers
+    bash ./download.sh
+
+    # Fetch the git submodules required
+    cd $DIR
+    echo -e "\nUpdating git submodules, if necessary"
+    git submodule init && git submodule update
+
+    # Download/install Vim plugins added to vundle
+    vim +PluginInstall +qall
+
+    # Install beu
+    if [[ ! -d ~/.beu ]]; then
+        echo -e "\nInstalling beu"
+        curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
     fi
-fi
 
-# Call make-home-venv if ~/venv was deleted (via "clean" arg passed to script)
-if [[ -n "$_call_make_home_venv" ]]; then
-    echo -e "\nCalling make-home-venv"
-    source $DIR/shell/common.d/python.sh
-    make-home-venv
-fi
+    # Copy a xscreensaver config file if none in use
+    [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 
-# Set python2.7 config for npm (otherwise node-gyp may raise many errors when doing `npm install`)
-[[ "$(npm config get python)" = "undefined" ]] && npm config set python /usr/bin/python
+    # Install nvm, some versions of node, and some "global" packages
+    NODE_VERSIONS=(8.10 10.13)
+    NODE_DEFAULT=10.13
+    NODE_TOOLS=(grunt gulp @angular/cli speed-test)
+    if [[ ! -d ~/.nvm ]]; then
+        echo -e "\nInstalling nvm, specific node version(s), and some global packages"
+        unset NVM_DIR
+        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+        export NVM_DIR="$HOME/.nvm"
+        source "$NVM_DIR/nvm.sh"
+    else
+        export NVM_DIR="$HOME/.nvm"
+        source "$NVM_DIR/nvm.sh"
+    fi
+    for node_version in "${NODE_VERSIONS[@]}"; do
+        installed=$(nvm list $node_version | perl -pe 's/.*v(\d+\S+).*/$1/' | grep -v 'N/A')
+        if [[ -z "$installed" ]]; then
+            echo -e "\n$ nvm install $node_version"
+            nvm install $node_version
+            echo -e "\n$ npm install -g ${NODE_TOOLS[@]}"
+            npm install -g "${NODE_TOOLS[@]}"
+        else
+            echo -e "\nAlready installed node $installed"
+        fi
+    done
+    nvm alias default $NODE_DEFAULT
+
+    # Install phantomjs
+    if [[ ! -d ~/.phantomjs ]]; then
+        echo -e "\nInstalling PhantomJS"
+        if [[ $(uname) == 'Darwin' ]]; then
+            curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip
+            unzip phantomjs-2.1.1-macosx.zip && rm phantomjs-2.1.1-macosx.zip
+            mv phantomjs-2.1.1-macosx ~/.phantomjs
+        else
+            curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+            tar xvf phantomjs-2.1.1-linux-x86_64.tar.bz2 && rm phantomjs-2.1.1-linux-x86_64.tar.bz2
+            mv phantomjs-2.1.1-linux-x86_64 ~/.phantomjs
+        fi
+    fi
+
+    # Call make-home-venv if ~/venv was deleted (via "clean" arg passed to script)
+    if [[ -n "$_call_make_home_venv" ]]; then
+        echo -e "\nCalling make-home-venv"
+        source $DIR/shell/common.d/python.sh
+        make-home-venv
+    fi
+
+    # Set python2.7 config for npm (otherwise node-gyp may raise many errors when doing `npm install`)
+    [[ "$(npm config get python)" = "undefined" ]] && npm config set python /usr/bin/python
+fi
 
 # Remove any empty directories
 rmdir * 2>/dev/null
