@@ -6,15 +6,15 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 _call_make_home_venv=
 if [[ "$1" == "clean" ]]; then
     [[ -d ~/venv ]] && _call_make_home_venv=yes
-    echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, and ~/venv"
-    rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv 2>/dev/null
+    echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, ~/venv, and ~/.downloaded-completions"
+    rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv ~/.downloaded-completions 2>/dev/null
     unset NVM_DIR
-    echo -e "\nDeleting ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash"
-    rm -f ~/.git-completion.bash ~/.docker-completion.bash, and ~/.docker-compose-completion.bash 2>/dev/null
+    echo -e "\nDeleting ~/.git-completion.bash ~/.docker-completion.bash, ~/.docker-compose-completion.bash, and ~/.bash_completion"
+    rm -f ~/.git-completion.bash ~/.docker-completion.bash ~/.docker-compose-completion.bash ~/.bash_completion 2>/dev/null
     bash_completion_dir="$(brew --prefix 2>/dev/null)/etc/bash_completion.d"
-    echo -e "\n Deleting from $bash_completion_dir: docker, docker-compose, git-completion.bash"
+    echo -e "\nDeleting from $bash_completion_dir: docker, docker-compose, git-completion.bash"
     sudo rm -f $bash_completion_dir/docker $bash_completion_dir/docker-compose $bash_completion_dir/git-completion.bash 2>/dev/null
-    echo -e "\n Deleting from ~/.zsh/completion: _docker, _docker-compose, git-completion.zsh"
+    echo -e "\nDeleting from ~/.zsh/completion: _docker, _docker-compose, git-completion.zsh"
     rm -f ~/.zsh/completion/_docker ~/.zsh/completion/_docker-compose ~/.zsh/completion/git-completion.zsh 2>/dev/null
 fi
 
