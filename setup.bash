@@ -4,7 +4,7 @@
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 _call_make_home_venv=
-if [[ "$1" == "clean" ]]; then
+if [[ "$1" == "clean" || "$2" == "clean" ]]; then
     [[ -d ~/venv ]] && _call_make_home_venv=yes
     echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, ~/venv, and ~/.downloaded-completions"
     rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv ~/.downloaded-completions 2>/dev/null
@@ -16,6 +16,12 @@ if [[ "$1" == "clean" ]]; then
     sudo rm -f $bash_completion_dir/docker $bash_completion_dir/docker-compose $bash_completion_dir/git-completion.bash 2>/dev/null
     echo -e "\nDeleting from ~/.zsh/completion: _docker, _docker-compose, git-completion.zsh"
     rm -f ~/.zsh/completion/_docker ~/.zsh/completion/_docker-compose ~/.zsh/completion/git-completion.zsh 2>/dev/null
+fi
+
+_lite_install=
+if [[ "$1" == "lite" || "$2" == "lite" ]]; then
+    _lite_install=yes
+    echo -e "\nL I T E :   Only going to set symlinks and get completion files.."
 fi
 
 # Create $BACKUP_DOTFILES directory if it doesn't exist
@@ -78,7 +84,11 @@ if [[ $(uname) == 'Darwin' ]]; then
     echo -e "\nMaking sure reattach-to-user-namespace is installed (for tmux)"
     brew install reattach-to-user-namespace
     ln -s "$DIR/tmux/tmux-mac.conf" "$HOME/.tmux.conf"
-    ln -s "$DIR/vim/vimrc-mac" "$HOME/.vimrc"
+    if [[ -z "$_lite_install" ]]; then
+        ln -s "$DIR/vim/vimrc-mac" "$HOME/.vimrc"
+    else
+        ln -s "$DIR/vim/vimrc-mac-no-vundle" "$HOME/.vimrc"
+    fi
 else
     tmux_version=$(tmux -V | perl -pe 's/^tmux\s+(\d+\.*\d*).*/$1/')
     IFS='.' read major minor <<< "$tmux_version"
@@ -88,7 +98,11 @@ else
     else
         ln -s "$DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
     fi
-    ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
+    if [[ -z "$_lite_install" ]]; then
+        ln -s "$DIR/vim/vimrc" "$HOME/.vimrc"
+    else
+        ln -s "$DIR/vim/vimrc-no-vundle" "$HOME/.vimrc"
+    fi
 fi
 
 # Create symbolic links to individual dotfiles that live in ~/.config
