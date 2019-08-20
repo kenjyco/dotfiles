@@ -9,12 +9,12 @@ grepit() {
 
 grepit-py() {
     [[ -z "$@" ]] && return 1
-    grepit --include=\*.py "$@"
+    grep -HnI --color -R --include=\*.py --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.cache --exclude-dir=.eggs --exclude-dir=\*.egg-info "$@" \.
 }
 
 grepit-py-no-tests() {
     [[ -z "$@" ]] && return 1
-    grepit-py --exclude-dir=tests --exclude-dir=test --exclude=test\* "$@"
+    grep -HnI --color -R --include=\*.py --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.cache --exclude-dir=.eggs --exclude-dir=\*.egg-info --exclude-dir=test\* "$@" \.
 }
 
 grepit-cut() {
