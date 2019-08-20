@@ -7,7 +7,11 @@ swps() {
 }
 
 findit-py() {
-    findit "$@" --exclude_dirs "venv, env, build, node_modules" --ipattern "*.py"
+    findit "$@" --exclude_dirs "venv, env, node_modules, dist, build, .cache, .eggs, *.egg-info" --ipattern "*.py"
+}
+
+findit-py-no-tests() {
+    findit "$@" --exclude_dirs "venv, env, node_modules, dist, build, .cache, .eggs, *.egg-info, test*" --ipattern "*.py"
 }
 
 pys() {
