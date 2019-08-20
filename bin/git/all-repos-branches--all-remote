@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Display remote branches for all repos
+
+echo "Showing remote branches of all repos"
+for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
+    remote=$(repo-remote $repo)
+    branch=$(branchname $repo)
+    cd "$repo"
+    echo -e "\n==============="
+    echo -e "$repo -- $remote --  $branch\n"
+    git branch -r
+done | less -FX
