@@ -17,6 +17,14 @@ grepit-py-no-tests() {
     grep -HnI --color -R --include=\*.py --exclude-dir=venv --exclude-dir=env --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=build --exclude-dir=.cache --exclude-dir=.eggs --exclude-dir=\*.egg-info --exclude-dir=test\* "$@" \.
 }
 
+grepit-py-imports() {
+    grepit-py -E "(from.*import|import)"
+}
+
+grepit-py-imports-no-tests() {
+    grepit-py-no-tests -E "(from.*import|import)"
+}
+
 grepit-cut() {
     [[ -z "$@" ]] && return 1
     grepit "$@" | cut -c 1-350 | grep --color "$@"
