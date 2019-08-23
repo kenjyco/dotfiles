@@ -16,7 +16,7 @@ Clone the repo and run the setup script
 - the `~/.shell/common` file is sourced when either `~/.bashrc` or `~/.zshrc` is
   sourced
     - this will load aliases and functions from the separate files in
-      [~/.shell/common.d/`][common.d].
+      [~/.shell/common.d/][common.d].
 - The `bin` directory and all sub-directories are automatically added to the
   `PATH` environment variable.
 
