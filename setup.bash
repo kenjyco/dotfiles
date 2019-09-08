@@ -157,13 +157,13 @@ if [[ -z "$_lite_install" ]]; then
     [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 
     # Install nvm, some versions of node, and some "global" packages
-    NODE_VERSIONS=(8.10 10.13)
-    NODE_DEFAULT=10.13
-    NODE_TOOLS=(grunt gulp @angular/cli speed-test)
+    NODE_VERSIONS=(8.16 10.16)
+    NODE_DEFAULT=10.16
+    NODE_TOOLS=(create-react-app grunt gulp @angular/cli speed-test)
     if [[ ! -d ~/.nvm ]]; then
         echo -e "\nInstalling nvm, specific node version(s), and some global packages"
         unset NVM_DIR
-        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
         export NVM_DIR="$HOME/.nvm"
         source "$NVM_DIR/nvm.sh"
     else
