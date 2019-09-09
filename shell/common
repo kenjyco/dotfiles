@@ -212,6 +212,11 @@ done
 pathmunge /usr/sbin
 pathmunge /sbin
 
+# Add mongodb tools to PATH (if on mac... `brew cask install mongodb`)
+if [[ -d "/Applications/MongoDB.app/Contents/Resources/Vendor/mongodb/bin" ]]; then
+    pathmunge "/Applications/MongoDB.app/Contents/Resources/Vendor/mongodb/bin"
+fi
+
 # Source other `*.sh` files in the `common.d` directory (and sub-directories)
 for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" -print0 | xargs -0); do
     source $somefile
