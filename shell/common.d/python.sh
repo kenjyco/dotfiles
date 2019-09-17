@@ -226,6 +226,12 @@ tag-and-release() {
     cd "$oldpwd"
 }
 
+get-dependency-tree() {
+    [[ -z "$1" ]] && return 1
+    python3 -m venv tmp_env && tmp_env/bin/pip install pipdeptree "$@" &&
+    tmp_env/bin/pipdeptree > dep-tree-output.txt && less dep-tree-output.txt
+}
+
 grip() {
     PYTHONPATH=$HOME $HOME/venv/bin/grip "$@"
 }
