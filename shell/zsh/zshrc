@@ -68,4 +68,13 @@ export NVM_DIR="$HOME/.nvm"
 # Source the `.shell/common` file
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
 
+# Setup pyenv (on linux)
+if [[ $(uname) != 'Darwin' ]]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    pathmunge "$PYENV_ROOT/bin"
+    if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+    fi
+fi
+
 fpath=($HOME/.zsh/completion $fpath)

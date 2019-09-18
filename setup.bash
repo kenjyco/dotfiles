@@ -9,6 +9,10 @@ if [[ "$1" == "clean" || "$2" == "clean" ]]; then
     echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, ~/venv, and ~/.downloaded-completions"
     rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv ~/.downloaded-completions 2>/dev/null
     unset NVM_DIR
+    if [[ $(uname) != 'Darwin' && -d ~/.pyenv ]]; then
+        echo -e "\nDeleting ~/.pyenv"
+        rm -rf ~/.pyenv
+    fi
     echo -e "\nDeleting ~/.git-completion.bash ~/.docker-completion.bash, ~/.docker-compose-completion.bash, and ~/.bash_completion"
     rm -f ~/.git-completion.bash ~/.docker-completion.bash ~/.docker-compose-completion.bash ~/.bash_completion 2>/dev/null
     bash_completion_dir="$(brew --prefix 2>/dev/null)/etc/bash_completion.d"
@@ -182,6 +186,16 @@ if [[ -z "$_lite_install" ]]; then
         fi
     done
     nvm alias default $NODE_DEFAULT
+
+    # Install pyenv if not on mac
+    if [[ $(uname) != 'Darwin' && ! -d ~/.pyenv ]]; then
+        echo -e "\nInstalling pyenv, and a specific python version"
+        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+        export PYENV_ROOT="$HOME/.pyenv"
+        export PATH="$PYENV_ROOT/bin:$PATH"
+        eval "$(pyenv init -)"
+        pyenv install 3.7.4
+    fi
 
     # Install phantomjs
     if [[ ! -d ~/.phantomjs ]]; then
