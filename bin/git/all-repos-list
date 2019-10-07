@@ -3,4 +3,4 @@
 level=$1
 [[ ! "$level" =~ [0-9]+ ]] && level=3
 find ~ -maxdepth $level -type d -name ".git" -print0 | xargs -0 -I {} dirname {} 2>/dev/null | sort \
-    | egrep -v '(old-repos|.nvm|projects)'
+    | egrep -v '(old-repos|.nvm|.pyenv|projects)'
