@@ -38,6 +38,10 @@ jss-all() {
     findit-js-backend "$@" --stamp | sort
 }
 
+findit-tf() {
+    findit --exts "tf, tfstate, tfvars" "$@"
+}
+
 findit-autoday() {
     findit ~/autoday "$@"
 }
