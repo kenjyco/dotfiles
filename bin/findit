@@ -103,6 +103,7 @@ while [[ -n "$1" ]]; do
             echo '  findit --pattern ".*.sw[po]" --pipe "ls -gothr"'
             echo '  findit --exts "mp4, mkv" --pipesort "vlc --fullscreen"'
             echo '  findit --exts "jpg, jpeg, png, gif" --pipe "du -sch"'
+            echo '  findit --exts "xml" --pipesort "grep --color {{[^}]*}}"'
             echo "  findit --complex \"-iname '*.log' -type f ! -size 0\""
             echo "  findit --complex \"-iname '*.log' -type f -empty -delete\""
             echo '  findit --pattern "node_modules" --type d'
