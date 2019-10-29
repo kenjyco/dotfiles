@@ -6,8 +6,8 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 _call_make_home_venv=
 if [[ "$1" == "clean" || "$2" == "clean" ]]; then
     [[ -d ~/venv ]] && _call_make_home_venv=yes
-    echo -e "\nDeleting ~/.beu ~/.nvm, ~/.phantomjs, ~/venv, and ~/.downloaded-completions"
-    rm -rf ~/.beu ~/.nvm ~/.phantomjs ~/venv ~/.downloaded-completions 2>/dev/null
+    echo -e "\nDeleting ~/.beu ~/.nvm, ~/.npm, ~/.phantomjs, ~/venv, and ~/.downloaded-completions"
+    rm -rf ~/.beu ~/.nvm ~/.npm ~/.phantomjs ~/venv ~/.downloaded-completions 2>/dev/null
     unset NVM_DIR
     if [[ $(uname) != 'Darwin' && -d ~/.pyenv ]]; then
         echo -e "\nDeleting ~/.pyenv"
