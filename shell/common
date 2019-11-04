@@ -217,6 +217,12 @@ if [[ -d "/Applications/MongoDB.app/Contents/Resources/Vendor/mongodb/bin" ]]; t
     pathmunge "/Applications/MongoDB.app/Contents/Resources/Vendor/mongodb/bin"
 fi
 
+if [[ $(uname) == 'Darwin' ]]; then
+    # Dependency of ffmpeg
+    pathmunge "/usr/local/opt/icu4c/bin"
+    pathmunge "/usr/local/opt/icu4c/sbin"
+fi
+
 # Source other `*.sh` files in the `common.d` directory (and sub-directories)
 for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" -print0 | xargs -0); do
     source $somefile
