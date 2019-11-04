@@ -222,8 +222,5 @@ for somefile in $(find $HOME/.shell/common.d/ -type f -iname "*.sh" -print0 | xa
     source $somefile
 done
 
-# Enable autoenv (to automatically execute directory's .env file when you `cd` to it).
-[[ -f $HOME/.shell/extra/autoenv/activate.sh ]] && source $HOME/.shell/extra/autoenv/activate.sh
-
 # Run the `bin/startup` script
 [[ -f $HOME/bin/startup ]] && $HOME/bin/startup
