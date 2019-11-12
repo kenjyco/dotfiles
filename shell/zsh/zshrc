@@ -43,7 +43,9 @@ parse_git_branch() {
 # Set prompt
 autoload -U colors && colors
 setopt PROMPT_SUBST
-PROMPT="%{$fg[blue]%}%D{[%I:%M:%S]} %{$fg_bold[yellow]%}%c%{$fg[green]%}\$(parse_git_branch) %# %{$reset_color%}"
+PROMPT="
+%{$fg_bold[green]%}%n@%m:%{$fg[white]%}%~%{$fg[green]%}\$(parse_git_branch) %{$fg[blue]%}%D{[%I:%M:%S]}
+%{$fg[yellow]%}%# %{$reset_color%}"
 
 # Add function to switch to a verbose prompt
 prompt-verbose() {
