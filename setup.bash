@@ -163,7 +163,7 @@ if [[ -z "$_lite_install" ]]; then
     # Install nvm, some versions of node, and some "global" packages
     NODE_VERSIONS=(8.16 10.16)
     NODE_DEFAULT=10.16
-    NODE_TOOLS=(create-react-app grunt gulp @angular/cli speed-test)
+    NODE_TOOLS=(create-react-app grunt gulp @angular/cli)
     if [[ ! -d ~/.nvm ]]; then
         echo -e "\nInstalling nvm, specific node version(s), and some global packages"
         unset NVM_DIR
