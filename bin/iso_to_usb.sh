@@ -36,8 +36,8 @@ fi
 # Prompt to see if the device should be shredded first
 read -p "Do you need to shred '$device' first? [y/n] " yn
 if [[ "$yn" =~ [yY].* ]]; then
-    echo -e "\ntime sudo shred -z $device"
-    time sudo shred -z $device
+    echo -e "\ntime sudo shred -n 1 -z $device"
+    time sudo shred -n 1 -z $device
 fi
 
 # Generate the isohybrid command, which requires knowing the HEADS and SECTORS
