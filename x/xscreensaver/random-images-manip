@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# http://www.jwz.org/xscreensaver/
+# https://www.jwz.org/xscreensaver/
 
 timeout:	0:01:00
 cycle:		0:02:00
@@ -200,7 +200,7 @@ programs:								      \
 -				anemotaxis -root			    \n\
 - GL: 				antinspect -root			    \n\
 -				fireworkx -root				    \n\
-				fuzzyflakes -root -random-colors	    \n\
+-				fuzzyflakes -root -random-colors	    \n\
 -				interaggregate -root			    \n\
 -				intermomentary -root			    \n\
 -				memscroller -root			    \n\
@@ -243,6 +243,29 @@ programs:								      \
 - GL: 				hilbert -root				    \n\
 - GL: 				tronbit -root				    \n\
 -				unicode -root				    \n\
+- GL: 				geodesic -root				    \n\
+-				hexadrop -root				    \n\
+- GL: 				kaleidocycle -root			    \n\
+- GL: 				quasicrystal -root			    \n\
+- GL: 				unknownpleasures -root			    \n\
+-				binaryring -root			    \n\
+- GL: 				cityflow -root				    \n\
+- GL: 				geodesicgears -root			    \n\
+- GL: 				projectiveplane -root			    \n\
+- GL: 				romanboy -root				    \n\
+				tessellimage -root			    \n\
+- GL: 				winduprobot -root			    \n\
+- GL: 				splitflap -root				    \n\
+- GL: 				cubestack -root				    \n\
+- GL: 				cubetwist -root				    \n\
+- GL: 				discoball -root				    \n\
+- GL: 				dymaxionmap -root			    \n\
+- GL: 				energystream -root			    \n\
+- GL: 				hexstrut -root				    \n\
+- GL: 				hydrostat -root				    \n\
+- GL: 				raverhoop -root				    \n\
+- GL: 				splodesic -root				    \n\
+- GL: 				unicrud -root				    \n\
 
 
 pointerPollTime:    0:00:05
@@ -253,4 +276,5 @@ GetViewPortIsFullOfLies:False
 procInterrupts:	True
 xinputExtensionDev: False
 overlayStderr:	True
+authWarningSlack:   20
 
