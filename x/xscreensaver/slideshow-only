@@ -2,7 +2,7 @@
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:01:00
-cycle:		0:01:00
+cycle:		0:15:00
 lock:		False
 lockTimeout:	0:00:00
 passwdTimeout:	0:00:30
@@ -185,7 +185,7 @@ programs:								      \
 - GL: 				gleidescope -root			    \n\
 - GL: 				glknots -root				    \n\
 - GL: 				glmatrix -root				    \n\
-  GL: 				glslideshow -root			    \n\
+  GL: 				glslideshow -root -duration 10 -zoom 87	    \n\
 - GL: 				hypertorus -root			    \n\
 - GL: 				jigglypuff -root			    \n\
 -				metaballs -root				    \n\
