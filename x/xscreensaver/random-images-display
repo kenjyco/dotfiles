@@ -195,7 +195,7 @@ programs:								      \
 -				pong -root				    \n\
 -				popsquares -root			    \n\
 - GL: 				surfaces -root				    \n\
-				xanalogtv -root				    \n\
+-				xanalogtv -root				    \n\
 -				abstractile -root			    \n\
 -				anemotaxis -root			    \n\
 - GL: 				antinspect -root			    \n\
@@ -214,7 +214,7 @@ programs:								      \
 - GL: 				antmaze -root				    \n\
 - GL: 				boing -root				    \n\
 -				boxfit -root				    \n\
-  GL: 				carousel -root				    \n\
+  GL: 				carousel -root -no-titles		    \n\
 -				celtic -root				    \n\
 - GL: 				crackberg -root				    \n\
 - GL: 				cube21 -root				    \n\
@@ -236,7 +236,7 @@ programs:								      \
 - GL: 				hypnowheel -root			    \n\
 - GL: 				klein -root				    \n\
 -				lcdscrub -root				    \n\
-  GL: 				photopile -root				    \n\
+  GL: 				photopile -root -no-titles		    \n\
 - GL: 				skytentacles -root			    \n\
 - GL: 				rubikblocks -root			    \n\
 - GL: 				companioncube -root			    \n\
