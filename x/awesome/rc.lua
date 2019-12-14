@@ -578,3 +578,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 awful.util.spawn_with_shell("urxvt -geometry 166x50 -e zsh")
+
+-- Pair of large font terminal windows on 4k display
+-- awful.util.spawn_with_shell("urxvt -title 'DejaVu' -geometry 125x50 -fn \"xft:DejaVu Sans Mono:size=18\" -e zsh")
+-- awful.util.spawn_with_shell("urxvt -title 'Inconsolata' -geometry 160x55 -fn \"xft:Inconsolata:size=18\" -e zsh")
