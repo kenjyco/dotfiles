@@ -8,6 +8,7 @@ alias uninstall-hard="sudo apt-get purge --auto-remove -y"
 alias local-machines192="sudo nmap -sS -p22,7777 192.168.1.0/24"
 alias local-machines10="sudo nmap -sS -p22,7777 10.0.0.0/24"
 alias ports-ipv4="sudo lsof -Pn -i4"
+alias hardware="sudo lshw -short"
 APT_SECURITY_ONLY="/etc/apt/sources.security.only.list"
 
 make-security-only-list() {
