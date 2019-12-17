@@ -161,13 +161,13 @@ if [[ -z "$_lite_install" ]]; then
     [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
 
     # Install nvm, some versions of node, and some "global" packages
-    NODE_VERSIONS=(8.16 10.16)
-    NODE_DEFAULT=10.16
+    NODE_VERSIONS=(10.17.0 12.13.1)
+    NODE_DEFAULT=12.13.1
     NODE_TOOLS=(create-react-app grunt gulp @angular/cli)
     if [[ ! -d ~/.nvm ]]; then
         echo -e "\nInstalling nvm, specific node version(s), and some global packages"
         unset NVM_DIR
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
         export NVM_DIR="$HOME/.nvm"
         source "$NVM_DIR/nvm.sh"
     else
