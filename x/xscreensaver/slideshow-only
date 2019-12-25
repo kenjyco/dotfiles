@@ -185,7 +185,8 @@ programs:								      \
 - GL: 				gleidescope -root			    \n\
 - GL: 				glknots -root				    \n\
 - GL: 				glmatrix -root				    \n\
-  GL: 				glslideshow -root -duration 10 -zoom 87	    \n\
+  GL: 				glslideshow -root -duration 8 -zoom 90	      \
+				  -pan 8				    \n\
 - GL: 				hypertorus -root			    \n\
 - GL: 				jigglypuff -root			    \n\
 -				metaballs -root				    \n\
