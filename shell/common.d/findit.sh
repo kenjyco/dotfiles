@@ -14,6 +14,10 @@ findit-py-no-tests() {
     findit "$@" --exclude_dirs "venv, env, node_modules, dist, build, .cache, .eggs, *.egg-info, test*" --ipattern "*.py"
 }
 
+findit-test-dirs() {
+    findit "$@" --type d --exclude_dirs "venv, node_modules, build" --ipattern "*test*" | egrep -v '(pytest_cache|.egg$)'  | sort
+}
+
 pys() {
     findit-py "$@" --depth 1 --stamp | sort
 }
