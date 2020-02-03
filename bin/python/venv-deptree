@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+[[ -d "$1" ]] && env_name=$1 && shift
+[[ -z "$env_name" ]] && env_name="venv"
+[[ ! -d $env_name ]] && echo "Can't find '$env_name'" && exit 1
+DEPTREE="$env_name/bin/pipdeptree"
+PIP="$env_name/bin/pip3"
+if [[ $(uname) =~ "MINGW" ]]; then
+    DEPTREE="$env_name/Scripts/pipdeptree"
+    PIP="$env_name/Scripts/pip"
+fi
+if [[ ! -x $DEPTREE ]]; then
+    read -p "Install pipdeptree to ${env_name}? [y/n] " yn
+    if [[ "$yn" =~ [yY].* ]]; then
+        echo -e "\n$ $PIP install pipdeptree"
+        $PIP install pipdeptree
+    else
+        exit 1
+    fi
+fi
+PYTHONPATH="$(pwd)" $DEPTREE "$@" | less
