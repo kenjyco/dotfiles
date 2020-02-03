@@ -3,13 +3,19 @@
 [[ -d "$1" ]] && env_name=$1 && shift
 [[ -z "$env_name" ]] && env_name="venv"
 [[ ! -d $env_name ]] && echo "Can't find '$env_name'" && exit 1
-if [[ ! -x $env_name/bin/ipython ]]; then
-    read -p "Install ipython to $env_name/bin? [y/n] " yn
+IPYTHON="$env_name/bin/ipython"
+PIP="$env_name/bin/pip3"
+if [[ $(uname) =~ "MINGW" ]]; then
+    IPYTHON="$env_name/Scripts/ipython"
+    PIP="$env_name/Scripts/pip"
+fi
+if [[ ! -x $IPYTHON ]]; then
+    read -p "Install ipython to ${env_name}? [y/n] " yn
     if [[ "$yn" =~ [yY].* ]]; then
-        echo -e "\n$ $env_name/bin/pip3 install ipython"
-        $env_name/bin/pip3 install ipython
+        echo -e "\n$ $PIP install ipython"
+        $PIP install ipython
     else
         exit 1
     fi
 fi
-PYTHONPATH="$(pwd)" $env_name/bin/ipython "$@"
+PYTHONPATH="$(pwd)" $IPYTHON "$@"

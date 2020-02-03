@@ -3,10 +3,20 @@
 env_name=$1
 [[ -z "$env_name" ]] && env_name="venv"
 pip_args=(--upgrade)
-[[ ! -d $env_name ]] && python3 -m venv $env_name && $env_name/bin/pip3 install wheel pip ${pip_args[@]}
-pip_version=$($env_name/bin/pip3 --version | egrep -o 'pip (\d+)' | cut -c 5-)
-[[ -z "$pip_version" ]] && pip_version=$($env_name/bin/pip3 --version | perl -pe 's/^pip\s+(\d+).*/$1/')
+PYTHON="python3"
+PIP="$env_name/bin/pip3"
+if [[ $(uname) =~ "MINGW" ]]; then
+    PYTHON="python"
+    PIP="$env_name/Scripts/pip"
+fi
+[[ ! -d $env_name ]] && $PYTHON -m venv $env_name && $PIP install wheel pip ${pip_args[@]}
+pip_version=$($PIP --version | egrep -o 'pip (\d+)' | cut -c 5-)
+[[ -z "$pip_version" ]] && pip_version=$($PIP --version | perl -pe 's/^pip\s+(\d+).*/$1/')
 [[ -z "$pip_version" ]] && pip_version=0;
 [[ $pip_version -gt 9 ]] && pip_args=(--upgrade --upgrade-strategy eager)
-[[ -f requirements.txt ]] && $env_name/bin/pip3 install -r requirements.txt ${pip_args[@]}
-$env_name/bin/pip3 install ipython pdbpp ${pip_args[@]}
+[[ -f requirements.txt ]] && $PIP install -r requirements.txt ${pip_args[@]}
+if [[ ! $(uname) =~ "MINGW" ]]; then
+    $PIP install ipython pdbpp ${pip_args[@]}
+else
+    $PIP install ipython ${pip_args[@]}
+fi

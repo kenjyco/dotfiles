@@ -3,11 +3,17 @@
 [[ -d "$1" && -d "$1/bin" ]] && env_name=$1 && shift
 [[ -z "$env_name" ]] && env_name="venv"
 [[ ! -d $env_name ]] && echo "Can't find '$env_name'" && exit 1
-if [[ ! -x $env_name/bin/pytest ]]; then
-    read -p "Install pytest to $env_name/bin? [y/n] " yn
+PYTEST="$env_name/bin/pytest"
+PIP="$env_name/bin/pip3"
+if [[ $(uname) =~ "MINGW" ]]; then
+    PYTEST="$env_name/Scripts/pytest"
+    PIP="$env_name/Scripts/pip"
+fi
+if [[ ! -x $PYTEST ]]; then
+    read -p "Install pytest to ${env_name}? [y/n] " yn
     if [[ "$yn" =~ [yY].* ]]; then
-        echo -e "\n$ $env_name/bin/pip3 install pytest"
-        $env_name/bin/pip3 install pytest
+        echo -e "\n$ $PIP install pytest"
+        $PIP install pytest
     else
         exit 1
     fi
@@ -41,5 +47,5 @@ else
     fi
 fi
 
-echo -e "\n$" PYTHONPATH="$(pwd)" $env_name/bin/pytest "${pytest_args[@]}"
-PYTHONPATH="$(pwd)" $env_name/bin/pytest "${pytest_args[@]}"
+echo -e "\n$" PYTHONPATH="$(pwd)" $PYTEST "${pytest_args[@]}"
+PYTHONPATH="$(pwd)" $PYTEST "${pytest_args[@]}"
