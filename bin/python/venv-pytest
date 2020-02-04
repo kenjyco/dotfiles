@@ -19,7 +19,7 @@ if [[ ! -x $PYTEST ]]; then
     fi
 fi
 
-default_pytest_args=(-vsx -rsfe --showlocals --pdb)
+default_pytest_args=(-vsx -rsfe --showlocals --last-failed --pdb)
 pytest_args=()
 custom_options=
 
