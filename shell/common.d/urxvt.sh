@@ -156,3 +156,5 @@ windowsize() {
     urxvt -title "size-$size" -geometry 90x25 -fn "xft:Inconsolata:size=$size" -e zsh &
     [[ $? -eq 0 ]] && disown && exit
 }
+
+big-window() { windowsize 16; }
