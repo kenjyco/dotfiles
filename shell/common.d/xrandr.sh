@@ -60,3 +60,8 @@ fix-monitors-vm-dual() {
     xrandr --output VGA-1 --mode 1920x1080 --primary
     xrandr --output VGA-2 --mode 1920x1080 --left-of VGA-1
 }
+
+fix-monitors-vm-dual-3440() {
+    xrandr --output VGA-1 --mode 1920x1080 --primary
+    xrandr --output VGA-2 --mode 3440x1440 --above VGA-1
+}
