@@ -26,6 +26,10 @@ pys-all() {
     findit-py "$@" --stamp | sort
 }
 
+ignored-patterns-count() {
+    findit --exclude_dirs "venv, env, dist, build, .cache .git .eggs *.egg-info __pycache__ node_modules" --pattern .gitignore --pipesort "cat" | sort | uniq -c | sort -n
+}
+
 findit-node-modules() {
     findit "$@" --pattern "node_modules" --type d
 }
