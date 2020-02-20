@@ -167,7 +167,7 @@ if [[ -z "$_lite_install" ]]; then
     if [[ ! -d ~/.nvm ]]; then
         echo -e "\nInstalling nvm, specific node version(s), and some global packages"
         unset NVM_DIR
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
         export NVM_DIR="$HOME/.nvm"
         source "$NVM_DIR/nvm.sh"
     else
