@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Display remote branches that match a pattern for all repos
+
+pattern=$1
+[[ -z "$pattern" ]] && echo -e "\nShould pass a sting to match branch names" && exit
+echo "Showing remote branches of all repos matching \"$pattern\""
+for repo in $(all-repos-list | tr '\n' '\0' | xargs -0); do
+    remote=$(repo-remote $repo)
+    branch=$(branchname $repo)
+    cd "$repo"
+    matches=$(git branch -r | grep -i "$pattern")
+    if [[ -n "$matches" ]]; then
+        echo -e "\n==============="
+        echo -e "$repo -- $remote --  $branch\n"
+        echo $matches | tr ' ' '\n'
+    fi
+done | less -FX
