@@ -24,6 +24,10 @@ do-security-upgrades() {
    sudo xargs apt-get install -y -o Dir::Etc::SourceList=$APT_SECURITY_ONLY
 }
 
+ntp-sync-now() {
+    sudo service ntp stop && sudo ntpd -gq && sudo service ntp start
+}
+
 reload-mongo-apt-key() {
     [[ ! -f /usr/bin/apt-key ]] && return 1
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
