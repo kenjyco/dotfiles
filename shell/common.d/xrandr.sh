@@ -4,6 +4,41 @@ connected-displays() {
     xrandr -q | grep -e '\bconnected\b' | perl -pe 's/^([\S]+).* (\d+x\d+).*/$1:$2/'
 }
 
+fix-monitors-above() {
+    cmds=()
+    names=()
+    cmd=
+    IFS=$'\n'; for line in $(xrandr -q | grep -A 1 -e '\bconnected\b'); do
+        word=$(echo "$line" | awk '{print $1}')
+        if [[ "$word" =~ ^[A-Z] || "$word" =~ ^[a-z] ]]; then
+            cmd="xrandr --output $word --mode "
+            names+=($word)
+        elif [[ "$word" =~ ^[0-9] ]]; then
+            cmd+="$word "
+            if [[ -z "${cmds[@]}" ]]; then
+                cmd+="--primary"
+            else
+                cmd+="--above ${names[-2]}"
+            fi
+            cmds+=($cmd)
+        fi
+    done; unset IFS
+    echo -e "\nCurrent:\n$(connected-displays)\n\nWould execute:"
+    for cmd in "${cmds[@]}"; do
+        echo " -> $cmd"
+    done
+    message="Continue? (y/n): "
+    if [[ -n "$BASH_VERSION" ]]; then
+        read -p "$message" yn
+    elif [[ -n "$ZSH_VERSION" ]]; then
+        vared -p "$message" -c yn
+    fi
+    [[ ! "$yn" =~ [yY].* ]] && return
+    for cmd in "${cmds[@]}"; do
+        eval "$cmd"
+    done
+}
+
 fix-monitors-x200-below-1920() {
     xrandr --output VGA1 --mode 1920x1080 --primary
     xrandr --output LVDS1 --mode 1280x800 --below VGA1
