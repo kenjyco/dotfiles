@@ -4,7 +4,15 @@ connected-displays() {
     xrandr -q | grep -e '\bconnected\b' | perl -pe 's/^([\S]+).* (\d+x\d+).*/$1:$2/'
 }
 
-fix-monitors-above() {
+fix-monitors() {
+    position=${1:-above}
+    allowed=(above below left-of right-of same-as)
+    ok=
+    for pos in "${allowed[@]}"; do
+        [[ "$pos" == "$position" ]] && ok=yes && break
+    done
+    [[ -z "$ok" ]] && echo "Must pass in one of (${allowed[@]}) not \"$position\"" && return
+
     cmds=()
     names=()
     cmd=
@@ -18,7 +26,7 @@ fix-monitors-above() {
             if [[ -z "${cmds[@]}" ]]; then
                 cmd+="--primary"
             else
-                cmd+="--above ${names[-2]}"
+                cmd+="--$position ${names[-2]}"
             fi
             cmds+=($cmd)
         fi
