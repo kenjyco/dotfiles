@@ -31,18 +31,9 @@ fix-monitors() {
             cmds+=($cmd)
         fi
     done; unset IFS
-    echo -e "\nCurrent:\n$(connected-displays)\n\nWould execute:"
+    echo -e "\nCurrent:\n$(connected-displays)\n\nExecuting:"
     for cmd in "${cmds[@]}"; do
         echo " -> $cmd"
-    done
-    message="Continue? (y/n): "
-    if [[ -n "$BASH_VERSION" ]]; then
-        read -p "$message" yn
-    elif [[ -n "$ZSH_VERSION" ]]; then
-        vared -p "$message" -c yn
-    fi
-    [[ ! "$yn" =~ [yY].* ]] && return
-    for cmd in "${cmds[@]}"; do
         eval "$cmd"
     done
 }
