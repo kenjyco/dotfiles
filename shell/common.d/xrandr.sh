@@ -1,7 +1,7 @@
 [[ $(uname) == 'Darwin' ]] && return
 
 connected-displays() {
-    xrandr -q | grep -A 1 -e '\bconnected\b'
+    xrandr -q | grep -e '\bconnected\b' | perl -pe 's/^([\S]+).* (\d+x\d+).*/$1:$2/'
 }
 
 fix-monitors-x200-below-1920() {
