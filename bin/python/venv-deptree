@@ -18,4 +18,4 @@ if [[ ! -x $DEPTREE ]]; then
         exit 1
     fi
 fi
-PYTHONPATH="$(pwd)" $DEPTREE "$@" | less
+PYTHONPATH="$(pwd)" $DEPTREE "$@" | less -FX
