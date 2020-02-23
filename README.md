@@ -73,7 +73,7 @@ with the same key binding
     - `:Gblame` to open interactive vertical split with `git blame` output
     - `:Gmove <newname>` to `git mv current <newname>`
     - `:Git [args]` to run arbitrary git command
-        - i.e. `:Git checkout -b some-branch`
+        - i.e. `:Git checkout -b some-branch` and `:Git push -u origin some-branch`
         - use `:close` on the `fugitive://...` window when done
     - `:Gsplit <branch>:%` to vimdiff current file with version on another
       branch (or at another commit)
