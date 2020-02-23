@@ -17,7 +17,7 @@ redis-usage() {
         done
         echo "Finished bgsave command" >&2
     fi
-    if [[ $(uname) == 'Darwin' ]]; then
+    if [[ $(uname) == "Darwin" ]]; then
         rdb -c memory "$dump_path" | sort -t, -k4 -h
     else
         sudo rdb -c memory "$dump_path" | sort -t, -k4 -h

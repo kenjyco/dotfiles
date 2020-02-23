@@ -94,13 +94,13 @@ vids-all() {
 
 vids-play() {
     _vlc="vlc"
-    [[ $(uname) == 'Darwin' ]] && _vlc="/Applications/VLC.app/Contents/MacOS/VLC"
+    [[ $(uname) == "Darwin" ]] && _vlc="/Applications/VLC.app/Contents/MacOS/VLC"
     findit-vids "$@" --depth 1 --pipesort "$_vlc --fullscreen"
 }
 
 vids-all-play() {
     _vlc="vlc"
-    [[ $(uname) == 'Darwin' ]] && _vlc="/Applications/VLC.app/Contents/MacOS/VLC"
+    [[ $(uname) == "Darwin" ]] && _vlc="/Applications/VLC.app/Contents/MacOS/VLC"
     findit-vids "$@" --pipesort "$_vlc --fullscreen" &>/dev/null &
 }
 

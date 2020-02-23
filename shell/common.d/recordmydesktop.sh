@@ -1,4 +1,4 @@
-[[ $(uname) == 'Darwin' ]] && return
+[[ $(uname) == "Darwin" ]] && return
 
 screencast() {
     fname=$1

@@ -1,4 +1,4 @@
-if [[ $(uname) == 'Darwin' ]]; then
+if [[ $(uname) == "Darwin" ]]; then
     alias p="ps aux | egrep -v '(^_|^root)'"
     alias pa="ps aux"
     alias psome="p | egrep -v '(ssh-agent|-bash$|/System/Library|/usr/libexec|/usr/sbin|SafeEjectGPUAgent|Google Chrome|/Applications/Slack.app|Applications/iTerm.app|Applications/Postman.app|Applications/Firefox.app|com\.docker\.)'"

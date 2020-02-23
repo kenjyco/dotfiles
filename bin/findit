@@ -6,7 +6,7 @@
 #
 #   findit --help
 
-if [[ $(uname) == 'Darwin' ]]; then
+if [[ $(uname) == "Darwin" ]]; then
     _find="gfind"
 else
     _find="find"

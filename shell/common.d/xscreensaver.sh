@@ -1,4 +1,4 @@
-[[ $(uname) == 'Darwin' ]] && return
+[[ $(uname) == "Darwin" ]] && return
 
 alias stopsaver="xscreensaver-command -exit"
 

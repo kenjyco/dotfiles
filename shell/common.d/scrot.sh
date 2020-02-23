@@ -1,4 +1,4 @@
-[[ $(uname) == 'Darwin' ]] && return
+[[ $(uname) == "Darwin" ]] && return
 
 screenshot() {
     scrot -s '%Y_%m%d--%H%M_%S--'$(hostname)'--$wx$h.png'

@@ -1,4 +1,4 @@
-[[ $(uname) == 'Darwin' ]] && return
+[[ $(uname) == "Darwin" ]] && return
 
 # Specify in the terminal what fontsize you want going forward, useful before
 # starting a `Tmux` session in full-screen

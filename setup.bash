@@ -9,7 +9,7 @@ if [[ "$1" == "clean" || "$2" == "clean" ]]; then
     echo -e "\nDeleting ~/.beu ~/.nvm, ~/.npm, ~/.phantomjs, ~/venv, and ~/.downloaded-completions"
     rm -rf ~/.beu ~/.nvm ~/.npm ~/.phantomjs ~/venv ~/.downloaded-completions 2>/dev/null
     unset NVM_DIR
-    if [[ $(uname) != 'Darwin' && -d ~/.pyenv ]]; then
+    if [[ $(uname) != "Darwin" && -d ~/.pyenv ]]; then
         echo -e "\nDeleting ~/.pyenv"
         rm -rf ~/.pyenv
     fi
@@ -80,7 +80,7 @@ ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
 ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
-if [[ $(uname) == 'Darwin' ]]; then
+if [[ $(uname) == "Darwin" ]]; then
     echo -e "\nMaking sure reattach-to-user-namespace is installed (for tmux)"
     brew install reattach-to-user-namespace
     ln -s "$DIR/tmux/tmux-mac.conf" "$HOME/.tmux.conf"
@@ -188,7 +188,7 @@ if [[ -z "$_lite_install" ]]; then
     nvm alias default $NODE_DEFAULT
 
     # Install pyenv if not on mac
-    if [[ $(uname) != 'Darwin' && ! -d ~/.pyenv ]]; then
+    if [[ $(uname) != "Darwin" && ! -d ~/.pyenv ]]; then
         echo -e "\nInstalling pyenv, and a specific python version"
         git clone https://github.com/pyenv/pyenv.git ~/.pyenv
         export PYENV_ROOT="$HOME/.pyenv"
@@ -200,7 +200,7 @@ if [[ -z "$_lite_install" ]]; then
     # Install phantomjs
     if [[ ! -d ~/.phantomjs ]]; then
         echo -e "\nInstalling PhantomJS"
-        if [[ $(uname) == 'Darwin' ]]; then
+        if [[ $(uname) == "Darwin" ]]; then
             curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip
             unzip phantomjs-2.1.1-macosx.zip && rm phantomjs-2.1.1-macosx.zip
             mv phantomjs-2.1.1-macosx ~/.phantomjs

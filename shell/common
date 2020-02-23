@@ -1,5 +1,5 @@
 # Want some of the scripts in ~/bin to work if on a mac
-if [[ $(uname) == 'Darwin' ]]; then
+if [[ $(uname) == "Darwin" ]]; then
     alias xargs=gxargs
     alias sort=gsort
 fi
@@ -117,7 +117,7 @@ get-completions() {
         fi
     elif [[ -n "$BASH_VERSION" ]]; then
         # Make sure bash-completion package is installed and set bash_completion_* vars
-        if [[ $(uname) == 'Darwin' ]]; then
+        if [[ $(uname) == "Darwin" ]]; then
             brew_version=$(brew --version 2>/dev/null | head -n 1)
             if [[ -z "$brew_version" ]]; then
                 echo -e "\nHomebrew not found"
@@ -217,7 +217,7 @@ if [[ -d "/Applications/MongoDB.app/Contents/Resources/Vendor/mongodb/bin" ]]; t
     pathmunge "/Applications/MongoDB.app/Contents/Resources/Vendor/mongodb/bin"
 fi
 
-if [[ $(uname) == 'Darwin' ]]; then
+if [[ $(uname) == "Darwin" ]]; then
     # Dependency of ffmpeg
     pathmunge "/usr/local/opt/icu4c/bin"
     pathmunge "/usr/local/opt/icu4c/sbin"

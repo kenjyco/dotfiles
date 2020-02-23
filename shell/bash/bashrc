@@ -81,7 +81,7 @@ export NVM_DIR="$HOME/.nvm"
 [[ -f $HOME/.shell/common ]] && source $HOME/.shell/common
 
 # Setup pyenv (on linux)
-if [[ $(uname) != 'Darwin' && -d $HOME/.pyenv ]]; then
+if [[ $(uname) != "Darwin" && -d $HOME/.pyenv ]]; then
     export PYENV_ROOT="$HOME/.pyenv"
     pathmunge "$PYENV_ROOT/bin"
     if command -v pyenv 1>/dev/null 2>&1; then

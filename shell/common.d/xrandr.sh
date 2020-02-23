@@ -1,4 +1,4 @@
-[[ $(uname) == 'Darwin' ]] && return
+[[ $(uname) == "Darwin" ]] && return
 
 connected-displays() {
     xrandr -q | grep -e '\bconnected\b' | perl -pe 's/^([\S]+).* (\d+x\d+).*/$1:$2/'

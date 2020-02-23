@@ -19,7 +19,7 @@ make-home-venv() {
         install-home-venv-requirements
         cd
         python3 -m venv venv && venv/bin/pip3 install --upgrade pip wheel
-        if [[ $(uname) == 'Darwin' ]]; then
+        if [[ $(uname) == "Darwin" ]]; then
             venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine pipdeptree rdbtools python-lzf
         else
             venv/bin/pip3 install flake8 grip jupyter awscli httpie asciinema twine pipdeptree
@@ -32,7 +32,7 @@ make-home-venv() {
 update-home-venv() {
     [[ ! -d "$HOME/venv" ]] && echo "$HOME/venv does not exist" && return 1
     cd
-    if [[ $(uname) == 'Darwin' ]]; then
+    if [[ $(uname) == "Darwin" ]]; then
         venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinema twine pipdeptree rdbtools python-lzf
     else
         venv/bin/pip3 install --upgrade ipython flake8 grip jupyter awscli httpie asciinama twine pipdeptree
@@ -163,7 +163,7 @@ bump-setup-version() {
         return 1
     fi
     new_version="$_major.$_minor.$_micro"
-    if [[ $(uname) == 'Darwin' ]]; then
+    if [[ $(uname) == "Darwin" ]]; then
         sed -i "" "s/${version}/${new_version}/" setup.py
     else
         sed -i "s/${version}/${new_version}/" setup.py
@@ -262,7 +262,7 @@ twine() {
 }
 
 rdb() {
-    if [[ $(uname) == 'Darwin' ]]; then
+    if [[ $(uname) == "Darwin" ]]; then
         PYTHONPATH=$HOME $HOME/venv/bin/rdb "$@"
     fi
 }
