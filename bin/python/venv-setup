@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
 [[ -d "$1" && (-d "$1/bin" || -d "$1/Scripts") ]] && env_name=$1 && shift
-[[ -z "$env_name" ]] && env_name="venv"
+if [[ -z "$env_name" ]]; then
+    if [[ -n "$1" && "$1" != "clean" ]]; then
+        env_name=$1 && shift
+    else
+        env_name="venv"
+    fi
+fi
+if [[ "$1" == "clean" ]]; then
+    rm -rf "$env_name"
+    find . \( -name __pycache__ -o -name '.eggs' -o -name '*.egg-info' -o -name 'build' -o -name 'dist' \) -print0 |
+        xargs -0 rm -rf
+fi
 pip_args=(--no-warn-script-location --upgrade --upgrade-strategy eager)
 PYTHON="python3"
 PIP="$env_name/bin/pip3"
