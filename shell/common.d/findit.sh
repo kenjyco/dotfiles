@@ -3,7 +3,7 @@ findit-swp() {
 }
 
 swps() {
-    findit-swp "$@" --stamp 2>/dev/null | sort
+    findit-swp "$@" --exclude_dirs "node_modules" --stamp 2>/dev/null | sort
 }
 
 findit-py() {
