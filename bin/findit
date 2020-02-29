@@ -107,6 +107,7 @@ while [[ -n "$1" ]]; do
             echo "  findit --complex \"-iname '*.log' -type f ! -size 0\""
             echo "  findit --complex \"-iname '*.log' -type f -empty -delete\""
             echo '  findit --pattern "node_modules" --type d'
+            echo '  findit --type d --exclude_dirs ".git" --depth 2'
             echo '  findit --exclude_dirs "node_modules, .git, venv, build, alembic, __pycache__, .pytest_cache" --exclude_exts "json, yml, xml, txt, md" --pipe "wc -l"'
             echo '  findit --exclude_dirs "venv, env" --exclude_exts "js, json, java, map, htm, html, pyc" --pattern "test*" --pipe "grep assert" | egrep "(==|!=)"'
             exit 0
@@ -127,25 +128,25 @@ if [[ "$_type" != [fdlspbc] ]]; then
 fi
 
 if [[ "$depth" == [0-9]* ]]; then
-    find_cmd="$_find $_dirname -maxdepth $depth -type $_type"
+    find_cmd="$_find $_dirname -maxdepth $depth"
 else
-    find_cmd="$_find $_dirname -type $_type"
+    find_cmd="$_find $_dirname"
 fi
 
 if [[ -n "$exclude_dirs" ]]; then
     IFS=',' read -ra items <<< "$exclude_dirs"
     if [[ ${#items[@]} -eq 1 ]]; then
-        exclude_part="-not -path '*/${items[0]}/*'"
+        exclude_part="-name '${items[0]}'"
     else
-        exclude_part="-not \( -path '*/${items[0]}/*'"
+        exclude_part="\( -name '${items[0]}'"
         set -f
         for item in ${items[@]:1}; do
-            exclude_part="$exclude_part -o -path '*/$item/*'"
+            exclude_part="$exclude_part -o -name '$item'"
         done
         set +f
         exclude_part="$exclude_part \)"
     fi
-    find_cmd="$find_cmd $exclude_part"
+    find_cmd="$find_cmd $exclude_part -type d -prune -o"
 fi
 
 if [[ -n "$exclude_exts" ]]; then
@@ -163,6 +164,8 @@ if [[ -n "$exclude_exts" ]]; then
     fi
     find_cmd="$find_cmd $exclude_part"
 fi
+
+find_cmd="$find_cmd -type $_type"
 
 if [[ -n "$exts" ]]; then
     IFS=',' read -ra items <<< "$exts"
@@ -232,6 +235,8 @@ if [[ -n "$stamp" ]]; then
     if [[ -z "$pipesort" && -z "$pipe" ]]; then
         find_cmd="$find_cmd $stamp"
     fi
+elif [[ -z "$pipesort" && -z "$pipe" ]]; then
+    find_cmd="$find_cmd -print"
 fi
 
 xargs_dash_i=
