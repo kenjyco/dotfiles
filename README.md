@@ -68,7 +68,8 @@ with the same key binding
           copy to the `fugitive://` window and `:w!` to stage different parts of
           the file!
             - No need to `git add -p`
-            - Verify in another terminal with `git diff --cached`
+            - Verify in another terminal with `git diff --cached` (or another
+              split using `:Git diff --cached`)
     - `:Gdiff` on a file with merge conflicts will open 3 vertical splits with vimdiff
     - `:Gblame` to open interactive vertical split with `git blame` output
     - `:Gmove <newname>` to `git mv current <newname>`
