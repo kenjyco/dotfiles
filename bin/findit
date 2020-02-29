@@ -70,6 +70,12 @@ while [[ -n "$1" ]]; do
         --sizes)
             sizes=$2
             shift ;;
+        --empty)
+            empty=yes
+            ;;
+        --not_empty)
+            not_empty=yes
+            ;;
         --months)
             months=$2
             shift ;;
@@ -111,6 +117,8 @@ while [[ -n "$1" ]]; do
             echo "  --exts string               comma-separated list of extensions to include"
             echo "  --iexts string              comma-separated list of extensions to include (case insensitive)"
             echo "  --sizes string              comma-separated list of sizes, prefixed with +/- and unit of k M or G (i.e. +2G)"
+            echo "  --empty                     only match files that are empty"
+            echo "  --not_empty                 only match files that are not empty"
             echo "  --months number             only match files modified in a number of months"
             echo "  --weeks number              only match files modified in a number of weeks"
             echo "  --days number               only match files modified in a number of days"
@@ -128,6 +136,7 @@ while [[ -n "$1" ]]; do
             echo '  findit --exts "mp4, mkv" --pipesort "vlc --fullscreen"'
             echo '  findit --exts "jpg, jpeg, png, gif" --pipe "du -sch"'
             echo '  findit --exts "xml" --pipesort "grep --color {{[^}]*}}"'
+            echo '  findit --depth 3 --exts "log" --not_empty --pipesort "wc -l"'
             echo "  findit --complex \"-iname '*.log' -type f ! -size 0\""
             echo "  findit --complex \"-iname '*.log' -type f -empty -delete\""
             echo '  findit --pattern "node_modules" --type d'
@@ -136,6 +145,8 @@ while [[ -n "$1" ]]; do
             echo '  findit --type d --exclude_dirs ".git" --depth 2'
             echo '  findit --exclude_dirs "node_modules, .git, venv, build, alembic, __pycache__, .pytest_cache" --exclude_exts "json, yml, xml, txt, md" --pipe "wc -l"'
             echo '  findit --exclude_dirs "venv, env" --exclude_exts "js, json, java, map, htm, html, pyc" --pattern "test*" --pipe "grep assert" | egrep "(==|!=)"'
+            echo '  findit --pattern "__init__.py" --exclude_dirs "venv" --not_empty --pipesort "wc -l" | sort -n'
+            echo '  findit --depth 4 --type d --exclude_dirs ".git, *.egg-info, venv" --not_empty --pipesort "du -sh {}" | sort -h'
             exit 0
             ;;
         *)
@@ -330,6 +341,12 @@ fi
 
 if [[ -n "$complex" ]]; then
     find_cmd="$find_cmd $complex"
+fi
+
+if [[ -n "$empty" ]]; then
+    find_cmd="$find_cmd -empty"
+elif [[ -n "$not_empty" ]]; then
+    find_cmd="$find_cmd ! -empty"
 fi
 
 if [[ "$minutes" == [0-9]* ]]; then
