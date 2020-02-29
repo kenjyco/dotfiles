@@ -40,8 +40,20 @@ while [[ -n "$1" ]]; do
         --exclude_dirs)
             exclude_dirs=$2
             shift ;;
+        --iexclude_dirs)
+            iexclude_dirs=$2
+            shift ;;
         --exclude_exts)
             exclude_exts=$2
+            shift ;;
+        --iexclude_exts)
+            iexclude_exts=$2
+            shift ;;
+        --exclude)
+            exclude=$2
+            shift ;;
+        --iexclude)
+            iexclude=$2
             shift ;;
         --pattern)
             pattern=$2
@@ -51,6 +63,9 @@ while [[ -n "$1" ]]; do
             shift ;;
         --exts)
             exts=$2
+            shift ;;
+        --iexts)
+            iexts=$2
             shift ;;
         --months)
             months=$2
@@ -84,9 +99,14 @@ while [[ -n "$1" ]]; do
             echo "  --pattern string            comma-separated list of filename patterns"
             echo "  --ipattern string           comma-separated list of filename patterns (case insensitive)"
             echo "  --complex string            raw options passed directly to 'find'"
-            echo "  --exclude_dirs string       comma-separated list of directories to exclude"
+            echo "  --exclude_dirs string       comma-separated list of directories/patterns to exclude"
+            echo "  --iexclude_dirs string      comma-separated list of directories/patterns to exclude (case insensitive)"
             echo "  --exclude_exts string       comma-separated list of extensions to exclude"
+            echo "  --iexclude_exts string      comma-separated list of extensions to exclude (case insensitive)"
+            echo "  --exclude string            comma-separated list of filename patterns to exclude"
+            echo "  --iexclude string           comma-separated list of filename patterns to exclude (case insensitive)"
             echo "  --exts string               comma-separated list of extensions to include"
+            echo "  --iexts string              comma-separated list of extensions to include (case insensitive)"
             echo "  --months number             only match files modified in a number of months"
             echo "  --weeks number              only match files modified in a number of weeks"
             echo "  --days number               only match files modified in a number of days"
@@ -149,8 +169,40 @@ if [[ -n "$exclude_dirs" ]]; then
     find_cmd="$find_cmd $exclude_part -type d -prune -o"
 fi
 
+if [[ -n "$iexclude_dirs" ]]; then
+    IFS=',' read -ra items <<< "$iexclude_dirs"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        exclude_part="-iname '${items[0]}'"
+    else
+        exclude_part="\( -iname '${items[0]}'"
+        set -f
+        for item in ${items[@]:1}; do
+            exclude_part="$exclude_part -o -iname '$item'"
+        done
+        set +f
+        exclude_part="$exclude_part \)"
+    fi
+    find_cmd="$find_cmd $exclude_part -type d -prune -o"
+fi
+
 if [[ -n "$exclude_exts" ]]; then
     IFS=',' read -ra items <<< "$exclude_exts"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        exclude_part="! -name '*.${items[0]}'"
+    else
+        exclude_part="! \( -name '*.${items[0]}'"
+        set -f
+        for item in ${items[@]:1}; do
+            exclude_part="$exclude_part -o -name '*.$item'"
+        done
+        set +f
+        exclude_part="$exclude_part \)"
+    fi
+    find_cmd="$find_cmd $exclude_part"
+fi
+
+if [[ -n "$iexclude_exts" ]]; then
+    IFS=',' read -ra items <<< "$iexclude_exts"
     if [[ ${#items[@]} -eq 1 ]]; then
         exclude_part="! -iname '*.${items[0]}'"
     else
@@ -165,10 +217,58 @@ if [[ -n "$exclude_exts" ]]; then
     find_cmd="$find_cmd $exclude_part"
 fi
 
+if [[ -n "$exclude" ]]; then
+    IFS=',' read -ra items <<< "$exclude"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        exclude_part="! -name '${items[0]}'"
+    else
+        exclude_part="! \( -name '${items[0]}'"
+        set -f
+        for item in ${items[@]:1}; do
+            exclude_part="$exclude_part -o -name '$item'"
+        done
+        set +f
+        exclude_part="$exclude_part \)"
+    fi
+    find_cmd="$find_cmd $exclude_part"
+fi
+
+if [[ -n "$iexclude" ]]; then
+    IFS=',' read -ra items <<< "$iexclude"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        exclude_part="! -iname '${items[0]}'"
+    else
+        exclude_part="! \( -iname '${items[0]}'"
+        set -f
+        for item in ${items[@]:1}; do
+            exclude_part="$exclude_part -o -iname '$item'"
+        done
+        set +f
+        exclude_part="$exclude_part \)"
+    fi
+    find_cmd="$find_cmd $exclude_part"
+fi
+
 find_cmd="$find_cmd -type $_type"
 
 if [[ -n "$exts" ]]; then
     IFS=',' read -ra items <<< "$exts"
+    if [[ ${#items[@]} -eq 1 ]]; then
+        part="-name '*.${items[0]}'"
+    else
+        part="\( -name '*.${items[0]}'"
+        set -f
+        for item in ${items[@]:1}; do
+            part="$part -o -name '*.$item'"
+        done
+        set +f
+        part="$part \)"
+    fi
+    find_cmd="$find_cmd $part"
+fi
+
+if [[ -n "$iexts" ]]; then
+    IFS=',' read -ra items <<< "$iexts"
     if [[ ${#items[@]} -eq 1 ]]; then
         part="-iname '*.${items[0]}'"
     else
