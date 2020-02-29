@@ -67,6 +67,9 @@ while [[ -n "$1" ]]; do
         --iexts)
             iexts=$2
             shift ;;
+        --sizes)
+            sizes=$2
+            shift ;;
         --months)
             months=$2
             shift ;;
@@ -107,6 +110,7 @@ while [[ -n "$1" ]]; do
             echo "  --iexclude string           comma-separated list of filename patterns to exclude (case insensitive)"
             echo "  --exts string               comma-separated list of extensions to include"
             echo "  --iexts string              comma-separated list of extensions to include (case insensitive)"
+            echo "  --sizes string              comma-separated list of sizes, prefixed with +/- and unit of k M or G (i.e. +2G)"
             echo "  --months number             only match files modified in a number of months"
             echo "  --weeks number              only match files modified in a number of weeks"
             echo "  --days number               only match files modified in a number of days"
@@ -127,6 +131,8 @@ while [[ -n "$1" ]]; do
             echo "  findit --complex \"-iname '*.log' -type f ! -size 0\""
             echo "  findit --complex \"-iname '*.log' -type f -empty -delete\""
             echo '  findit --pattern "node_modules" --type d'
+            echo '  findit --sizes "+1G" --pipesort "du -sh"'
+            echo '  findit --depth 4 --sizes "+1M, -10M" --exclude_dirs ".cache" --pipesort "du -sh"'
             echo '  findit --type d --exclude_dirs ".git" --depth 2'
             echo '  findit --exclude_dirs "node_modules, .git, venv, build, alembic, __pycache__, .pytest_cache" --exclude_exts "json, yml, xml, txt, md" --pipe "wc -l"'
             echo '  findit --exclude_dirs "venv, env" --exclude_exts "js, json, java, map, htm, html, pyc" --pattern "test*" --pipe "grep assert" | egrep "(==|!=)"'
@@ -313,6 +319,13 @@ if [[ -n "$ipattern" ]]; then
         part="$part \)"
     fi
     find_cmd="$find_cmd $part"
+fi
+
+if [[ -n "$sizes" ]]; then
+    IFS=',' read -ra items <<< "$sizes"
+    for item in ${items[@]}; do
+        find_cmd="$find_cmd -size $item"
+    done
 fi
 
 if [[ -n "$complex" ]]; then
