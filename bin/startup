@@ -3,15 +3,32 @@
 # Exit this script if not running X
 [[ -z "$DISPLAY" ]] && exit
 
-# Uncomment to let `feh` set the desktop wallpaper (if using a minimal window manager)
-#
-# DEFAULT_LANDSCAPE="$HOME/wallpapers/landscape/XQeeMZU.jpg"
-#
-# SET_RANDOM_WALLPAPER="False"
-# if [[ "$SET_RANDOM_WALLPAPER" =~ [Tt][Rr][Uu][Ee] ]]; then
-#     if [[ -d $HOME/wallpapers/landscape ]]; then
-#         feh --randomize --recursive --bg-fill $HOME/wallpapers/landscape 2>/dev/null
-#     fi
-# else
-#     feh --bg-fill $DEFAULT_LANDSCAPE 2>/dev/null
-# fi
+# Exit this script if feh not found
+which feh &>/dev/null
+[[ $? -ne 0 ]] && exit
+
+if [[ -f $HOME/.selected_wallpaper_mode ]]; then
+    wallpaper_mode=$(cat $HOME/.selected_wallpaper_mode)
+else
+    echo "none" > $HOME/.selected_wallpaper_mode
+    wallpaper_mode=none
+fi
+
+if [[ "$wallpaper_mode" = "random" ]]; then
+    if [[ -d $HOME/wallpapers/landscape ]]; then
+        feh --randomize --recursive --bg-fill $HOME/wallpapers/landscape 2>/dev/null
+    fi
+elif [[ "$wallpaper_mode" = "one" ]]; then
+    if [[ -f $HOME/.selected_wallpaper_file ]]; then
+        selected_wallpaper=$(cat $HOME/.selected_wallpaper_file)
+        if [[ ! -f "$selected_wallpaper" ]]; then
+            "$HOME/wallpapers/download.sh"
+        fi
+        feh --bg-fill $selected_wallpaper 2>/dev/null
+    else
+        "$HOME/wallpapers/select.sh"
+    fi
+elif [[ "$wallpaper_mode" != "none" ]]; then
+    echo -e "\nDo not understand this wallpaper_mode: $wallpaper_mode"
+    rm $HOME/.selected_wallpaper_mode
+fi
