@@ -139,10 +139,6 @@ if [[ -z "$_lite_install" ]]; then
     PLUGIN_INSTALL_DIR="$HOME/.plugin_install_dir"
     rm -rf "$PLUGIN_INSTALL_DIR/vundle" && mkdir -pv "$PLUGIN_INSTALL_DIR/vundle"
 
-    # Download wallpapers
-    cd $DIR/wallpapers
-    bash ./download.sh
-
     # Fetch the git submodules required
     cd $DIR
     echo -e "\nUpdating git submodules, if necessary"
