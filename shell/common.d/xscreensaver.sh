@@ -1,14 +1,14 @@
 [[ $(uname) == "Darwin" ]] && return
 
-alias stopsaver="xscreensaver-command -exit"
+alias stop-screensaver="xscreensaver-command -exit"
 
-startsaver() {
+start-screensaver() {
     [[ -z $(pgrep xscreensaver) ]] && /usr/bin/xscreensaver -no-splash &
     xscreensaver-command -activate &
     disown
 }
 
-setsaver() {
+select-screensaver() {
     IFS=$'\n'; select saver in $(find $(cat ~/.dotfiles_path)/x/xscreensaver -type f); do
         cp -av "$saver" ~/.xscreensaver
         break
