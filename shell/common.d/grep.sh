@@ -51,7 +51,7 @@ grepit-ba9() {
 }
 
 grepit-logs() {
-    findit . --exclude_dirs "venv, env, dist, build, .cache, .git .eggs *.egg-info __pycache__ node_modules" --ipattern "*.log" --pipesort "grep -Hn --color $@"
+    findit . --exclude_dirs "venv, env, dist, build, .cache, .git, .eggs, *.egg-info, __pycache__, node_modules" --ipattern "*.log" --pipesort "grep -Hn --color $@"
 }
 
 grepit-no-docs() {

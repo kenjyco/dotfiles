@@ -27,7 +27,7 @@ pys-all() {
 }
 
 ignored-patterns-count() {
-    findit --exclude_dirs "venv, env, dist, build, .cache .git .eggs *.egg-info __pycache__ node_modules" --pattern .gitignore --pipesort "cat" | sort | uniq -c | sort -n
+    findit --exclude_dirs "venv, env, dist, build, .cache, .git, .eggs, *.egg-info, __pycache__, node_modules" --pattern .gitignore --pipesort "cat" | sort | uniq -c | sort -n
 }
 
 findit-node-modules() {
