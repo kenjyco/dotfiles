@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+path="${1:-.}"
+path="$(realpath ${path%/})"        # remove trailing slash if there
+find "$path" -maxdepth 4 -type d -name '.git' -print0 | sort -z | xargs -0 -I {} dirname {}
