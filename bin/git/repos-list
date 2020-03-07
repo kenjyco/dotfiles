@@ -2,4 +2,12 @@
 
 path="${1:-.}"
 path="$(realpath ${path%/})"        # remove trailing slash if there
-find "$path" -maxdepth 4 -type d -name '.git' -print0 | sort -z | xargs -0 -I {} dirname {}
+test_path="$path"
+while [[ ! -d "$test_path/.git" && "$test_path" != '/' ]]; do
+    test_path=$(dirname $test_path)
+done
+if [[ "$test_path" != '/' ]]; then
+    echo $test_path
+else
+    find "$path" -maxdepth 4 -type d -name '.git' -print0 | sort -z | xargs -0 -I {} dirname {} | less -FX
+fi
