@@ -6,7 +6,7 @@ path=
 for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
     cd "$repo"
     branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    short_status=$(git status -s)
+    short_status=$(git -c color.status=always status -s)
     unpushed=$(git log --find-renames --no-merges --oneline @{u}.. 2>/dev/null)
     stashlist=$(git stash list)
     if [[ -n "$short_status" || -n "$unpushed" || -n "$stashlist" ]]; then
