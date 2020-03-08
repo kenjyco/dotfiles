@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    echo -e "\n===============\n$repo"
+    lasttag=$(git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null)
+    if [[ -n "$lasttag" ]]; then
+        output=$(git log --color=always --find-renames --oneline --graph --no-merges ${lasttag}..)
+        [[ -n "$output" ]] && echo -e "$output"
+    else
+        echo "No tag found"
+    fi
+done | less -rFX
