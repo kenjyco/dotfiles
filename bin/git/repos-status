@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    short_status=$(git status -s)
+    unpushed=$(git log --find-renames --no-merges --oneline @{u}.. 2>/dev/null)
+    stashlist=$(git stash list)
+    if [[ -n "$short_status" || -n "$unpushed" || -n "$stashlist" ]]; then
+        echo -e "\n===============\n$repo ($branchname)\n$short_status"
+        [[ -n "$unpushed" ]] && echo -e "\nUnpushed commits\n$unpushed"
+        [[ -n "$stashlist" ]] && echo -e "\nStashes\n$stashlist"
+    fi
+done | less -rFX

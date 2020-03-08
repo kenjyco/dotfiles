@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    echo -e "\n===============\n$repo"
+    unset remote
+    remote=$(grep "remote \"origin\"" -A 2 .git/config | grep url | perl -pe 's/^\s+url = (.*)$/$1/')
+    tracking=$(git branch -r | grep "$branch" | grep -v HEAD | perl -pe 's/^\s+(.*)$/$1/')
+    if [[ -z "$remote" ]]; then
+        echo " - Local-only repo, not updating"
+    elif [[ -z "$tracking" ]]; then
+        echo " - No tracking branch, gonna do 'fetch'"
+        git fetch
+    else
+        stashstatus=$(git stash)
+        if [[ $stashstatus == "No local changes to save" ]]; then
+            echo " - Repository is clean.. gonna do 'pull --rebase'"
+            git pull --rebase
+        else
+            echo " - Dirty repo with tracking branch.. gonna do 'stash pull pop'"
+            echo "$stashstatus"
+            git pull --rebase
+            git stash pop --quiet
+        fi
+    fi
+done
