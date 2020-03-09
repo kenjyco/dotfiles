@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+pattern="$1"
+
+_doit() {
+    [[ -n "$pattern" ]] && echo -e "\nShowing files that match \"$pattern\""
+    the_list=$(repos-list "$path")
+    if [[ $(echo -e "$the_list" | wc -l) -eq 1 ]]; then
+        [[ ! "$(pwd)" =~ "$the_list".* ]] && cd "$the_list"
+        branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        output=$(git ls-tree -r --name-only HEAD 2>/dev/null |
+        grep "$pattern" |
+        while read filename; do
+            echo "$(git log -1 --format="%ai %ar" -- "$filename") $filename"
+        done | sort -n)
+        [[ -n "$output" ]] && echo -e "\n===============\n$(pwd) ($branchname)\n$output"
+    else
+        for repo in $(echo -e "$the_list" | tr '\n' '\0' | xargs -0); do
+            cd "$repo"
+            branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+            output=$(git ls-tree -r --name-only HEAD 2>/dev/null |
+            grep "$pattern" |
+            while read filename; do
+                echo "$(git log -1 --format="%ai %ar" -- "$filename") $filename"
+            done | sort -n)
+            [[ -n "$output" ]] && echo -e "\n===============\n$repo ($branchname)\n$output"
+        done
+    fi
+}
+
+_doit | less -FX
