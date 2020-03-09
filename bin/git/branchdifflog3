@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-branchdifflog "$@" --find-renames --stat --reverse --no-merges -p
