@@ -3,25 +3,29 @@
 path=
 [[ -d "$1" ]] && path="$1" && shift
 pattern="$1"
-[[ -n "$pattern" ]] && echo -e "\nShowing branches that match \"$pattern\""
 check_for_head=
 [[ -z "$pattern" || "$pattern" == [Hh][Ee][Aa][Dd] ]] && check_for_head=yes
 
-for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
-    cd "$repo"
-    branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    tracking=$(git branch -r | grep "$branchname" | grep -v HEAD | perl -pe 's/^\s+(.*)$/$1/')
-    remote_matches=$(git branch -r | grep -i "$pattern" | grep -v HEAD)
-    local_matches=$(git branch | grep -i "$pattern")
-    if [[ -n "$check_for_head" && "$branchname" = [Hh][Ee][Aa][Dd] ]]; then
-        echo -e "\n===============\n$repo ($branchname)"
-    elif [[ -n "$remote_matches" || -n "$local_matches" ]]; then
-        echo -e "\n===============\n$repo ($branchname) -> $tracking"
-        if [[ -n "$remote_matches" ]]; then
-            for branch in $(echo "$remote_matches" | tr '\n' '\0' | xargs -0); do
-                echo "$(git show --format='%ai' $branch | head -n 1) $branch"
-            done | sort -n
+_doit() {
+    [[ -n "$pattern" ]] && echo -e "\nShowing branches that match \"$pattern\""
+    for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+        cd "$repo"
+        branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        tracking=$(git branch -r | grep "$branchname" | grep -v HEAD | perl -pe 's/^\s+(.*)$/$1/')
+        remote_matches=$(git branch -r | grep -i "$pattern" | grep -v HEAD)
+        local_matches=$(git branch | grep -i "$pattern")
+        if [[ -n "$check_for_head" && "$branchname" = [Hh][Ee][Aa][Dd] ]]; then
+            echo -e "\n===============\n$repo ($branchname)"
+        elif [[ -n "$remote_matches" || -n "$local_matches" ]]; then
+            echo -e "\n===============\n$repo ($branchname) -> $tracking"
+            if [[ -n "$remote_matches" ]]; then
+                for branch in $(echo "$remote_matches" | tr '\n' '\0' | xargs -0); do
+                    echo "$(git show --format='%ai' $branch | head -n 1) $branch"
+                done | sort -n
+            fi
+            [[ -n "$local_matches" ]] && echo "$local_matches"
         fi
-        [[ -n "$local_matches" ]] && echo "$local_matches"
-    fi
-done | less -rFX
+    done
+}
+
+_doit | less -rFX
