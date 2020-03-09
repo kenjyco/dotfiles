@@ -6,14 +6,17 @@ branch="${1:-develop}"
 [[ ! "$branch" =~ origin.* ]] && branch="origin/$branch"
 
 git_log_args=(--color=always --oneline --graph --stat=$(($(tput cols) -2)))
-echo "comparing $branch to origin/master"
-for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
-    cd "$repo"
-    if [[ -n $(git branch -r | grep -v HEAD | grep "${branch}\b") ]]; then
-        output=$(git log ${git_log_args[@]} $(git merge-base origin/master $branch)..$branch |
-                    grep -v -E "(file|files) changed,")
-        if [[ -n "$output" ]]; then
-            echo -e " \n$repo\n$output"
+_doit() {
+    echo -e "\ncomparing $branch to origin/master"
+    for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+        cd "$repo"
+        branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        if [[ -n $(git branch -r | grep -v HEAD | grep "${branch}\b") ]]; then
+            output=$(git log ${git_log_args[@]} $(git merge-base origin/master $branch)..$branch |
+                        grep -v -E "(file|files) changed,")
+            [[ -n "$output" ]] && echo -e "\n===============\n$repo ($branchname)\n$output"
         fi
-    fi
-done | less -rFX
+    done
+}
+
+_doit | less -rFX
