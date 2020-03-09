@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    output=$(git tag --sort="-version:refname")
+    if [[ -n "$output" ]]; then
+        echo -e "\n===============\n$repo"
+        for tag in $(echo -e "$output" | tr '\n' '\0' | xargs -0); do
+            git tag -n99 $tag
+        done
+    fi
+done | less -rFX
