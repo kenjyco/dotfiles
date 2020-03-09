@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+_colordiff=cat
+which colordiff &>/dev/null
+[[ $? -eq 0 ]] && _colordiff=colordiff
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    echo -e "\n===============\n$repo ($branchname)"
+    git diff "$@"
+done | $_colordiff | less -rFX

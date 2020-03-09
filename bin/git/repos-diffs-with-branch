@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+if [[ -n "$1" && ! "$1" =~ ^-.* ]]; then
+    otherbranch="$1" && shift
+else
+    otherbranch="origin/develop"
+fi
+_colordiff=cat
+which colordiff &>/dev/null
+[[ $? -eq 0 ]] && _colordiff=colordiff
+
+_doit() {
+    echo -e "\ncomparing to $otherbranch"
+    for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+        cd "$repo"
+        branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        if [[ -n $(git branch -r | grep -v HEAD | grep "${otherbranch}\b") ]]; then
+            echo -e "\n===============\n$repo ($branchname)"
+            git diff "$@" $(git merge-base $otherbranch $branchname)..$branchname
+        fi
+    done
+}
+
+_doit $@ | $_colordiff | less -rFX
