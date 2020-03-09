@@ -24,6 +24,10 @@ do-security-upgrades() {
    sudo xargs apt-get install -y -o Dir::Etc::SourceList=$APT_SECURITY_ONLY
 }
 
+refresh-ubuntu-keys() {
+    sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
+}
+
 ntp-sync-now() {
     sudo service ntp stop && sudo ntpd -gq && sudo service ntp start
 }
