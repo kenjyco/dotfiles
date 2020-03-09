@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    output=$(git log --color=always --date=relative --pretty=format:' - %C(yellow)%h %C(reset)%s %C(red)%ad %C(blue)%an%C(reset)' "$@" 2>/dev/null)
+    [[ -n "$output" ]] && echo -e "\n===============\n$repo ($branchname)\n$output"
+done | less -rFX
