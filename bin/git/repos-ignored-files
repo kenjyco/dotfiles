@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    output=$(git status -s --ignored | grep '^!' | cut -c 4-)
+    [[ -n "$output" ]] && echo -e "\n===============\n$repo\n$output"
+done
