@@ -8,9 +8,8 @@ path=$(repo-path $path)
 [[ -z "$path" ]] && exit 1
 cd $path
 
-remote=$(repo-remote $path)
 branch=$(branchname)
-echo -e "\n===============\n$path -- $remote -- $branch"
+echo -e "\n===============\n$path -- $branch"
 git fetch --all --prune
 [[ $branch == "master" ]] && git branch --merged master | grep -v 'master$' | cut -c 3- | xargs git branch -d 2>/dev/null
 [[ $branch == "develop" ]] && git branch --merged develop | grep -v 'develop$' | cut -c 3- | xargs git branch -d 2>/dev/null

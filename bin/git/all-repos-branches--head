@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-all-repos-branches | grep 'HEAD$' | less -FX

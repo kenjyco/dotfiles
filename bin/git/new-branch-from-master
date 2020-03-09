@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-#
-# Create a new local branch from the remote master
-
-newbranch="$1"
-[[ -z "$newbranch" ]] && echo "branch name is required" && exit 1
-git stash || exit 1
-git checkout -b "$newbranch" origin/master --no-track
