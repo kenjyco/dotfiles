@@ -3,8 +3,10 @@
 path=
 [[ -d "$1" ]] && path="$1" && shift
 
+echo -e "\nShowing output for repos that have fetched changes..."
 for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
     cd "$repo"
-    echo -e "\n===============\n$repo"
-    git fetch --all --verbose
+    branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    output=$(git fetch --all --verbose 2>&1 | grep -v -E '(up to date|^Fetching|^From)')
+    [[ -n "$output" ]] && echo -e "\n===============\n$repo ($branchname)\n$output"
 done
