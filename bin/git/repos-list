@@ -9,5 +9,5 @@ done
 if [[ "$test_path" != '/' ]]; then
     echo $test_path
 else
-    find "$path" -maxdepth 4 -type d -name '.git' -print0 | sort -z | xargs -0 -I {} dirname {} | less -FX
+    find "$path" -maxdepth 6 -type d -name '.git' -print0 | sort -z | xargs -0 -I {} dirname {} | less -FX
 fi
