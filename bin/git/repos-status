@@ -5,7 +5,7 @@ path=
 
 for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
     cd "$repo"
-    status_branch=$(git -c color.status=always status -sb | head -n 1)
+    status_branch=$(git status -sb | head -n 1)
     short_status=$(git -c color.status=always status -s)
     unpushed=$(git log --find-renames --no-merges --oneline @{u}.. 2>/dev/null)
     stashlist=$(git stash list)
