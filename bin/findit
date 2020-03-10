@@ -97,6 +97,9 @@ while [[ -n "$1" ]]; do
         --pipe)
             pipe=$2
             shift ;;
+        --zero)
+            zero=yes
+            ;;
         --stamp)
             stamp="-printf '%TY_%Tm%Td-%Ta-%TH%TM%.2TS %p\n'"
             ;;
@@ -124,8 +127,9 @@ while [[ -n "$1" ]]; do
             echo "  --days number               only match files modified in a number of days"
             echo "  --hours number              only match files modified in a number of hours"
             echo "  --minutes number            only match files modified in a number of minutes"
-            echo "  --pipe command              pipe files to a command"
-            echo "  --pipesort command          pipe sorted files to a command"
+            echo "  --pipe command              pipe files to a SINGLE command"
+            echo "  --pipesort command          pipe sorted files to a SINGLE command"
+            echo "  --zero                      print matching filenames delimited by null char (-print0)... to pipe to 'xargs -0 -I {}' manually"
             echo "  --stamp                     prepend timestamps to output"
             echo "  --help                      show this message and exit"
             echo -e '\nExamples:\n'
@@ -147,6 +151,7 @@ while [[ -n "$1" ]]; do
             echo '  findit --exclude_dirs "venv, env" --exclude_exts "js, json, java, map, htm, html, pyc" --pattern "test*" --pipe "grep assert" | egrep "(==|!=)"'
             echo '  findit --pattern "__init__.py" --exclude_dirs "venv" --not_empty --pipesort "wc -l" | sort -n'
             echo '  findit --depth 4 --type d --exclude_dirs ".git, *.egg-info, venv" --not_empty --pipesort "du -sh {}" | sort -h'
+            echo '  findit --exclude_dirs "venv" --pattern "settings.ini" --zero | xargs -0 -I {} sh -c "echo \"\n\n\n==================\n{}\"; cat {}"'
             exit 0
             ;;
         *)
@@ -365,7 +370,7 @@ if [[ -n "$stamp" ]]; then
     if [[ -z "$pipesort" && -z "$pipe" ]]; then
         find_cmd="$find_cmd $stamp"
     fi
-elif [[ -z "$pipesort" && -z "$pipe" ]]; then
+elif [[ -z "$pipesort" && -z "$pipe" && -z "$zero" ]]; then
     find_cmd="$find_cmd -print"
 fi
 
@@ -378,6 +383,9 @@ if [[ -n "$pipesort" ]]; then
 elif [[ -n "$pipe" ]]; then
     echo "$find_cmd -print0 | xargs -0 $xargs_dash_i $pipe" >&2
     eval "$find_cmd -print0" | xargs -0 $xargs_dash_i $pipe
+elif [[ -n "$zero" ]]; then
+    echo "$find_cmd -print0" >&2
+    eval "$find_cmd -print0"
 else
     echo "$find_cmd" >&2
     eval "$find_cmd"
