@@ -3,4 +3,4 @@
 path=
 [[ -d "$1" ]] && path="$1" && shift
 
-repos-list "$path" | tr '\n' '\0' | xargs -0 dirname | sort | uniq -c | sort -nr
+repos-list "$path" | tr '\n' '\0' | xargs -0 -I {} dirname {} | sort | uniq -c | sort -nr
