@@ -2,6 +2,7 @@
 
 alias shutdown="sudo shutdown -h +0"
 alias reboot="sudo reboot"
+alias hibernate="systemctl hibernate"
 alias partitions2="sudo blkid"
 alias sudoers="getent group sudo"
 alias uninstall-hard="sudo apt-get purge --auto-remove -y"
