@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+path=
+[[ -d "$1" ]] && path="$1" && shift
+
+for repo in $(repos-list "$path" | tr '\n' '\0' | xargs -0); do
+    cd "$repo"
+    branchname=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    short_status=$(git -c color.status=always status -s)
+    [[ -n "$short_status" ]] && echo -e "\n===============\n$repo ($branchname)\n$short_status"
+done | less -rFX
