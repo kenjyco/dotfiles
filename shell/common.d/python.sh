@@ -203,6 +203,7 @@ tag-and-release() {
 
     cmd="git tag -a $version"
     echo -e "lasttag was $(lasttag)\ncmd would be: $cmd"
+    unset yn
     if [[ -n "$BASH_VERSION" ]]; then
         read -p "Continue? [y/n] " yn
     elif [[ -n "$ZSH_VERSION" ]]; then

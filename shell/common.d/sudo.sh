@@ -129,6 +129,7 @@ purgeuser() {
     [[ -z "$username" ]] && return 1
 
     # Find out if the user is sure
+    unset yn
     if [[ -n "$BASH_VERSION" ]]; then
         read -p "are you sure? [y/n] " yn
     elif [[ -n "$ZSH_VERSION" ]]; then

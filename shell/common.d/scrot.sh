@@ -15,6 +15,7 @@ alias sc="screenshot-today"
 scloop() {
     message="<ENTER> take screenshot (select area with mouse), <CTRL>+<C> to stop loop "
     while true; do
+        unset yn
         if [[ -n "$BASH_VERSION" ]]; then
             read -p "$message" yn
         elif [[ -n "$ZSH_VERSION" ]]; then
@@ -27,6 +28,7 @@ scloop() {
 scloop-today() {
     message="<ENTER> take screenshot (select area with mouse), <CTRL>+<C> to stop loop "
     while true; do
+        unset yn
         if [[ -n "$BASH_VERSION" ]]; then
             read -p "$message" yn
         elif [[ -n "$ZSH_VERSION" ]]; then
