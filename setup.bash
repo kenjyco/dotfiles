@@ -3,9 +3,7 @@
 # Get the directory where this script lives
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
-_call_make_home_venv=
 if [[ "$1" == "clean" || "$2" == "clean" ]]; then
-    [[ -d ~/venv ]] && _call_make_home_venv=yes
     echo -e "\nDeleting ~/.beu ~/.nvm, ~/.npm, ~/.phantomjs, ~/venv, and ~/.downloaded-completions"
     rm -rf ~/.beu ~/.nvm ~/.npm ~/.phantomjs ~/venv ~/.downloaded-completions 2>/dev/null
     unset NVM_DIR
@@ -36,14 +34,10 @@ BACKUP_DOTFILES="$DIR/backup_dotfiles"
 echo -e "\nSaving a copy of real dotfiles and deleting symbolic links"
 echo "cd $HOME"
 cd $HOME
-[[ ! -L bin && -d bin ]] && mv -v bin "$BACKUP_DOTFILES" || rm -v bin 2>/dev/null
 [[ ! -L wallpapers && -d wallpapers ]] && mv -v wallpapers "$BACKUP_DOTFILES" || rm -v wallpapers 2>/dev/null
-[[ ! -L .shell && -d .shell ]] && mv -v .shell "$BACKUP_DOTFILES" || rm -v .shell 2>/dev/null
 [[ ! -L .vim && -d .vim ]] && mv -v .vim "$BACKUP_DOTFILES" || rm -v .vim 2>/dev/null
 [[ ! -L .ipython && -d .ipython ]] && mv -v .ipython "$BACKUP_DOTFILES" || rm -v .ipython 2>/dev/null
 [[ ! -L .tmux && -d .tmux ]] && mv -v .tmux "$BACKUP_DOTFILES" || rm -v .tmux 2>/dev/null
-[[ ! -L .bash_profile && -f .bash_profile ]] && mv -v .bash_profile "$BACKUP_DOTFILES" || rm -v .bash_profile 2>/dev/null
-[[ ! -L .bashrc && -f .bashrc ]] && mv -v .bashrc "$BACKUP_DOTFILES" || rm -v .bashrc 2>/dev/null
 [[ ! -L .gitconfig && -f .gitconfig ]] && mv -v .gitconfig "$BACKUP_DOTFILES" || rm -v .gitconfig 2>/dev/null
 [[ ! -L .inputrc && -f .inputrc ]] && mv -v .inputrc "$BACKUP_DOTFILES" || rm -v .inputrc 2>/dev/null
 [[ ! -L .editrc && -f .editrc ]] && mv -v .editrc "$BACKUP_DOTFILES" || rm -v .editrc 2>/dev/null
@@ -52,7 +46,6 @@ cd $HOME
 [[ ! -L .vimrc && -f .vimrc ]]  && mv -v .vimrc "$BACKUP_DOTFILES" || rm -v .vimrc 2>/dev/null
 [[ ! -L .Xdefaults && -f .Xdefaults ]] && mv -v .Xdefaults "$BACKUP_DOTFILES" || rm -v .Xdefaults 2>/dev/null
 [[ ! -L .xinitrc && -f .xinitrc ]] && mv -v .xinitrc "$BACKUP_DOTFILES" || rm -v .xinitrc 2>/dev/null
-[[ ! -L .zshrc && -f .zshrc ]] && mv -v .zshrc "$BACKUP_DOTFILES" || rm -v .zshrc 2>/dev/null
 
 # Make sure the ~/.config directory exists
 [[ ! -d "$HOME/.config" ]] && mkdir -pv "$HOME/.config"
@@ -64,11 +57,7 @@ cd $HOME/.config
 [[ ! -L awesome/theme.lua && -f awesome/theme.lua ]] && mv -v awesome/theme.lua "$BACKUP_DOTFILES/awesome_theme.lua" || rm -v awesome/theme.lua 2>/dev/null
 
 # Create symbolic links to the individual dotfiles
-ln -s "$DIR/bin" "$HOME/bin"
 ln -s "$DIR/wallpapers" "$HOME/wallpapers"
-ln -s "$DIR/shell" "$HOME/.shell"
-ln -s "$DIR/shell/bash/bash_profile" "$HOME/.bash_profile"
-ln -s "$DIR/shell/bash/bashrc" "$HOME/.bashrc"
 ln -s "$DIR/git/gitconfig" "$HOME/.gitconfig"
 ln -s "$DIR/input/inputrc" "$HOME/.inputrc"
 ln -s "$DIR/input/editrc" "$HOME/.editrc"
@@ -78,7 +67,6 @@ ln -s "$DIR/ipython" "$HOME/.ipython"
 ln -s "$DIR/tmux" "$HOME/.tmux"
 ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
 ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
-ln -s "$DIR/shell/zsh/zshrc" "$HOME/.zshrc"
 
 if [[ $(uname) == "Darwin" ]]; then
     echo -e "\nMaking sure reattach-to-user-namespace is installed (for tmux)"
@@ -118,22 +106,6 @@ echo "$DIR" > $HOME/.dotfiles_path
 # Source the ~/.tmux.conf file
 tmux source-file ~/.tmux.conf
 
-# Setup completions
-source $HOME/.shell/common
-get-completions
-if [[ $? -ne 0 ]]; then
-    echo -e "\nFailed to get bash completion files..."
-    sleep 2
-fi
-command -v zsh &>/dev/null
-if [[ $? -eq 0 ]]; then
-    zsh -c "source $HOME/.shell/common; get-completions"
-    if [[ $? -ne 0 ]]; then
-        echo -e "\nFailed to get zsh completion files..."
-        sleep 2
-    fi
-fi
-
 if [[ -z "$_lite_install" ]]; then
     # Destroy/re-create subdirectories of $PLUGIN_INSTALL_DIR
     PLUGIN_INSTALL_DIR="$HOME/.plugin_install_dir"
@@ -147,75 +119,8 @@ if [[ -z "$_lite_install" ]]; then
     # Download/install Vim plugins added to vundle
     vim +PluginInstall +qall
 
-    # Install beu
-    if [[ ! -d ~/.beu ]]; then
-        echo -e "\nInstalling beu"
-        curl -o- https://raw.githubusercontent.com/kenjyco/beu/master/install.sh | bash
-    fi
-
     # Copy a xscreensaver config file if none in use
     [[ ! -s $HOME/.xscreensaver ]] && cp -av $DIR/x/xscreensaver/none $HOME/.xscreensaver
-
-    # Install nvm, some versions of node, and some "global" packages
-    NODE_VERSIONS=(10.17.0 12.13.1)
-    NODE_DEFAULT=12.13.1
-    NODE_TOOLS=(create-react-app grunt gulp @angular/cli)
-    if [[ ! -d ~/.nvm ]]; then
-        echo -e "\nInstalling nvm, specific node version(s), and some global packages"
-        unset NVM_DIR
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-        export NVM_DIR="$HOME/.nvm"
-        source "$NVM_DIR/nvm.sh"
-    else
-        export NVM_DIR="$HOME/.nvm"
-        source "$NVM_DIR/nvm.sh"
-    fi
-    for node_version in "${NODE_VERSIONS[@]}"; do
-        installed=$(nvm list $node_version | perl -pe 's/.*v(\d+\S+).*/$1/' | grep -v 'N/A')
-        if [[ -z "$installed" ]]; then
-            echo -e "\n$ nvm install $node_version"
-            nvm install $node_version
-            echo -e "\n$ npm install -g ${NODE_TOOLS[@]}"
-            npm install -g "${NODE_TOOLS[@]}"
-        else
-            echo -e "\nAlready installed node $installed"
-        fi
-    done
-    nvm alias default $NODE_DEFAULT
-
-    # Install pyenv if not on mac
-    if [[ $(uname) != "Darwin" && ! -d ~/.pyenv ]]; then
-        echo -e "\nInstalling pyenv, and a specific python version"
-        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-        export PYENV_ROOT="$HOME/.pyenv"
-        export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-        pyenv install 3.8.0
-    fi
-
-    # Install phantomjs
-    if [[ ! -d ~/.phantomjs ]]; then
-        echo -e "\nInstalling PhantomJS"
-        if [[ $(uname) == "Darwin" ]]; then
-            curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip
-            unzip phantomjs-2.1.1-macosx.zip && rm phantomjs-2.1.1-macosx.zip
-            mv phantomjs-2.1.1-macosx ~/.phantomjs
-        else
-            curl -OL https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
-            tar xvf phantomjs-2.1.1-linux-x86_64.tar.bz2 && rm phantomjs-2.1.1-linux-x86_64.tar.bz2
-            mv phantomjs-2.1.1-linux-x86_64 ~/.phantomjs
-        fi
-    fi
-
-    # Call make-home-venv if ~/venv was deleted (via "clean" arg passed to script)
-    if [[ -n "$_call_make_home_venv" ]]; then
-        echo -e "\nCalling make-home-venv"
-        source $DIR/shell/common.d/python.sh
-        make-home-venv
-    fi
-
-    # Set python2.7 config for npm (otherwise node-gyp may raise many errors when doing `npm install`)
-    [[ "$(npm config get python)" = "undefined" ]] && npm config set python /usr/bin/python
 fi
 
 # Remove any empty directories

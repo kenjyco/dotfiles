@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-#
-# See: https://unix.stackexchange.com/a/56432 for sed commands in action
-
-[[ -z "$1" ]] && echo "Call with the name of a man-able command" && exit 1
-
-man $1 > /tmp/man-${1}.txt 2>/dev/null && sed -n '/^EXAMPLES$/ { :a; n; p; ba; }' /tmp/man-${1}.txt | less -FX

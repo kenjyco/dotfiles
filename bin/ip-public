@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-wget https://httpbin.org/ip -qO - | grep origin | perl -pe 's/^.*\"(.*)\".*$/$1/'

@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-[[ -z "$1" ]] && echo "Call with the name of a man-able command" && exit 1
-phrase="$2"
-num_lines=${3:-5}
-
-MANWIDTH=$(( $(tput cols) -6 )) man $1 |
-    grep -n -B $num_lines -A $num_lines --color=always -i "$phrase" |
-    less -rFX

@@ -1,1 +1,0 @@
-alias caat='less -FX'

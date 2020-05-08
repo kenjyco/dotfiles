@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-all-repos-branches | egrep -v '(master|develop|HEAD)$' | less -FX
