@@ -13,6 +13,26 @@ Clone the repo and run the setup script
   then create symbolic links to the settings in this repository
 - plugins for Vim are also downloaded and installed
 
+## Update Vundle plugin (git submodule)
+
+```
+% cd dotfiles
+
+% git submodule init && git submodule update
+
+% cd vim/bundle/Vundle.vim
+
+% git checkout master
+
+% git pull
+
+% cd ../../..
+
+% git add vim/bundle/Vundle.vim
+
+% git commit
+```
+
 ## Non-standard keyboard shortcuts
 [vim-tmux-navigator]: https://github.com/christoomey/vim-tmux-navigator
 
