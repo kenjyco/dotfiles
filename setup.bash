@@ -20,10 +20,13 @@ if [[ "$1" == "clean" || "$2" == "clean" ]]; then
     rm -f ~/.zsh/completion/_docker ~/.zsh/completion/_docker-compose ~/.zsh/completion/git-completion.zsh 2>/dev/null
 fi
 
+# Delete broken symbolic links
+find ~ -maxdepth 1 -type l | xargs -I {} file {} | grep "broken symbolic link" | cut -d: -f1 | tr '\n' '\0' | xargs -0 rm -v 2>/dev/null
+
 _lite_install=
 if [[ "$1" == "lite" || "$2" == "lite" ]]; then
     _lite_install=yes
-    echo -e "\nL I T E :   Only going to set symlinks and get completion files.."
+    echo -e "\nL I T E :   Only going to set symlinks.."
 fi
 
 # Create $BACKUP_DOTFILES directory if it doesn't exist
