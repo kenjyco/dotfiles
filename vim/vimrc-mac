@@ -13,7 +13,6 @@ Plugin 'gmarik/Vundle.vim'
 
 " Extra plugins
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'pthrasher/conqueterm-vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'hynek/vim-python-pep8-indent'

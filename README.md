@@ -54,9 +54,6 @@ with the same key binding
     - Navigate to window you want to swap with and press `<leader>ww` again
 - <https://github.com/will133/vim-dirdiff#usage>
     - From CLI: `vim -c "DirDiff dir1 dir2"`
-- <https://github.com/pthrasher/conqueterm-vim/blob/master/doc/conque_term.txt#L112-L132>
-    - Note: Project last commit on Oct 24, 2012
-    - Not reliable on mac
 - <https://github.com/tpope/vim-fugitive#fugitivevim>
     - This is a `git` wrapper
         - Also see screencast series: <http://vimcasts.org/blog/2011/05/the-fugitive-series/>
