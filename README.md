@@ -45,6 +45,10 @@ with the same key binding
 - `Ctrl` + `l` => Right
 - `Ctrl` + `\` => Previous split
 
+**Note**: When using `:term` or `:vert term` in vim (version 8+) to open a
+terminal split the `Ctrl` + `<direction>` shortcuts will not work... you will
+need to `Ctrl` + `w` first, then h/j/k/l
+
 ## Vim plugin docs
 
 - <https://github.com/christoomey/vim-tmux-navigator#usage>
