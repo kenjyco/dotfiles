@@ -68,8 +68,10 @@ ln -s "$DIR/psql/psqlrc" "$HOME/.psqlrc"
 ln -s "$DIR/vim" "$HOME/.vim"
 ln -s "$DIR/ipython" "$HOME/.ipython"
 ln -s "$DIR/tmux" "$HOME/.tmux"
-ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
-ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
+if type xinit &>/dev/null; then
+    ln -s "$DIR/x/Xdefaults" "$HOME/.Xdefaults"
+    ln -s "$DIR/x/xinitrc" "$HOME/.xinitrc"
+fi
 
 if [[ $(uname) == "Darwin" ]]; then
     echo -e "\nMaking sure reattach-to-user-namespace is installed (for tmux)"
@@ -99,9 +101,11 @@ fi
 # Create symbolic links to individual dotfiles that live in ~/.config
 [[ ! -d "$HOME/.config/ranger" ]] && mkdir -pv "$HOME/.config/ranger"
 ln -s "$DIR/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
-[[ ! -d "$HOME/.config/awesome" ]] && mkdir -pv "$HOME/.config/awesome"
-ln -s "$DIR/x/awesome/rc.lua" "$HOME/.config/awesome/rc.lua"
-ln -s "$DIR/x/awesome/theme.lua" "$HOME/.config/awesome/theme.lua"
+if type awesome &>/dev/null; then
+    [[ ! -d "$HOME/.config/awesome" ]] && mkdir -pv "$HOME/.config/awesome"
+    ln -s "$DIR/x/awesome/rc.lua" "$HOME/.config/awesome/rc.lua"
+    ln -s "$DIR/x/awesome/theme.lua" "$HOME/.config/awesome/theme.lua"
+fi
 
 # Save the full path to this dotfiles repository to `~/.dotfiles_path`
 echo "$DIR" > $HOME/.dotfiles_path
