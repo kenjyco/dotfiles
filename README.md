@@ -49,6 +49,17 @@ with the same key binding
 terminal split the `Ctrl` + `<direction>` shortcuts will not work... you will
 need to `Ctrl` + `w` first, then h/j/k/l
 
+## Misc vim tips
+
+- Sometimes when writing code and there are multiple splits in the same file,
+  the syntax highlighting can appear messed up in the other split(s) when adding
+  a string (something with double quotes)... fix it with `:syntax sync
+  fromstart`
+- Sometimes when writing long lines (with textwidth and autoindent set) for a
+  bullet point in markdown files, after you hit Enter/Return, your cursor will
+  not be at the place where you would like to start the next bullet point... use
+  `Ctrl` + `d` to move the cursor to the correct position
+
 ## Vim plugin docs
 
 - <https://github.com/christoomey/vim-tmux-navigator#usage>
