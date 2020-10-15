@@ -59,6 +59,10 @@ need to `Ctrl` + `w` first, then h/j/k/l
   bullet point in markdown files, after you hit Enter/Return, your cursor will
   not be at the place where you would like to start the next bullet point... use
   `Ctrl` + `d` to move the cursor to the correct position
+- If you have lines of text that need to get reformatted
+    - select text to reformat using `v` (and then move cursor to highlight with
+      k/j/h/l)
+    - reformat with `gq` command
 
 ## Vim plugin docs
 
