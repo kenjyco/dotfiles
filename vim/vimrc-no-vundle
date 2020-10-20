@@ -62,6 +62,9 @@ set smarttab
 " Round to 'shiftwidth' for << and >>
 set shiftround
 
+" Allow backspace to erase previously entered chars, autoindent, and newlines
+set backspace=indent,eol,start
+
 " Don't fix 'no end of line' if editing a file that doesn't have one
 set nofixendofline
 
