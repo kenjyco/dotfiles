@@ -15,3 +15,5 @@
     prompt = false
 [core]
     pager = less -rFX
+[pull]
+    rebase = false
