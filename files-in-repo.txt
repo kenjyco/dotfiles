@@ -1,49 +1,34 @@
-./Background.md
-./README.md
-./files-in-repo.txt
-./git/gitconfig
-./input/editrc
-./input/inputrc
-./ipython/profile_default/ipython_config.py
-./psql/psqlrc
-./ranger/rc.conf
-./setup.bash
-./tmux/tmux-mac.conf
-./tmux/tmux-pre2.6.conf
-./tmux/tmux.conf
-./vim/bundle/Vundle.vim/.git
-./vim/bundle/Vundle.vim/CONTRIBUTING.md
-./vim/bundle/Vundle.vim/LICENSE-MIT.txt
-./vim/bundle/Vundle.vim/README.md
-./vim/bundle/Vundle.vim/README_KR.md
-./vim/bundle/Vundle.vim/README_ZH_CN.md
-./vim/bundle/Vundle.vim/README_ZH_TW.md
-./vim/bundle/Vundle.vim/autoload/vundle.vim
-./vim/bundle/Vundle.vim/autoload/vundle/config.vim
-./vim/bundle/Vundle.vim/autoload/vundle/installer.vim
-./vim/bundle/Vundle.vim/autoload/vundle/scripts.vim
-./vim/bundle/Vundle.vim/changelog.md
-./vim/bundle/Vundle.vim/doc/vundle.txt
-./vim/bundle/Vundle.vim/ftplugin/vundlelog.vim
-./vim/bundle/Vundle.vim/syntax/vundlelog.vim
-./vim/bundle/Vundle.vim/test/files/test.erl
-./vim/bundle/Vundle.vim/test/minirc.vim
-./vim/bundle/Vundle.vim/test/vimrc
-./vim/vimrc
-./vim/vimrc-mac
-./vim/vimrc-mac-no-vundle
-./vim/vimrc-no-vundle
-./wallpapers/download.sh
-./wallpapers/landscape.md
-./wallpapers/select.sh
-./x/Xdefaults
-./x/awesome/rc.lua
-./x/awesome/theme.lua
-./x/xinitrc
-./x/xscreensaver/carousel-only
-./x/xscreensaver/fuzzyflakes-only
-./x/xscreensaver/none
-./x/xscreensaver/random-images-display
-./x/xscreensaver/random-images-manip
-./x/xscreensaver/slideshow-only
-./x/xscreensaver/substrate-only
+Background.md
+files-in-repo.txt
+git/gitconfig
+input/inputrc
+months ago .gitignore
+months ago .gitmodules
+months ago input/editrc
+months ago ipython/profile_default/ipython_config.py
+months ago ranger/rc.conf
+months ago tmux/tmux.conf
+months ago tmux/tmux-pre2.6.conf
+months ago wallpapers/download.sh
+months ago wallpapers/landscape.md
+months ago wallpapers/select.sh
+months ago x/awesome/rc.lua
+months ago x/xscreensaver/carousel-only
+months ago x/xscreensaver/random-images-display
+months ago x/xscreensaver/random-images-manip
+months ago x/xscreensaver/slideshow-only
+psql/psqlrc
+README.md
+setup.bash
+tmux/tmux-mac.conf
+vim/bundle/Vundle.vim
+vim/vimrc
+vim/vimrc-mac
+vim/vimrc-mac-no-vundle
+vim/vimrc-no-vundle
+x/awesome/theme.lua
+x/Xdefaults
+x/xinitrc
+x/xscreensaver/fuzzyflakes-only
+x/xscreensaver/none
+x/xscreensaver/substrate-only
