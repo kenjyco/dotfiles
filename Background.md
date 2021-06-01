@@ -107,7 +107,7 @@ Here are some actual keyboard combo sequences:
 #### The Window Manager
 
 For this computer system, we will be using a keyboard-friendly tiling window
-manager called [awesome](https://awesome.naquadah.org/wiki/My_first_awesome).
+manager called [awesome](https://awesomewm.org).
 
 The expectation is that you will be typing commands at the shell prompt in your
 terminal window to do most things. This includes launching GUI programs like
