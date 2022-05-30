@@ -39,6 +39,7 @@ echo "cd $HOME"
 cd $HOME
 [[ ! -L wallpapers && -d wallpapers ]] && mv -v wallpapers "$BACKUP_DOTFILES" || rm -v wallpapers 2>/dev/null
 [[ ! -L .vim && -d .vim ]] && mv -v .vim "$BACKUP_DOTFILES" || rm -v .vim 2>/dev/null
+[[ ! -L .ctags && -d .ctags ]] && mv -v .ctags "$BACKUP_DOTFILES" || rm -v .ctags 2>/dev/null
 [[ ! -L .ipython && -d .ipython ]] && mv -v .ipython "$BACKUP_DOTFILES" || rm -v .ipython 2>/dev/null
 [[ ! -L .tmux && -d .tmux ]] && mv -v .tmux "$BACKUP_DOTFILES" || rm -v .tmux 2>/dev/null
 [[ ! -L .gitconfig && -f .gitconfig ]] && mv -v .gitconfig "$BACKUP_DOTFILES" || rm -v .gitconfig 2>/dev/null
@@ -65,6 +66,7 @@ ln -s "$DIR/git/gitconfig" "$HOME/.gitconfig"
 ln -s "$DIR/input/inputrc" "$HOME/.inputrc"
 ln -s "$DIR/input/editrc" "$HOME/.editrc"
 ln -s "$DIR/psql/psqlrc" "$HOME/.psqlrc"
+ln -s "$DIR/ctags/ctags" "$HOME/.ctags"
 ln -s "$DIR/vim" "$HOME/.vim"
 ln -s "$DIR/ipython" "$HOME/.ipython"
 ln -s "$DIR/tmux" "$HOME/.tmux"

@@ -117,6 +117,10 @@ if has("autocmd")
 
     " Treat *.idea as markdown file
     autocmd BufRead,BufNewFile *.idea set filetype=markdown
+
+    " Auto generate tags so that `ctrl + ]` works to jump to code defs
+    autocmd BufWritePost *.c,*.cpp,*.h,*.rb,*.js silent! !ctags -R 2> /dev/null &
+    autocmd BufWritePost *.py silent! !eval 'if [[ -d .git ]]; then ctags -R --python-kinds=-i --languages=python -o newtags 2>/dev/null; mv newtags tags 2>/dev/null; fi' &
 endif
 
 " Use 'Ctrl+c' to copy selected text with system clipboard in visual mode

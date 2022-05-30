@@ -1,0 +1,8 @@
+--recurse=yes
+--exclude=.git
+--exclude=build
+--exclude=dist
+--exclude=\*.swp
+--exclude=\*.bak
+--exclude=\*.pyc
+--exclude=\*.min.\*
