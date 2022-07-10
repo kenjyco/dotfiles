@@ -1,4 +1,5 @@
 Background.md
+ctags/ctags
 files-in-repo.txt
 git/gitconfig
 .gitignore
