@@ -62,7 +62,12 @@ need to `Ctrl` + `w` first, then h/j/k/l
 - If you have lines of text that need to get reformatted
     - select text to reformat using `v` (and then move cursor to highlight with
       k/j/h/l)
+        - or use `Shift` + `v` anywhere on a long line to select the entire line
     - reformat with `gq` command
+- `Ctrl` + `]` to jump to code definitions (as long as you have run the separate
+  `ctags` command that generates the `tags` file)
+- `Ctrl` + `o` to jump back to where you were before (whether jumping to code
+  definitions or just searching text or doing find/replace)
 
 ## Vim plugin docs
 
