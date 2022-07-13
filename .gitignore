@@ -3,7 +3,6 @@ backup_dotfiles/
 .netrwhist
 *.log
 *.idea
-private*
 GENERATED-README.md
 wallpapers/landscape/
 ipython/extensions
