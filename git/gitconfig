@@ -1,6 +1,6 @@
 [user]
-    email =
-    name =
+    email = fake@fake.com
+    name = Fake
 [color]
     ui = true
 [push]
