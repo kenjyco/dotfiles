@@ -49,6 +49,14 @@ with the same key binding
 terminal split the `Ctrl` + `<direction>` shortcuts will not work... you will
 need to `Ctrl` + `w` first, then h/j/k/l
 
+## Misc tmux tips
+
+- `Ctrl` + `b`, `{` to move the current pane up one spot
+- `Ctrl` + `b`, `}` to move the current pane down one spot
+- `Ctrl` + `b`, `:` to get to bring up the tmux command prompt
+    - `break-pane` to move the current active pane in a window to a new
+      window/tab
+
 ## Misc vim tips
 
 - Sometimes when writing code and there are multiple splits in the same file,
