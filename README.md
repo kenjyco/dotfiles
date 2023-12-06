@@ -51,11 +51,29 @@ need to `Ctrl` + `w` first, then h/j/k/l
 
 ## Misc tmux tips
 
+- `Ctrl` + `b`, `%` to split the current pane vertically
+- `Ctrl` + `b`, `"` to split the current pane horizontally
+- `Ctrl` + `b`, `Space` to cyle current window through preset layouts
 - `Ctrl` + `b`, `{` to move the current pane up one spot
 - `Ctrl` + `b`, `}` to move the current pane down one spot
+- `Ctrl` + `b`, `;` to switch to the previously active pane
+- `Ctrl` + `b`, `p` to switch to the previously active window
+- `Ctrl` + `b`, `!` to move the current pane to a new window
+- `Ctrl` + `b`, `z` to toggle zoom state of current pane
+- `Ctrl` + `b`, `w` to choose the current window (across all sessions)
+  interactively
 - `Ctrl` + `b`, `:` to get to bring up the tmux command prompt
-    - `break-pane` to move the current active pane in a window to a new
-      window/tab
+    - `break-pane` to move the current active pane to a new window/tab
+
+### Quick tmux flow for a new session
+
+Make 2 vertical splits, then make them equal widths
+
+- `Ctrl` + `b`, `%`
+- `Ctrl` + `b`, `%`
+- `Ctrl` + `b`, `Space`
+
+> The first preset layout is evenly spaced vertical splits
 
 ## Misc vim tips
 
