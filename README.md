@@ -75,6 +75,10 @@ Make 2 vertical splits, then make them equal widths
 
 > The first preset layout is evenly spaced vertical splits
 
+### (Navigation and resize keyboard shortcuts without vim-tmux-navigator)
+
+.
+
 ## Misc vim tips
 
 - Sometimes when writing code and there are multiple splits in the same file,
