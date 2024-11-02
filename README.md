@@ -98,6 +98,22 @@ Make 2 vertical splits, then make them equal widths
   `ctags` command that generates the `tags` file)
 - `Ctrl` + `o` to jump back to where you were before (whether jumping to code
   definitions or just searching text or doing find/replace)
+- Use `:set spell` / `:set nospell` to enable/disable spell checking
+    - `]s` to move to the next misspelled word
+    - `[s` to move to the previous misspelled word
+    - `z=` while cursor is on a misspelled word to get suggestions
+    - `zg` while cursor is on a misspelled word to add it to the dictionary (in
+      the `~/.vim/spell/` directory)
+    - `zug` to undo adding a word to the dictionary
+- Use "visual mode" to select text while in normal/command mode
+    - `v` to start character-wise selection and use navigation keys (h/j/k/l) to
+      expand the selection
+    - `V` to start line-wise selection and use down/up navigation keys (j/k) to
+      expand the selection
+    - `ctrl` + `v` to start block-wise selection and use navigation keys
+      (h/j/k/l) to expand the selection
+    - Once the selection is made, you can use nearly any command (including
+      colon-commands)
 
 ## Vim plugin docs
 
