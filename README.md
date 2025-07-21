@@ -114,6 +114,12 @@ Make 2 vertical splits, then make them equal widths
       (h/j/k/l) to expand the selection
     - Once the selection is made, you can use nearly any command (including
       colon-commands)
+- Use `\C` at the start of a search pattern when you want to use case-sensitive
+  matching
+- Use `\|` between multiple search patterns to match them
+    - example: `/\Crh.[a-z_]*(\|self.[a-z][a-z_]*(\|ih.[a-z_]*(\|dh.[a-z_]*(`
+      (to find rh. calls that arent rh.REDIS, self. calls that aren't private
+      methods, ih., and dh. calls)
 
 ## Vim plugin docs
 
