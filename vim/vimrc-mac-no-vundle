@@ -10,7 +10,9 @@ nnoremap <LeftMouse> m'<LeftMouse>
 nnoremap <LeftRelease> <LeftRelease>g``
 
 " Improve mouse selections when using vim in tmux
-set ttymouse=xterm2
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 " Specify if vim window is in a dark or light terminal
 set bg=dark
@@ -73,7 +75,9 @@ set backspace=indent,eol,start
 set nofixendofline
 
 " Send file to printer in landscape mode
-set popt=portrait:n
+if !has('nvim')
+    set popt=portrait:n
+endif
 
 if has("autocmd")
     " Remember cursor position when re-editing a file
